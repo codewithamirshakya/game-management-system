@@ -1,5 +1,5 @@
-import { UserDomain } from 'src/users/domain/user.domain';
+import { UserDomain } from "../../../domain/user.domain";
 
-export interface IGetUserApplication {
+export interface IGetUserApplicationServiceInterface {
     getById(id: string): Promise<UserDomain>;
 }

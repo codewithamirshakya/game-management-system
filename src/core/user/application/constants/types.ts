@@ -1,10 +1,9 @@
 export const TYPES = {
-    services: {
-        ICreateUserService: 'ICreateUserService',
-        IGetUserService: 'IGetUserService',
+    repository: {
+        IGetARPUserServiceRepositoryInterface: 'IGetARPUserServiceRepositoryInterface',
+        ICreateARPUserServiceRepositoryInterface: 'ICreateARPUserServiceRepositoryInterface',
     },
-    applications: {
-        ICreateUserApplication: 'ICreateUserApplication',
-        IGetUserApplication: 'IGetUserApplication',
-    },
+    // applications: {
+    //     IGetUserApplication: 'IGetUserApplication',
+    // },
 };

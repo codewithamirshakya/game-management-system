@@ -1,13 +1,16 @@
-import { IGetARPUserRepositoryInterface } from "../../../domain/repository/arpSlot/getARPUser.repository.interface";
 import { UserDomain } from "../../../domain/user.domain";
 import { Inject } from "@nestjs/common";
 import { TYPES } from "../../constants/types";
+import { CreateUserDto } from "../../dtos/request/arpSlot/create.user.dto";
+import {
+  ICreateARPUserRepositoryInterface
+} from "../../../domain/repository/arpSlot/createARPUser.repository.interface";
 
-export class GetUserService {
-  constructor(@Inject(TYPES.repository.IGetARPUserServiceRepositoryInterface) private getUserRepo: IGetARPUserRepositoryInterface) {}
+export class CreateUserService {
+  constructor(@Inject(TYPES.repository.ICreateARPUserServiceRepositoryInterface) private getUserRepo: ICreateARPUserRepositoryInterface) {}
 
-  getById(id: string): Promise<UserDomain> {
-    return this.getUserRepo.getById(id);
+  create(data: CreateUserDto): Promise<UserDomain> {
+    return this.getUserRepo.create(data);
   }
 
 }

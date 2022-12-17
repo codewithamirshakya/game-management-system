@@ -1,5 +1,4 @@
-import { UserDomain } from "../user.domain";
+import { IGetUserRepositoryInterface } from "../intefaces/getUser.repository.interface";
 
-export interface IGetUserRepositoryInterface {
-    getById(id: string): Promise<UserDomain>;
+export interface IGetARPUserRepositoryInterface extends IGetUserRepositoryInterface {
 }

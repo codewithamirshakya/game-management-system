@@ -1,5 +1,5 @@
 import { UserDomain } from "../../user.domain";
 
-export interface IGetUserRepositoryInterface {
-    getById(id: string): Promise<UserDomain>;
+export interface ICreateUserRepositoryInterface {
+    create(data: any): Promise<UserDomain>;
 }

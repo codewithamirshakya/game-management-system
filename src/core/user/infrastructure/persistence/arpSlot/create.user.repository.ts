@@ -1,16 +1,16 @@
 import { Injectable } from "@nestjs/common";
-import { IGetARPUserRepositoryInterface } from "../../../domain/repository/arpSlot/getARPUser.repository.interface";
 import { InjectRepository } from "@nestjs/typeorm";
 import { User } from "../../../domain/user.entity";
 import { Repository } from "typeorm";
 import { UserDomain } from "../../../domain/user.domain";
+import { ICreateUserRepositoryInterface } from "../../../domain/repository/intefaces/createUser.repository.interface";
+import { CreateUserDto } from "../../../domain/dtos/request/create.user.dto";
 
 @Injectable()
-export class GetUserByIdRepository implements IGetARPUserRepositoryInterface {
+export class CreateUserRepository implements ICreateUserRepositoryInterface {
   constructor(@InjectRepository(User) private usersRepository: Repository<User>) {}
 
-  async getById(id: string): Promise<UserDomain> {
-    // @ts-ignore
-    return this.usersRepository.findOne({ userId: id });
+  async create(data: CreateUserDto): Promise<UserDomain> {
+    return this.usersRepository.save(data);
   }
 }

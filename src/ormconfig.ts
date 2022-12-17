@@ -5,8 +5,8 @@ export const OrmConfig: MysqlConnectionOptions = {
     "host": "localhost",
     "port": 3306,
     "username": "root",
-    "password": "FvPassword#!1",
-    "database": "fvcompany",
+    "password": "",
+    "database": "nest_game_integration",
     "entities": [`${__dirname}/**/*.entity{.ts,.js}`],
     "synchronize": true
   }
