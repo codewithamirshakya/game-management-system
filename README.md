@@ -1,4 +1,4 @@
-##Game Provider Integration Service based on Domain-Driven-Design with CQRS and Event Drive Architecture
+## Game Provider Integration Service based on Domain-Driven-Design with CQRS and Event Drive Architecture
  - [ Different modules are organized within Core directory. ]
  - [ Based on nest framework.] 
 
