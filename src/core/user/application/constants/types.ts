@@ -1,7 +1,7 @@
 export const TYPES = {
     repository: {
-        IGetARPUserServiceRepositoryInterface: 'IGetARPUserServiceRepositoryInterface',
-        ICreateARPUserServiceRepositoryInterface: 'ICreateARPUserServiceRepositoryInterface',
+        IGetUserServiceRepositoryInterface: 'IGetUserServiceRepositoryInterface',
+        ICreateUserServiceRepositoryInterface: 'ICreateUserServiceRepositoryInterface',
     },
     // applications: {
     //     IGetUserApplication: 'IGetUserApplication',
