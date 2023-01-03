@@ -26,6 +26,9 @@
     "migration:revert": "npm run typeorm -- migration:revert"
   },
   "dependencies": {
+    "@automapper/classes": "^8.7.7",
+    "@automapper/core": "^8.7.7",
+    "@automapper/nestjs": "^8.7.7",
     "@nestjs/axios": "^1.0.1",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.2.0",
@@ -39,8 +42,11 @@
     "class-validator": "^0.14.0",
     "moment": "^2.29.4",
     "mysql2": "^2.3.3",
+    "nestjs-pino": "^3.1.1",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
+    "pino-http": "^8.3.1",
+    "pino-pretty": "^9.1.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",

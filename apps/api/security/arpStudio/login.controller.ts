@@ -1,5 +1,5 @@
 import { Body, Controller, Post, Res } from "@nestjs/common";
-import { LoginService } from "../../../../src/modules/core/security/application/services/arpSlot/login.service";
+import { LoginService } from "../../../../src/modules/core/security/application/services/arpStudio/login.service";
 import { LoginArpStudioDto } from "../../../../src/modules/core/security/application/dto/request/login.arpStudio.dto";
 import { Response } from 'express';
 import { AbstractController } from "../../../../src/modules/shared/infrastructure/controller/api/abstract.controller";

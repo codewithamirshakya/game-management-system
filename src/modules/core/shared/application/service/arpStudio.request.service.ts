@@ -26,8 +26,11 @@ export class ArpStudioRequestService {
         if(response.data.result >=0) {
           return response.data;
         }
-        throw new ExternalApiException(response.data.desc);
+        throw new ExternalApiException('External API Error.', response.data);
       } catch (e) {
+        if((e instanceof ExternalApiException)) {
+          throw new ExternalApiException(e.message, e.getData());
+        }
         throw new ExternalApiException(e.message || 'External API Error.');
       }
     } else {
