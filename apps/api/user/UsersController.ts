@@ -11,6 +11,7 @@ import { CreateUserDto } from "../../../src/modules/core/user/application/dtos/r
 import { UserDTO } from "../../../src/modules/core/user/application/dtos/response/user.dto";
 import { CreateUserService } from "../../../src/modules/core/user/application/services/create.user.service";
 import { Serialize } from "../../../src/lib/interceptors/serialize.interceptor";
+import { ApiParam, ApiProperty } from "@nestjs/swagger";
 
 @Serialize(UserDTO)
 @Controller('arp/users')
@@ -22,6 +23,7 @@ export class UsersController {
   }
 
   @Get('/:id')
+  @ApiParam({name:'id',required: true, description: 'Must be UUID format'})
   async get(@Param('id', new ParseUUIDPipe()) id) {
     return await this.getUserService.getById(id);
   }
