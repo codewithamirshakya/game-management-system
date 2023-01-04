@@ -1,6 +1,6 @@
 import { ExceptionFilter, Catch, ArgumentsHost, HttpException, HttpStatus, LoggerService } from "@nestjs/common";
 import { Response } from "express";
-import { AbstractException } from "./lib/exception/abstract.exception";
+import { AbstractException } from "../../../lib/exception/abstract.exception";
 import * as fs from "fs";
 
 @Catch()

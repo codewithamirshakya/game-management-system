@@ -1,7 +1,7 @@
 import { Injectable, NestMiddleware, RequestMethod } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import { CommandBus } from "@nestjs/cqrs";
-import { LogRequestResponseCommand } from "./modules/core/shared/domain/command/log/log.requestResponse.command";
+import { LogRequestResponseCommand } from "../../core/shared/domain/command/log/log.requestResponse.command";
 
 @Injectable()
 export class RequestAndResponseLoggerMiddleware implements NestMiddleware {

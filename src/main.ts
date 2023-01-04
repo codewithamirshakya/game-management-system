@@ -1,16 +1,16 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { AppModule } from './modules/app/app.module';
 import { ValidationPipe } from "@nestjs/common";
 import { SwaggerModule } from "@nestjs/swagger";
 import { swaggerConfig } from "./config/swagger.config";
-import { GlobalExceptionFilter } from "./global.exception.filter";
+import { GlobalExceptionFilter } from "./modules/app/filter/global.exception.filter";
 import { Logger, LoggerErrorInterceptor } from "nestjs-pino";
 import { Logger as BaseLogger } from '@nestjs/common';
-import { addTransactionalDataSource, initializeTransactionalContext } from "typeorm-transactional";
-import dataSource from "../db/data-source";
+import {  initializeTransactionalContext } from "typeorm-transactional";
 
 async function bootstrap() {
   initializeTransactionalContext();
+
   const app = await NestFactory.create(AppModule,{bufferLogs: true
   ,abortOnError: true});
   app.useGlobalPipes(new ValidationPipe());
