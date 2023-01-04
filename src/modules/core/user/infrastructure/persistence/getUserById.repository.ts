@@ -9,7 +9,7 @@ import { IGetUserRepositoryInterface } from "../../domain/repository/intefaces/g
 export class GetUserByIdRepository implements IGetUserRepositoryInterface {
   constructor(@InjectRepository(User) private usersRepository: Repository<User>) {}
 
-  async getById(userId: string): Promise<UserDomain> {
-    return this.usersRepository.findOneBy({ userId });
+  async getById(id: number): Promise<UserDomain> {
+    return this.usersRepository.findOneBy({ id });
   }
 }

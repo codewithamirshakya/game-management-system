@@ -5,4 +5,8 @@ export class AbstractException extends HttpException{
   public getData() {
     return '';
   }
+
+  public getError() {
+    return null;
+  }
 }

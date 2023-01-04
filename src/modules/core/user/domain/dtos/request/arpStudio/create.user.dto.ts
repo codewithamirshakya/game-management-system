@@ -2,21 +2,20 @@ import * as moment from "moment";
 
 export class CreateUserDto{
 
-    constructor(username: string , gameProvider : number) {
-        this.username = username;
-        this.gameProvider = gameProvider;
+    constructor(data) {
+        Object.assign(this,data);
         this.createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
         this.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss');
     }
 
+    user_id: number;
+
     username: string;
 
-    gameProvider: number;
+    nickname: string;
 
     createdAt: string;
 
     updatedAt: string;
-
-    ipAddress: string;
 
 }

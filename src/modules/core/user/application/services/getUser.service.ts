@@ -6,7 +6,7 @@ import { IGetUserRepositoryInterface } from "../../domain/repository/intefaces/g
 export class GetUserService {
   constructor(@Inject(TYPES.repository.IGetUserServiceRepositoryInterface) private getUserRepo: IGetUserRepositoryInterface) {}
 
-  getById(id: string): Promise<UserDomain> {
+  getById(id: number): Promise<UserDomain> {
     return this.getUserRepo.getById(id);
   }
 

@@ -12,7 +12,7 @@ export class CreateUserService {
     ) {}
 
   async create(data: CreateUserDto): Promise<UserDomain> {
-      const userDto = new CreateUserDTODomain(data);
+      const userDto = new CreateUserDTODomain(data.username, data.gameProvider);
       return this.getUserRepo.create(userDto)
   }
 }

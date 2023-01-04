@@ -3,29 +3,23 @@ import { UserConstant } from "./constants/user.constant";
 
 @Entity()
 export class User {
-    @PrimaryGeneratedColumn('uuid')
-    userId: string;
+    @PrimaryGeneratedColumn()
+    id: number;
 
     @Column({ length: 100 })
-    fullName: string;
-
-    @Column({ length: 100 })
-    email: string;
-
-    @Column()
-    password: string;
+    username: string;
 
     @Column({type:"int",default: UserConstant.STATUS_PENDING})
     status: number;
 
-    @Column({type: "timestamp"})
+    @Column({type:"int"})
+    gameProvider: number;
+
+    @Column({type: "timestamp",default: () => "CURRENT_TIMESTAMP" })
     createdAt: Date;
 
     @Column({type: "timestamp"})
     updatedAt: Date;
-
-    @Column({ length: 100 })
-    address:string;
 
     @Column({ length: 100, nullable: true})
     ipAddress:string;
