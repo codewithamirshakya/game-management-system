@@ -18,12 +18,13 @@ export class CreateUserCommandHandler implements ICommandHandler<CreateUserComma
   ) {
   }
   async execute(command: CreateUserCommand) {
-    console.log(command);
     switch (command.gameProvider) {
-      case GameProviderConstant.ARP_STUDIO: { // for arp studio
+      //arp studio
+      case GameProviderConstant.ARP_STUDIO: {
         const user = await this.userRepo.create(new CreateUserDto(
           command.userData.username,
-          command.gameProvider
+          command.gameProvider,
+          command.ipAddress
         ));
 
         await this.arpStudioUserRepo.create(new CreateArpStudioUserDto(

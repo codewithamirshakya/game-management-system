@@ -1,9 +1,9 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './modules/app/app.module';
+import { AppModule } from './modules/core/app/app.module';
 import { ValidationPipe } from "@nestjs/common";
 import { SwaggerModule } from "@nestjs/swagger";
 import { swaggerConfig } from "./config/swagger.config";
-import { GlobalExceptionFilter } from "./modules/app/filter/global.exception.filter";
+import { GlobalExceptionFilter } from "./modules/core/app/filter/global.exception.filter";
 import { Logger, LoggerErrorInterceptor } from "nestjs-pino";
 import { Logger as BaseLogger } from '@nestjs/common';
 import {  initializeTransactionalContext } from "typeorm-transactional";

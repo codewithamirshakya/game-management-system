@@ -4,6 +4,7 @@ export class CreateUserCommand {
   constructor(
     public readonly userData : (CreateARPUserInterface),
     public readonly gameProvider: number,
+    public readonly ipAddress: string,
   ) {
   }
 }

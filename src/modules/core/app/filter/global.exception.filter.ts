@@ -1,6 +1,14 @@
-import { ExceptionFilter, Catch, ArgumentsHost, HttpException, HttpStatus, LoggerService } from "@nestjs/common";
+import {
+  ExceptionFilter,
+  Catch,
+  ArgumentsHost,
+  HttpException,
+  HttpStatus,
+  LoggerService,
+  BadRequestException
+} from "@nestjs/common";
 import { Response } from "express";
-import { AbstractException } from "../../../lib/exception/abstract.exception";
+import { AbstractException } from "../../../../lib/exception/abstract.exception";
 import * as fs from "fs";
 
 @Catch()
@@ -12,6 +20,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
 
+
     const status = exception instanceof HttpException ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
     const message = exception instanceof HttpException ? exception.message : "Critical internal server error occurred!";
     const data = exception instanceof AbstractException ? exception.getData() : [];
@@ -22,11 +31,17 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     const errorLog = this.getErrorLog(errorResponse, request, exception)
     this.writeErrorLogToFile(errorLog);
 
-    const prodResponse: any = {
+    let prodResponse: any = {
       success: false,
       statusCode: status,
       message,
       data,
+    }
+
+    // for validation messages
+    if(exception instanceof BadRequestException) {
+      const exceptionResponse = exception.getResponse() as { message };
+      prodResponse = {...prodResponse, message: exceptionResponse.message}
     }
 
     let devResponse: any = {...prodResponse, stackTrace: this.getStackTrace(exception)}
