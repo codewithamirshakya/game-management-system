@@ -1,5 +1,3 @@
-import { UpdateLastLoggedAtRepository } from "../../infrastructure/persistence/update.lastLoggedAt.repository";
-
 export const TYPES = {
     repository: {
         IGetUserServiceRepositoryInterface: 'IGetUserServiceRepository',
@@ -8,5 +6,6 @@ export const TYPES = {
         IsUserExistsRepositoryInterface: 'IsUserExistsRepository',
         UpdateLastLoggedAtRepositoryInterface: 'UpdateLastLoggedAtRepository',
         UpdateUserRepositoryInterface: 'UpdateUserRepository',
+        GetUserDetailRepositoryInterface: 'GetUserDetailRepository',
     },
 };

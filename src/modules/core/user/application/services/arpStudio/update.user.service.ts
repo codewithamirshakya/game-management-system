@@ -5,22 +5,17 @@ import {
   UpdateUserRepositoryInterface
 } from "../../../domain/repository/intefaces/arpStudio/update.user.repository.interface";
 import { UserUpdateFailedException } from "../../../domain/exception/userUpdateFailed.exception";
+import { Transactional } from "typeorm-transactional";
 
 export class UpdateUserService {
   constructor(
     @Inject(TYPES.repository.UpdateUserRepositoryInterface) private repo: UpdateUserRepositoryInterface,
   ) {}
+
+  @Transactional()
   public update(updateUserDTO: UpdateUserDto) {
     try {
-      const user = this.repo.update(updateUserDTO);
-      // update last logged at
-      // await this.commandBus.execute(
-      //   new UpdateLastLoggedAtCommand(
-      //     logoutArpStudioDto.username,
-      //     GameProviderConstant.ARP_STUDIO,
-      //   )
-      // );
-      return user;
+      return this.repo.update(updateUserDTO);
     } catch (e) {
       throw new UserUpdateFailedException('User update Failed.',e)
     }

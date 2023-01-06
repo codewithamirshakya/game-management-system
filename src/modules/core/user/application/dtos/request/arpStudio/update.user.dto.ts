@@ -1,5 +1,10 @@
-import { IsString, IsInt, IsNotEmpty, IsEmpty, IsOptional } from "class-validator";
-
+import { IsString, IsInt, IsNotEmpty, IsEmpty, IsOptional, IsEnum } from "class-validator";
+import { ApiProperty } from "@nestjs/swagger";
+enum StateType {
+    'zero' = 0 ,
+    'Minus one'= -1,
+    'Minus two' = -2
+}
 export class UpdateUserDto {
     @IsString()
     @IsNotEmpty()
@@ -14,7 +19,9 @@ export class UpdateUserDto {
 
     @IsInt()
     @IsOptional()
-    readonly state: number;
+    @ApiProperty({ enum: ['0', '-1', '2']})
+    @IsEnum(StateType)
+    readonly state: StateType;
 
     @IsInt()
     @IsOptional()

@@ -10,17 +10,19 @@ export class ArpStudioRequestService {
   constructor(public readonly httpService: HttpService) {}
 
   async request(arpStudioRequestDTO: ArpStudioRequestDto) {
-    //handle post request for arpStudio
-    if (arpStudioRequestDTO.method === 'POST') {
-      const url = arpStudioConfig.baseUrl + arpStudioRequestDTO.endpoint;
-      const sign = this.buildSign(arpStudioRequestDTO.params);
-      const params = new URLSearchParams({
+
+    const url = arpStudioConfig.baseUrl + arpStudioRequestDTO.endpoint;
+    const sign = this.buildSign(arpStudioRequestDTO.params);
+    const params = new URLSearchParams({
         ...arpStudioRequestDTO.params,
         appid: arpStudioRequestDTO.params.appid
           ? arpStudioRequestDTO.params.appid
           : arpStudioConfig.appid,
         sign: sign,
       }).toString();
+
+    //handle post request for arpStudio
+    if (arpStudioRequestDTO.method === 'POST') {
       try {
         const response = await this.httpService.axiosRef.post(url, params);
         if(response.data.result >=0) {
@@ -33,8 +35,20 @@ export class ArpStudioRequestService {
         }
         throw new ExternalApiException(e.message || 'External API Error.');
       }
+      // if GET METHOD
     } else {
-
+      try {
+        const response = await this.httpService.axiosRef.get(url+'?'+params);
+        if(response.data.result >=0) {
+          return response.data;
+        }
+        throw new ExternalApiException('External API Error.', response.data);
+      } catch (e) {
+        if((e instanceof ExternalApiException)) {
+          throw new ExternalApiException(e.message, e.getData());
+        }
+        throw new ExternalApiException(e.message || 'External API Error.');
+      }
     }
   }
 

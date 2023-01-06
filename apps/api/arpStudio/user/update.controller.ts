@@ -15,7 +15,7 @@ export class UpdateController extends AbstractController {
   }
 
   @Post()
-  async login(@Body() updateUserDto: UpdateUserDto, @Res() res : Response){
+  async update(@Body() updateUserDto: UpdateUserDto, @Res() res : Response){
     const response = await this.updateUserService.update(updateUserDto);
     this.successResponse(res,'User updated successfully.',response)
   }

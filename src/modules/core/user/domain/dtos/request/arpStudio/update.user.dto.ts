@@ -1,4 +1,10 @@
 
+enum StateType {
+    'zero' = 0 ,
+    'Minus one'= -1,
+    'Minus two' = -2
+}
+
 export class UpdateUserDto {
     readonly appid: string;
 
@@ -6,7 +12,7 @@ export class UpdateUserDto {
 
     readonly nickname: string;
 
-    readonly state: number;
+    readonly state: StateType;
 
     readonly currenttime: number;
 }

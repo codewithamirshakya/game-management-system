@@ -7,6 +7,7 @@ import {
 import { IsUserExistsRepository } from "./infrastructure/persistence/isUserExists.repository";
 import { UpdateLastLoggedAtRepository } from "./infrastructure/persistence/update.lastLoggedAt.repository";
 import { UpdateUserRepository } from "./infrastructure/persistence/arpStudio/update.user.repository";
+import { GetUserDetailRepository } from "./infrastructure/persistence/arpStudio/getUser.detail.repository";
 
 export const DependenciesConstants = [
  { provide: TYPES.repository.IGetUserServiceRepositoryInterface, useClass: GetUserByIdRepository },
@@ -15,5 +16,6 @@ export const DependenciesConstants = [
   { provide: TYPES.repository.IsUserExistsRepositoryInterface, useClass: IsUserExistsRepository },
   { provide: TYPES.repository.UpdateLastLoggedAtRepositoryInterface, useClass: UpdateLastLoggedAtRepository },
   { provide: TYPES.repository.UpdateUserRepositoryInterface, useClass: UpdateUserRepository },
+  { provide: TYPES.repository.GetUserDetailRepositoryInterface, useClass: GetUserDetailRepository },
 
 ];

@@ -8,6 +8,8 @@ import {
 import { ArpStudioRequestService } from "../../../../shared/application/service/arpStudio.request.service";
 import { UpdateUserDto } from "../../../domain/dtos/request/arpStudio/update.user.dto";
 import { ArpStudioRequestDto } from "../../../../shared/application/dto/arpStudio.request.dto";
+import { UserNotFoundException } from "../../../domain/exception/userNotFound.exception";
+import * as moment from "moment";
 
 @Injectable()
 export class UpdateUserRepository implements UpdateUserRepositoryInterface {
@@ -20,11 +22,29 @@ export class UpdateUserRepository implements UpdateUserRepositoryInterface {
     ) {}
 
   async update(data: UpdateUserDto): Promise<any> {
-    return this.arpStudioRequestService.request(new ArpStudioRequestDto({
+    const user = this.arpStudioRequestService.request(new ArpStudioRequestDto({
       method: 'POST',
       params: data,
       endpoint: '/user/update'
     }));
-    // return this.usersRepository.save(data);
+
+    const arpUser = await this.usersRepository.findOneBy({
+      username: data.username
+    });
+
+    if(!arpUser) {
+      throw new UserNotFoundException();
+    }
+
+    if(data.state === 0 || data.state === -1 || data.state === -2) {
+      arpUser.state = data.state;
+    }
+
+    if(data.nickname) {
+      arpUser.nickname = data.nickname;
+    }
+    arpUser.updatedAt = moment().toDate();
+    await this.usersRepository.save(arpUser);
+    return user;
   }
 }
