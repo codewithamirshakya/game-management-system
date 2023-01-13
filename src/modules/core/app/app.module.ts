@@ -11,6 +11,7 @@ import { ApiLogModule } from "../apiLog/apiLog.module";
 import { CqrsModule } from "@nestjs/cqrs";
 import pino from "pino";
 import { addTransactionalDataSource } from "typeorm-transactional";
+import { BalanceModule } from "../balance/balance.module";
 
 @Module({
   imports: [
@@ -65,7 +66,8 @@ import { addTransactionalDataSource } from "typeorm-transactional";
     SharedModule,
     SecurityModule,
     ApiLogModule,
-    CqrsModule
+    CqrsModule,
+    BalanceModule
   ],
 })
 export class AppModule {

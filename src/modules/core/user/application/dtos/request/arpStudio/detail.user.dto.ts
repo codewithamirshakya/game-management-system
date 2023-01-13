@@ -1,5 +1,5 @@
 import { IsString, IsNotEmpty, IsOptional, IsNumber, IsInt } from "class-validator";
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
 import { toNumber } from "../../../../../../../lib/utils/cast.utils";
 export class DetailUserDto {
@@ -15,7 +15,7 @@ export class DetailUserDto {
 
     @Transform(({ value }) => parseInt(value))
     @IsInt()
-    @ApiProperty()
+    @ApiPropertyOptional()
     @IsOptional()
     readonly currenttime: number;
 }
