@@ -6,7 +6,7 @@ import {
   WithdrawBalanceDto
 } from "../../../../src/modules/core/balance/application/dtos/request/arpStudio/withdrawBalance.dto";
 
-@Controller('arp-studio/user/balance/withdraw')
+@Controller('arp-studio/balance/withdraw')
 export class WithdrawController extends AbstractController{
   constructor(
     private service : WithdrawService,

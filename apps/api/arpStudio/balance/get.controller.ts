@@ -6,7 +6,7 @@ import {
 } from "../../../../src/modules/core/balance/application/services/arpStudio/getBalance.service";
 import { GetBalanceDto } from "../../../../src/modules/core/balance/application/dtos/request/arpStudio/getBalance.dto";
 
-@Controller('arp-studio/user/balance')
+@Controller('arp-studio/balance')
 export class GetController extends AbstractController{
   constructor(
     private getBalanceService : GetBalanceService,

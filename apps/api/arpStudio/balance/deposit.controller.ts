@@ -6,7 +6,7 @@ import {
   DepositBalanceDto
 } from "../../../../src/modules/core/balance/application/dtos/request/arpStudio/depositBalance.dto";
 
-@Controller('arp-studio/user/balance/deposit')
+@Controller('arp-studio/balance/deposit')
 export class DepositController extends AbstractController{
   constructor(
     private service : DepositService,

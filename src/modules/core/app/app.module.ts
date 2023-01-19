@@ -12,6 +12,7 @@ import { CqrsModule } from "@nestjs/cqrs";
 import pino from "pino";
 import { addTransactionalDataSource } from "typeorm-transactional";
 import { BalanceModule } from "../balance/balance.module";
+import { modules } from "./modules";
 
 @Module({
   imports: [
@@ -24,7 +25,6 @@ import { BalanceModule } from "../balance/balance.module";
         if (!options) {
           throw new Error('Invalid options passed');
         }
-
         return addTransactionalDataSource(dataSource);
       },
     }),
@@ -62,12 +62,7 @@ import { BalanceModule } from "../balance/balance.module";
         }
       }
     }),
-    UsersModule,
-    SharedModule,
-    SecurityModule,
-    ApiLogModule,
-    CqrsModule,
-    BalanceModule
+    ...modules
   ],
 })
 export class AppModule {

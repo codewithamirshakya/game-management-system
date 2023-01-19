@@ -10,6 +10,9 @@ import {
 import { Response } from "express";
 import { AbstractException } from "../../../../lib/exception/abstract.exception";
 import * as fs from "fs";
+import { ExternalApiException } from "../../shared/domain/exception/externalApi.exception";
+import { ErrorCodeConstant } from "../../shared/application/constants/arpStudio/errorCodeConstant";
+import { isObject } from "@nestjs/common/utils/shared.utils";
 
 @Catch()
 export class GlobalExceptionFilter implements ExceptionFilter {
@@ -44,6 +47,13 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       prodResponse = {...prodResponse, message: exceptionResponse.message}
     }
 
+    if(exception instanceof ExternalApiException) {
+      const decodeMessage = this.getArpStudioExternalApiMessage(data,prodResponse);
+      if(decodeMessage) {
+        prodResponse = decodeMessage;
+      }
+    }
+
     let devResponse: any = {...prodResponse, stackTrace: this.getStackTrace(exception)}
     if(error) {
       devResponse = {...devResponse, error: error};
@@ -52,6 +62,19 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     response
       .status(status)
       .json(process.env.APP_ENV === 'dev'? devResponse: prodResponse);
+  }
+
+  private getArpStudioExternalApiMessage(data,prodResponse) {
+    let response = isObject(data) ? data as unknown as { result: number, errid: string } : undefined;
+    if (response) {
+      try {
+        const code = response.result <= -1000 ? response.result : response.errid;
+        const externalApiMessageDecode = ErrorCodeConstant[code.toString()];
+        return { ...prodResponse, message: { error: 'External API Error', ...externalApiMessageDecode } }
+      } catch (e) {
+        return undefined;
+      }
+    }
   }
 
   private getErrorResponse = (
