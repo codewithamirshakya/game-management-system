@@ -3,4 +3,8 @@ export const TYPES = {
         ListGameLobbyRepositoryInterface: 'ListGameLobbyRepository',
         GetGameRoadSheetRepositoryInterface: 'GetGameRoadSheetRepository',
     },
+    velaRepository: {
+        ListGameRepositoryInterface: 'VelaListGameRepository',
+        GetGameReportRepositoryInterface: 'GetGameReportRepository',
+    },
 };

@@ -6,4 +6,10 @@ export const TYPES = {
         SaveTransactionRepositoryInterface: 'SaveTransactionRepository',
         SaveArpTransactionRepositoryInterface: 'SaveArpTransactionRepository',
     },
+    velaRepository: {
+        GetBalanceRepositoryInterface: 'VelaGetBalanceRepository',
+        DepositBalanceRepositoryInterface: 'VelaDepositBalanceRepository',
+        WithdrawBalanceRepositoryInterface: 'VelaWithdrawBalanceRepository',
+        SaveVelaTransactionRepositoryInterface: 'SaveVelaTransactionRepository',
+    },
 };

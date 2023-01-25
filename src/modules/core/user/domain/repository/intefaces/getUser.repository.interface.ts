@@ -1,5 +1,5 @@
-import { UserDomain } from "../../user.domain";
+import { User } from "../../user.entity";
 
 export interface IGetUserRepositoryInterface {
-    getById(id: number): Promise<UserDomain>;
+    getByUserNameAndGameProvider(username: string, gameProvider: number): Promise<User>;
 }

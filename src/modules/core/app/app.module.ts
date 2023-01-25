@@ -1,17 +1,11 @@
 import { MiddlewareConsumer, Module, NestModule, RequestMethod } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { UsersModule } from "../user/users.module";
-import { SharedModule } from "../../shared/shared.module";
 import { ConfigModule } from "@nestjs/config";
 import dataSource, { dataSourceOptions } from "../../../../db/data-source";
-import { SecurityModule } from "../security/security.module";
 import { LoggerModule } from "nestjs-pino";
 import { RequestAndResponseLoggerMiddleware } from "./middlewares/requestAndResponseLogger.middleware";
-import { ApiLogModule } from "../apiLog/apiLog.module";
-import { CqrsModule } from "@nestjs/cqrs";
 import pino from "pino";
 import { addTransactionalDataSource } from "typeorm-transactional";
-import { BalanceModule } from "../balance/balance.module";
 import { modules } from "./modules";
 
 @Module({

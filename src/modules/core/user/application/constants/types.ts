@@ -1,6 +1,7 @@
 export const TYPES = {
     repository: {
         IGetUserServiceRepositoryInterface: 'IGetUserServiceRepository',
+        IGetUserByIdServiceRepositoryInterface: 'IGetUserByIdServiceRepository',
         ICreateUserServiceRepositoryInterface: 'ICreateUserServiceRepository',
         ICreateArpStudioUserRepositoryInterface: 'CreateArpStudioUserRepository',
         IsUserExistsRepositoryInterface: 'IsUserExistsRepository',
@@ -8,4 +9,8 @@ export const TYPES = {
         UpdateUserRepositoryInterface: 'UpdateUserRepository',
         GetUserDetailRepositoryInterface: 'GetUserDetailRepository',
     },
+    velaRepository: {
+        CreatePlayerRepositoryInterface: 'VelaCreatePlayerRepository',
+    },
+
 };

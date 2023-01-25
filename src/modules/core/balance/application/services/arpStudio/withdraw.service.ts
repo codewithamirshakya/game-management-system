@@ -15,16 +15,20 @@ import { SaveTransactionDto as SaveArpTransactionDto } from "../../../domain/dto
 import {
   SaveTransactionRepositoryInterface as SaveArpTransactionRepositoryInterface
 } from "../../../domain/repository/arpStudio/saveTransaction.repository.interface";
+import { IsUserExistsValidationService } from "../validation/IsUserExistsValidation.service";
 
 export class WithdrawService {
   constructor(
     @Inject(TYPES.repository.WithdrawBalanceRepositoryInterface) private repo: WithdrawBalanceRepositoryInterface,
     @Inject(TYPES.repository.SaveTransactionRepositoryInterface) private saveTransactionRepo: SaveTransactionRepositoryInterface,
-    @Inject(TYPES.repository.SaveArpTransactionRepositoryInterface) private saveArpTransactionRepo: SaveArpTransactionRepositoryInterface
+    @Inject(TYPES.repository.SaveArpTransactionRepositoryInterface) private saveArpTransactionRepo: SaveArpTransactionRepositoryInterface,
+    private userExistsValidationService: IsUserExistsValidationService,
   ) {}
 
   @Transactional()
   public async withdrawBalance(dto: WithdrawBalanceDto) {
+    // validation
+    const user = await this.userExistsValidationService.isUserExists(dto.username,GameProviderConstant.VELA_GAMING);
     try{
       const response = await this.repo.withdraw(Object.assign(new DomainWithdrawBalanceDto(),dto));
       const mainTransaction = await this.saveTransactionRepo.save(
@@ -33,7 +37,7 @@ export class WithdrawService {
             type: TransactionTypeConstant.WITHDRAW,
             status: 1,
             amount: dto.amount,
-            user_id: 1,
+            user_id: user.id,
             currency_code: 'USD',
             game_provider: GameProviderConstant.ARP_STUDIO
           }

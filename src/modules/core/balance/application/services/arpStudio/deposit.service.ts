@@ -14,17 +14,21 @@ import {
   DepositBalanceRepositoryInterface
 } from "../../../domain/repository/arpStudio/depositBalance.repository.interface";
 import { DepositOperationFailedException } from "../../../domain/exception/depositOperationFailed.exception";
+import { IsUserExistsValidationService } from "../validation/IsUserExistsValidation.service";
 
 export class DepositService {
   constructor(
     @Inject(TYPES.repository.DepositBalanceRepositoryInterface) private repo: DepositBalanceRepositoryInterface,
     @Inject(TYPES.repository.SaveTransactionRepositoryInterface) private saveTransactionRepo: SaveTransactionRepositoryInterface,
-    @Inject(TYPES.repository.SaveArpTransactionRepositoryInterface) private saveArpTransactionRepo: SaveArpTransactionRepositoryInterface
+    @Inject(TYPES.repository.SaveArpTransactionRepositoryInterface) private saveArpTransactionRepo: SaveArpTransactionRepositoryInterface,
+    private userExistsValidationService: IsUserExistsValidationService,
   ) {
   }
 
   @Transactional()
   public async depositBalance(dto: WithdrawBalanceDto) {
+    // validation
+    const user = await this.userExistsValidationService.isUserExists(dto.username,GameProviderConstant.VELA_GAMING);
     try {
       const response = await this.repo.deposit(new DomainDepositBalanceDto(dto));
 
@@ -35,7 +39,7 @@ export class DepositService {
             type: TransactionTypeConstant.DEPOSIT,
             status: 1,
             amount: dto.amount,
-            user_id: 1,
+            user_id: user.id,
             currency_code: "USD",
             game_provider: GameProviderConstant.ARP_STUDIO
           }
