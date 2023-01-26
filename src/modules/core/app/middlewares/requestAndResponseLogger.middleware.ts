@@ -74,11 +74,11 @@ const getResponseLog = (request, res: Response, commandBus) => {
     }
 
     // Encode buffer as utf8 JSON string
-    const body = Buffer.concat(chunkBuffers).toString('utf8');
+    let body = Buffer.concat(chunkBuffers).toString('utf8');
 
     // Set custom header for response
     res.setHeader('origin', 'restjs-req-res-logging-repo');
-
+    body = isJsonString(body) ? body : JSON.stringify(body);
     const responseLog = {
       response: {
         statusCode: res.statusCode,
@@ -99,5 +99,14 @@ const getResponseLog = (request, res: Response, commandBus) => {
     rawResponseEnd.apply(res, resArgs);
     return responseLog as unknown as Response;
   };
+
+  function isJsonString(str) {
+    try {
+      JSON.parse(str);
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }
 
 };

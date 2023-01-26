@@ -5,6 +5,7 @@ export const TYPES = {
     },
     velaRepository: {
         ListGameRepositoryInterface: 'VelaListGameRepository',
+        LaunchGameRepositoryInterface: 'VelaLaunchGameRepository',
         GetGameReportRepositoryInterface: 'GetGameReportRepository',
     },
 };

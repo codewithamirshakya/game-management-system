@@ -5,13 +5,14 @@ import { CreatePlayerDto } from "../../../../../user/domain/dtos/request/vela/cr
 import { ApiRequestDto } from "../../../../../shared/application/dto/apiRequest.dto";
 import { GameProviderConstant } from "../../../../../shared/application/constants/gameProvider.constant";
 import { VelaRequestDto } from "../../../../../shared/application/dto/vela.request.dto";
+import { GetBalanceDto } from "../../../../domain/dto/request/vela/getBalance.dto";
 
 export class GetBalanceRepository implements GetBalanceRepositoryInterface{
 
   @Inject(ApiRequestService)
   public apiRequestService: ApiRequestService
 
-  async getBalance(dto: CreatePlayerDto){
+  async getBalance(dto: GetBalanceDto){
     return await this.apiRequestService.requestApi(new ApiRequestDto({
       gameProvider : GameProviderConstant.VELA_GAMING,
       requestDTO: new VelaRequestDto({

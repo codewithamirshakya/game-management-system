@@ -3,4 +3,7 @@ export const TYPES = {
         LoginRepositoryInterface: 'LoginRepositoryInterface',
         LogoutRepositoryInterface: 'LogoutRepository',
     },
+    velaRepository: {
+        AuthenticateRepositoryInterface: 'VelaAuthenticateRepository',
+    },
 };

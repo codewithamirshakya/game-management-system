@@ -1,6 +1,5 @@
-import { IsInt, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+import {  IsNotEmpty, IsOptional, IsString } from "class-validator";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
-import { Transform } from "class-transformer";
 
 export class GetBalanceDto {
   @IsString()

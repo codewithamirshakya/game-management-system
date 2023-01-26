@@ -10,7 +10,8 @@ export class VelaGamingRequestService {
 
   async request(velaRequestDTO: VelaRequestDto) {
 
-    const url = VelaGamingConfig.baseUrl + velaRequestDTO.endpoint;
+    const url = (velaRequestDTO.baseUrl ? velaRequestDTO.baseUrl : VelaGamingConfig.baseUrl)
+      + velaRequestDTO.endpoint;
     const params = new URLSearchParams({
         ...velaRequestDTO.params,
         host_id: velaRequestDTO.params.hostId

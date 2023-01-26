@@ -5,4 +5,5 @@ export class VelaRequestDto {
   public endpoint : string;
   public params : any;
   public method : string;
+  public baseUrl?: string;
 }
