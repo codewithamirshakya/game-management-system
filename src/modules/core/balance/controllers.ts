@@ -5,6 +5,7 @@ import { WithdrawController as VelaWithdrawController} from "../../../../apps/ap
 import { DepositController } from "../../../../apps/api/arpStudio/balance/deposit.controller";
 import { DepositController as VelaDepositController} from "../../../../apps/api/vela/balance/deposit.controller";
 import { WalletController } from "../../../../apps/api/vela/balance/wallet.controller";
+import { RebateController } from "../../../../apps/api/vela/balance/rebate.controller";
 
 const ArpStudioControllers = [
   ArpStudioGetController,
@@ -16,7 +17,8 @@ const VelaGamingControllers = [
   GetController,
   VelaDepositController,
   VelaWithdrawController,
-  WalletController
+  WalletController,
+  RebateController
 ];
 
 export const Controllers = [

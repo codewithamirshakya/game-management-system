@@ -3,6 +3,7 @@ import { ListController as GameLobbyListController } from "../../../../apps/api/
 import { GetController } from "../../../../apps/api/arpStudio/game/roadsheet/get.controller";
 import { ReportController as VelaGameReportController } from "../../../../apps/api/vela/game/report.controller";
 import { LaunchController } from "../../../../apps/api/vela/game/launch.controller";
+import { LaunchController as LaunchLobbyController } from "../../../../apps/api/vela/lobby/launch.controller";
 
 const ArpStudioControllers = [
   GameLobbyListController,
@@ -12,7 +13,8 @@ const ArpStudioControllers = [
 const VelaGamingControllers = [
   ListController,
   VelaGameReportController,
-  LaunchController
+  LaunchController,
+  LaunchLobbyController
 ];
 
 export const Controllers = [

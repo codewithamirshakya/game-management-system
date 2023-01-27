@@ -7,6 +7,7 @@ import { RequestAndResponseLoggerMiddleware } from "./middlewares/requestAndResp
 import pino from "pino";
 import { addTransactionalDataSource } from "typeorm-transactional";
 import { modules } from "./modules";
+import { EventEmitterModule } from "@nestjs/event-emitter";
 
 @Module({
   imports: [
@@ -56,6 +57,7 @@ import { modules } from "./modules";
         }
       }
     }),
+    EventEmitterModule.forRoot(),
     ...modules
   ],
 })

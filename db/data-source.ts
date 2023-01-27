@@ -7,7 +7,7 @@ export const dataSourceOptions: DataSourceOptions = {
   username: process.env.DB_USERNAME || 'root',
   database: process.env.DB_NAME || 'nest_game_integration',
   password: process.env.DB_PASSWORD,
-  entities: [ 'dist/**/*.entity.{js,ts}'],
+  entities: [ 'dist/src/modules/**/*.entity.{js,ts}'],
   migrations: ['dist/db/migrations/*{.ts,.js}'],
   extra: {
     charset: 'utf8mb4_unicode_ci',

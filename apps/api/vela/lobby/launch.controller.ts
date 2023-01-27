@@ -4,21 +4,20 @@ import {
 } from "@nestjs/common";
 import { Response } from "express";
 import { AbstractController } from "../../../../src/modules/shared/infrastructure/controller/api/abstract.controller";
-import { LaunchGameService } from "../../../../src/modules/core/game/application/services/vela/launchGame.service";
-import { LaunchGameDto } from "../../../../src/modules/core/game/application/dtos/request/vela/launchGame.dto";
+import { LaunchLobbyService } from "../../../../src/modules/core/game/application/services/vela/launchLobby.service";
+import { LaunchLobbyDto } from "../../../../src/modules/core/game/application/dtos/request/vela/launchLobby.dto";
 
-@Controller('vela/game/launch')
+@Controller('vela/lobby/launch')
 export class LaunchController extends AbstractController{
   constructor(
-    private service : LaunchGameService,
-
+    private service : LaunchLobbyService,
   ) {
     super();
   }
 
   @Get()
   @UsePipes(new ValidationPipe({ transform: true }))
-  async get(@Req() req,@Res() res : Response,@Query() dto: LaunchGameDto,@Ip() ip) {
+  async get(@Req() req,@Res() res : Response,@Query() dto: LaunchLobbyDto,@Ip() ip) {
     const responseUrl = await this.service.launch(dto,ip,req);
     res.redirect(responseUrl);
   }

@@ -3,11 +3,13 @@ import { GetGameRoadSheetService } from "./application/services/arpStudio/getGam
 import { ListGameService } from "./application/services/vela/listGame.service";
 import { GetGameReportService } from "./application/services/vela/getGameReport.service";
 import { LaunchGameService } from "./application/services/vela/launchGame.service";
+import { LaunchLobbyService } from "./application/services/vela/launchLobby.service";
 
 const VelaGamingProviders = [
   ListGameService,
   GetGameReportService,
-  LaunchGameService
+  LaunchGameService,
+  LaunchLobbyService
 ];
 export const Providers = [
     ListGameLobbyService,

@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { SharedModule } from "../../shared/shared.module";
 import { DependenciesConstants } from "./dependencies";
@@ -10,15 +10,19 @@ import { VelaGamingTransaction } from "./domain/entity/velaGamingTransaction.ent
 import { CqrsModule } from "@nestjs/cqrs";
 
 @Module({
-    imports: [TypeOrmModule.forFeature([
-      TransactionMain,ArpStudioTransaction,
-      VelaGamingTransaction]),
-        SharedModule,CqrsModule],
-    controllers: Controllers,
-    providers: [
-          ...DependenciesConstants,
-          ...Providers
-    ],
+  imports: [
+    TypeOrmModule.forFeature([
+      TransactionMain,
+      ArpStudioTransaction,
+      VelaGamingTransaction
+    ]),
+    SharedModule, CqrsModule],
+  controllers: Controllers,
+  providers: [
+    ...DependenciesConstants,
+    ...Providers
+  ]
 })
 
-export class BalanceModule {}
+export class BalanceModule {
+}

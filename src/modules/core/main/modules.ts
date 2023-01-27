@@ -8,6 +8,8 @@ import { BalanceModule } from "../balance/balance.module";
 import { BetModule } from "../bet/bet.module";
 import { AccountModule } from "../account/account.module";
 import { GameModule } from "../game/game.module";
+import { ActivityLogModule } from "../activityLog/activityLog.module";
+import { RebateModule } from "../rebate/rebate.module";
 
 export const modules = [
   TradeModule,
@@ -19,5 +21,7 @@ export const modules = [
   BalanceModule,
   BetModule,
   AccountModule,
-  GameModule
+  GameModule,
+  ActivityLogModule,
+  RebateModule
 ]

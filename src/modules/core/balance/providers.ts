@@ -6,12 +6,14 @@ import { DepositService } from "./application/services/arpStudio/deposit.service
 import { DepositBalanceService as  VelaDepositService} from "./application/services/vela/depositBalance.service";
 import { IsUserExistsValidationService } from "./application/services/validation/IsUserExistsValidation.service";
 import { GetWalletBalanceService } from "./application/services/vela/getWalletBalance.service";
+import { RebateBalanceService } from "./application/services/vela/rebateBalance.service";
 
 const VelaGamingProviders = [
     VelaGetBalanceService,
     VelaDepositService,
     VelaWithdrawService,
-    GetWalletBalanceService
+    GetWalletBalanceService,
+    RebateBalanceService
 ];
 
 const ArpStudioProviders =[
