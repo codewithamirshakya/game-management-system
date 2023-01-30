@@ -10,6 +10,7 @@ import { AccountModule } from "../account/account.module";
 import { GameModule } from "../game/game.module";
 import { ActivityLogModule } from "../activityLog/activityLog.module";
 import { RebateModule } from "../rebate/rebate.module";
+import { WalletModule } from "../wallet/wallet.module";
 
 export const modules = [
   TradeModule,
@@ -23,5 +24,6 @@ export const modules = [
   AccountModule,
   GameModule,
   ActivityLogModule,
-  RebateModule
+  RebateModule,
+  WalletModule
 ]

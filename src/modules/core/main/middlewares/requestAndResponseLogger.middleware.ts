@@ -14,6 +14,7 @@ export class RequestAndResponseLoggerMiddleware implements NestMiddleware {
       body: req.body,
       url: req.originalUrl,
     };
+    console.log(request);
 
     // Getting the response apiLog
     getResponseLog(request, res, this.commandBus);

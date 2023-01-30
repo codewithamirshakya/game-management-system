@@ -9,6 +9,8 @@ export const TYPES = {
     velaRepository: {
         GetBalanceRepositoryInterface: 'VelaGetBalanceRepository',
         GetWalletBalanceRepositoryInterface: 'VelaGetWalletBalanceRepository',
+        ListAllRebateTransactionRepositoryInterface: 'VelaListAllRebateTransactionRepository',
+        GetRebateWalletBalanceRepositoryInterface: 'VelaGetRebateWalletBalanceRepository',
         DepositBalanceRepositoryInterface: 'VelaDepositBalanceRepository',
         WithdrawBalanceRepositoryInterface: 'VelaWithdrawBalanceRepository',
         RebateBalanceRepositoryInterface: 'VelaRebateBalanceRepository',

@@ -6,6 +6,8 @@ import { DepositController } from "../../../../apps/api/arpStudio/balance/deposi
 import { DepositController as VelaDepositController} from "../../../../apps/api/vela/balance/deposit.controller";
 import { WalletController } from "../../../../apps/api/vela/balance/wallet.controller";
 import { RebateController } from "../../../../apps/api/vela/balance/rebate.controller";
+import { ListAllRebateTransactionController } from "../../../../apps/api/vela/balance/listAllRebateTransaction.controller";
+import { GetRebateWalletBalanceController } from "../../../../apps/api/vela/balance/getRebateWalletBalance.controller";
 
 const ArpStudioControllers = [
   ArpStudioGetController,
@@ -18,7 +20,9 @@ const VelaGamingControllers = [
   VelaDepositController,
   VelaWithdrawController,
   WalletController,
-  RebateController
+  RebateController,
+  ListAllRebateTransactionController,
+  GetRebateWalletBalanceController
 ];
 
 export const Controllers = [

@@ -18,6 +18,12 @@ import {
  GetWalletBalanceRepository
 } from "./infrastructure/persistence/repository/velaGaming/getWalletBalance.repository";
 import { RebateBalanceRepository } from "./infrastructure/persistence/repository/velaGaming/rebateBalance.repository";
+import {
+ ListAllRebateTransactionRepository
+} from "./infrastructure/persistence/repository/velaGaming/listAllRebateTransaction.repository";
+import {
+ GetRebateWalletBalanceRepository
+} from "./infrastructure/persistence/repository/velaGaming/getRebateWalletBalance.repository";
 
 
 export const DependenciesConstants = [
@@ -30,8 +36,10 @@ export const DependenciesConstants = [
  //vela gaming providers
  { provide: TYPES.velaRepository.GetBalanceRepositoryInterface, useClass: GetVelaBalanceRepository },
  { provide: TYPES.velaRepository.GetWalletBalanceRepositoryInterface, useClass: GetWalletBalanceRepository },
+ { provide: TYPES.velaRepository.GetRebateWalletBalanceRepositoryInterface, useClass: GetRebateWalletBalanceRepository },
  { provide: TYPES.velaRepository.DepositBalanceRepositoryInterface, useClass: VelaDepositBalanceRepository },
  { provide: TYPES.velaRepository.WithdrawBalanceRepositoryInterface, useClass: VelaWithdrawBalanceRepository },
  { provide: TYPES.velaRepository.SaveVelaTransactionRepositoryInterface, useClass: SaveVelaTransactionRepository },
  { provide: TYPES.velaRepository.RebateBalanceRepositoryInterface, useClass: RebateBalanceRepository },
+ { provide: TYPES.velaRepository.ListAllRebateTransactionRepositoryInterface, useClass: ListAllRebateTransactionRepository },
 ];
