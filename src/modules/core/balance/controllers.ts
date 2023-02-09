@@ -1,5 +1,6 @@
 import { GetController } from "../../../../apps/api/vela/balance/get.controller";
 import { GetController as ArpStudioGetController} from "../../../../apps/api/arpStudio/balance/get.controller";
+import { GetController as EvolutionGetController} from "../../../../apps/api/evolution/balance/get.controller";
 import { WithdrawController } from "../../../../apps/api/arpStudio/balance/withdraw.controller";
 import { WithdrawController as VelaWithdrawController} from "../../../../apps/api/vela/balance/withdraw.controller";
 import { DepositController } from "../../../../apps/api/arpStudio/balance/deposit.controller";
@@ -15,6 +16,10 @@ const ArpStudioControllers = [
   DepositController
 ];
 
+const Evolution  = [
+  EvolutionGetController
+];
+
 const VelaGamingControllers = [
   GetController,
   VelaDepositController,
@@ -27,5 +32,6 @@ const VelaGamingControllers = [
 
 export const Controllers = [
   ...VelaGamingControllers,
-  ...ArpStudioControllers
+  ...ArpStudioControllers,
+  ...Evolution
 ];

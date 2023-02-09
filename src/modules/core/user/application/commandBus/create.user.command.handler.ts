@@ -55,6 +55,24 @@ export class CreateUserCommandHandler implements ICommandHandler<CreateUserComma
           break;
       }
 
+      // evolution
+      case GameProviderConstant.EVOLUTION: {
+        const user = await this.userRepo.create(new CreateUserDto(
+          command.userData.username,
+          command.gameProvider,
+          command.ipAddress
+        ));
+
+        // await this.arpStudioUserRepo.create(new CreateArpStudioUserDto(
+        //   {
+        //     user_id: user.id,
+        //     username: user.username,
+        //     nickname: command.userData.nickname
+        //   }
+        // ))
+        break;
+    }
+
       default:
     }
 

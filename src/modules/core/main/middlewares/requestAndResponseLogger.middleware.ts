@@ -78,7 +78,9 @@ const getResponseLog = (request, res: Response, commandBus) => {
 
     // Set custom header for response
     res.setHeader('origin', 'restjs-req-res-logging-repo');
+
     body = isJsonString(body) ? body : JSON.stringify(body);
+
     const responseLog = {
       response: {
         statusCode: res.statusCode,
@@ -108,5 +110,6 @@ const getResponseLog = (request, res: Response, commandBus) => {
     }
     return true;
   }
-
+   
+ 
 };

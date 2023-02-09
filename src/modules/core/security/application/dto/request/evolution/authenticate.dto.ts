@@ -1,7 +1,8 @@
-import { IsNotEmpty, IsObject, IsString } from "class-validator";
+import { IsNotEmpty, IsObject, IsString, ValidateNested } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 import { PlayerDto } from "./player.dto";
 import { ConfigDto } from "./config.dto";
+import { Type } from "class-transformer";
 
 export class AuthenticateDto {
   @IsString()
@@ -9,13 +10,15 @@ export class AuthenticateDto {
   @ApiProperty()
   readonly uuid: string;
 
-  @IsObject()
+  @Type(() => PlayerDto)
   @IsNotEmpty()
   @ApiProperty()
+  @ValidateNested()
   readonly player: PlayerDto;
 
-  @IsObject()
+  @Type(() => ConfigDto)
   @IsNotEmpty()
   @ApiProperty()
+  @ValidateNested()
   readonly config: ConfigDto;
 }

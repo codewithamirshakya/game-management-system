@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { EvolutionRequestDto } from "../dto/evolution.request.dto";
 import { EvolutionConfig } from "../../../../../config/evolution.config";
 import { EvolutionApiException } from "../../domain/exception/evolutionApi.exception";
+import { xml2js } from 'xml-js';
 
 @Injectable()
 export class EvolutionRequestService {
@@ -31,23 +32,24 @@ export class EvolutionRequestService {
                 params: params,
               }
             );
+            if(this.isXML(response.data)) {
+              return xml2js(response.data,{compact: true});
+            }
         }
-
-          return response;
-        // if (response) {
-        // }
+        return response.data;
       } catch (e) {
         if(e.response) {
           console.log(e.response.data);
           throw new EvolutionApiException('Evolution: External API Error.', e.response.data);
         }
-        // console.log(e);
-        // console.log(e.data);
-
-        // if ((e instanceof EvolutionApiException)) {
-        //   throw new EvolutionApiException(e.message, e.getData());
-        // }
-        // throw new EvolutionApiException(e.message || 'Evolution: External API Error.');
       }
+  }
+
+  isXML(value: string) {
+    const xmlString = value.trim();
+    if(xmlString.startsWith('<')) {
+      return true;
+    }
+    return false;
   }
 }

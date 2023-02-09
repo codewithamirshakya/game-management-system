@@ -1,5 +1,6 @@
-import { IsBoolean, IsEnum, IsInt, IsNotEmpty, IsObject, IsOptional, IsString, MaxLength } from "class-validator";
+import { IsBoolean, IsEnum, IsInt, IsNotEmpty, IsObject, IsOptional, IsString, MaxLength, ValidateNested } from "class-validator";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+import { Type } from "class-transformer";
 
 enum PlayModeEnum {
   'real_money' = "real_money" ,
@@ -64,15 +65,17 @@ class Game {
   @ApiPropertyOptional()
   readonly interface: string;
 
-  @IsObject()
+  @Type(() => Table)
   @IsNotEmpty()
   @IsOptional()
   @ApiPropertyOptional()
+  @ValidateNested()
   readonly table: Table;
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({ enum: ['real_money', 'reward_games','play_for_fun','demo']})
+  @ApiPropertyOptional({ enum: ['real_money', 'reward_games','play_for_fun','demo']})
+  @IsOptional()
   @IsEnum(PlayModeEnum)
   readonly playMode: PlayModeEnum;
 }
@@ -177,27 +180,31 @@ class Urls {
 }
 
 export class ConfigDto {
-  @IsObject()
+  @Type(() => Brand)
   @IsNotEmpty()
   @ApiPropertyOptional()
   @IsOptional()
+  @ValidateNested()
   readonly brand: Brand;
 
-  @IsObject()
+  @Type(() => Game)
   @IsOptional()
   @IsNotEmpty()
   @ApiPropertyOptional()
+  @ValidateNested()
   readonly game: Game;
 
-  @IsObject()
+  @Type(() => Channel)
   @IsNotEmpty()
   @ApiProperty()
+  @ValidateNested()
   readonly channel: Channel;
 
-  @IsString()
+  @Type(() => Urls)
   @IsNotEmpty()
   @ApiPropertyOptional()
   @IsOptional()
+  @ValidateNested()
   readonly urls: Urls;
 
   @IsBoolean()

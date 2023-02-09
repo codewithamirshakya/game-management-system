@@ -1,5 +1,6 @@
-import { IsBoolean, IsEnum, IsNotEmpty, IsObject, IsOptional, IsString, MaxLength } from "class-validator";
+import { IsBoolean, IsEnum, IsNotEmpty, IsObject, IsOptional, IsString, MaxLength,ValidateNested } from "class-validator";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+import { Type } from "class-transformer";
 
 class Session {
   @IsString()
@@ -23,7 +24,8 @@ class Group {
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty()
+  @ApiPropertyOptional()
+  @IsOptional()
   @MaxLength(50)
   readonly id: string;
 
@@ -79,14 +81,16 @@ export class PlayerDto {
   @MaxLength(3)
   readonly currency: string;
 
-  @IsObject()
+  @Type(() => Session)
   @ApiProperty()
   @IsNotEmpty()
+  @ValidateNested()
   readonly session: Session;
 
-  @IsObject()
+  @Type(() => Group)
   @ApiProperty()
   @IsNotEmpty()
+  @ValidateNested()
   readonly group: Group;
 
 }

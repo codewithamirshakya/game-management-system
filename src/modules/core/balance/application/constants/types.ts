@@ -16,4 +16,8 @@ export const TYPES = {
         RebateBalanceRepositoryInterface: 'VelaRebateBalanceRepository',
         SaveVelaTransactionRepositoryInterface: 'SaveVelaTransactionRepository',
     },
+    evolutionRepository: {
+        FundRepositoryInterface: 'EvolutionFundRepository',
+        SaveEvolutionTransactionRepositoryInterface: 'SaveEvolutionTransactionRepository',
+    }
 };

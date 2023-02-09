@@ -1,5 +1,6 @@
 import { GetBalanceService } from "./application/services/arpStudio/getBalance.service";
 import { GetBalanceService as VelaGetBalanceService } from "./application/services/vela/getBalance.service";
+import { GetBalanceService as EvolutionGetBalanceService } from "./application/services/evolution/getBalance.service";
 import { WithdrawService } from "./application/services/arpStudio/withdraw.service";
 import { WithdrawBalanceService as VelaWithdrawService } from "./application/services/vela/withdrawBalance.service";
 import { DepositService } from "./application/services/arpStudio/deposit.service";
@@ -26,8 +27,13 @@ const ArpStudioProviders =[
     DepositService,
 ];
 
+const EvolutionProviders =[
+    EvolutionGetBalanceService
+];
+
 export const Providers = [
     ...ArpStudioProviders,
     ...VelaGamingProviders,
+    ...EvolutionProviders,
     IsUserExistsValidationService,
 ];

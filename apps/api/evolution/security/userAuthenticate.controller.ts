@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Ip, Post, Query, Req, Res, UsePipes, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Ip, Post, Req, Res, } from "@nestjs/common";
 import { AbstractController } from "../../../../src/modules/shared/infrastructure/controller/api/abstract.controller";
 import { Response } from "express";
 import {
@@ -7,7 +7,9 @@ import {
 import {
   AuthenticateDto
 } from "../../../../src/modules/core/security/application/dto/request/evolution/authenticate.dto";
+import { ApiTags } from "@nestjs/swagger";
 
+@ApiTags('Evolution')
 @Controller('evolution/security/user-authenticate')
 export class UserAuthenticateController extends AbstractController{
   constructor(
@@ -17,7 +19,6 @@ export class UserAuthenticateController extends AbstractController{
   }
 
   @Post()
-  @UsePipes(new ValidationPipe({ transform: true }))
   async get(@Body() dto: AuthenticateDto,@Res() res : Response, @Req() req,@Ip() ip) {
     const response = await this.service.authenticate(dto,req,ip);
     this.successResponse(res,'User authenticated successfully.',response)

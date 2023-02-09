@@ -13,17 +13,37 @@ import { ActivityCompletedEvent } from "../../../../shared/domain/event/activity
 import { GameProviderConstant } from "../../../../shared/application/constants/gameProvider.constant";
 import { ActivityTypeConstant } from "../../../../shared/domain/constants/activityType.constant";
 import { SHARED_TYPES } from "../../../../../shared/application/constants/types";
+import { CommandBus, QueryBus } from "@nestjs/cqrs";
+import { CreateUserCommand } from "../../../../shared/domain/command/user/create.user.command";
+import { IsUserExistsQuery } from "../../../../shared/domain/query/user/IsUserExistsQuery";
 
 export class AuthenticateService {
   constructor(
     @Inject(TYPES.evolutionRepository.AuthenticateRepositoryInterface) private repo: AuthenticateRepositoryInterface,
     @Inject(SHARED_TYPES.eventBus.EventDispatcherInterface) private eventDispatcher: EventDispatcherInterface,
+    private commandBus: CommandBus,
+    private queryBus: QueryBus
   ) {}
 
   @Transactional()
   async authenticate(dto: AuthenticateDto,req,ip: string) {
     try {
+      //check if user exists already
+      const isUserExists = await this.queryBus.execute(new IsUserExistsQuery(dto.player.id,
+        GameProviderConstant.EVOLUTION));
+      
       const response = this.repo.authenticate(new DomainAuthenticateDTO(dto));
+
+      if (!isUserExists) {
+        await this.commandBus.execute(
+          new CreateUserCommand(
+            {
+              username: dto.player.id,
+            },
+            GameProviderConstant.EVOLUTION,
+            ip)
+        );
+      }
       //activity completed event dispatch
       this.eventDispatcher.dispatch(EventDefinition.ACTIVITY_COMPLETED_EVENT,
         new ActivityCompletedEvent(
