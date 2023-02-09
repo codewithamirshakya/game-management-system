@@ -6,4 +6,7 @@ export const TYPES = {
     velaRepository: {
         AuthenticateRepositoryInterface: 'VelaAuthenticateRepository',
     },
+    evolutionRepository: {
+        AuthenticateRepositoryInterface: 'EvolutionAuthenticateRepository',
+    },
 };

@@ -3,6 +3,7 @@ export const ActivityTypeConstant = {
   'LOBBY' : 'Lobby',
   'REBATE' : 'Rebate',
   'WALLET' : 'Wallet',
+  'SECURITY' : 'Security',
 
 
 }
