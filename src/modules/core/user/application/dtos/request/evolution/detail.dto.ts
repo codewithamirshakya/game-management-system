@@ -1,12 +1,7 @@
-import {  IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString, MaxLength, ValidateIf } from "class-validator";
+import {  IsNotEmpty, IsOptional, IsString, MaxLength, ValidateIf } from "class-validator";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 
-export class GetBalanceDto {
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty()
-  readonly cCode: string;
-
+export class DetailDto {
 
   @IsString()
   @IsNotEmpty()
@@ -28,7 +23,6 @@ export class GetBalanceDto {
   @MaxLength(1)
   readonly output: string;
 
-  
   @ValidateIf(x => x.euID === undefined)
   @MaxLength(16,{message: 'Either (uID or euID) must be shorter than or equal to 16 characters'})
   @IsString({message: 'Either (uID or euID) parameter must be string.'})

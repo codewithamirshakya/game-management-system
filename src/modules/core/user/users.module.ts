@@ -7,9 +7,10 @@ import { DependenciesConstants } from "./dependencies";
 import { Providers } from "./providers";
 import { Controllers } from "./controllers";
 import { CqrsModule } from "@nestjs/cqrs";
+import {EvolutionUser} from "./domain/evolutionUser.entity";
 
 @Module({
-    imports: [TypeOrmModule.forFeature([User,ArpStudioUser]),
+    imports: [TypeOrmModule.forFeature([User,ArpStudioUser, EvolutionUser]),
         SharedModule,CqrsModule],
     controllers: Controllers,
     providers: [

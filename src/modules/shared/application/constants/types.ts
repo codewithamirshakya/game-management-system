@@ -3,6 +3,7 @@ export const SHARED_TYPES = {
         TransactionalInterface: 'TransactionalInterface',
     },
     eventBus: {
-        EventDispatcherInterface: 'EventDispatcherInterface'
+        EventDispatcherInterface: 'EventDispatcherInterface',
+        AsyncEventDispatcherInterface: 'AsyncEventDispatcherInterface',
     }
 };

@@ -8,6 +8,7 @@ import { IsUserExistsRepository } from "./infrastructure/persistence/isUserExist
 import { UpdateLastLoggedAtRepository } from "./infrastructure/persistence/update.lastLoggedAt.repository";
 import { UpdateUserRepository } from "./infrastructure/persistence/arpStudio/update.user.repository";
 import { GetUserDetailRepository } from "./infrastructure/persistence/arpStudio/getUser.detail.repository";
+import { GetUserDetailRepository as EvolutionGetUserDetailRepository } from "./infrastructure/persistence/evolution/getUserDetail.repository";
 import { CreatePlayerRepository } from "./infrastructure/persistence/vela/createPlayer.repository";
 import {
   GetUserByUsernameAndGameProviderRepository
@@ -27,6 +28,9 @@ export const DependenciesConstants = [
   { provide: TYPES.repository.GetUserDetailRepositoryInterface, useClass: GetUserDetailRepository },
 
   //vela gaming provider
-  { provide: TYPES.velaRepository.CreatePlayerRepositoryInterface, useClass: CreatePlayerRepository }
+  { provide: TYPES.velaRepository.CreatePlayerRepositoryInterface, useClass: CreatePlayerRepository },
+
+  //evolution gaming provider
+  { provide: TYPES.evolutionRepository.GetUserDetailRepositoryInterface, useClass: EvolutionGetUserDetailRepository }
 
 ];

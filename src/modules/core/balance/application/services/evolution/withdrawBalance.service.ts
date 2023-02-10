@@ -1,4 +1,4 @@
-import {DepositBalanceDto as DomainDepositBalanceDto} from "../../../domain/dto/request/evolution/depositBalance.dto";
+import {WithdrawBalanceDto as DomainWithdrawBalanceDto} from "../../../domain/dto/request/evolution/withdrawBalance.dto";
 import {Inject} from "@nestjs/common";
 import {TYPES} from "../../constants/types";
 import {Transactional} from "typeorm-transactional";
@@ -9,8 +9,6 @@ import {SaveTransactionDto} from "../../../domain/dto/request/saveTransaction.dt
 import {
     SaveTransactionDto as SaveEvolutionTransactionDto
 } from "../../../domain/dto/request/evolution/saveTransaction.dto";
-import {DepositOperationFailedException} from "../../../domain/exception/depositOperationFailed.exception";
-import {DepositBalanceDto} from "../../dtos/request/evolution/depositBalance.dto";
 import {IsUserExistsValidationService} from "../validation/IsUserExistsValidation.service";
 import {SHARED_TYPES} from "../../../../../shared/application/constants/types";
 import {FundRepositoryInterface} from "../../../domain/repository/evolution/fund.repository.interface";
@@ -23,8 +21,10 @@ import {ActivityCompletedEvent} from "../../../../shared/domain/event/activityLo
 import {ActivityTypeConstant} from "../../../../shared/domain/constants/activityType.constant";
 import {EvolutionTransactionFailedException} from "../../../domain/exception/evolutionTransactionFailed.exception";
 import {AsyncEventDispatcherInterface} from "../../../../../shared/application/EventBus/asyncEventDispatcher.interface";
+import {WithdrawBalanceDto} from "../../dtos/request/evolution/withdrawBalance.dto";
+import {WithdrawOperationFailedException} from "../../../domain/exception/withdrawOperationFailed.exception";
 
-export class DepositBalanceService {
+export class WithdrawBalanceService {
     constructor(
         @Inject(TYPES.evolutionRepository.FundRepositoryInterface) private repo: FundRepositoryInterface,
         @Inject(SHARED_TYPES.eventBus.AsyncEventDispatcherInterface) private eventDispatcher: AsyncEventDispatcherInterface,
@@ -35,14 +35,13 @@ export class DepositBalanceService {
     }
 
     @Transactional()
-    public async depositBalance(dto: DepositBalanceDto, req: Request, ip: string) {
-        // if(dto.euID) {
-            // validation
-            const user = await this.userExistsValidationService.isUserExists(dto.euID, GameProviderConstant.EVOLUTION);
-        // }
+    public async withdrawBalance(dto: WithdrawBalanceDto, req: Request, ip: string) {
+        const userID = dto.euID ? dto.euID : dto.uID;
+        // validation
+        const user = await this.userExistsValidationService.isUserExists(userID, GameProviderConstant.EVOLUTION);
         try {
 
-            const response = await this.repo.request(new DomainDepositBalanceDto(dto));
+            const response = await this.repo.request(new DomainWithdrawBalanceDto(dto));
             if(response.transfer.result._text === 'N') {
                 throw new EvolutionTransactionFailedException(response);
             }
@@ -51,11 +50,11 @@ export class DepositBalanceService {
             const mainTransaction = await this.saveTransactionRepo.save(
                 new SaveTransactionDto(
                     {
-                        type: TransactionTypeConstant.DEPOSIT,
+                        type: TransactionTypeConstant.WITHDRAW,
                         status: 1,
                         amount: dto.amount,
                         user_id: user.id,
-                        currency_code: dto.currency ? dto.currency : "PHP",
+                        currency_code: "USD",
                         game_provider: GameProviderConstant.EVOLUTION
                     }
                 )
@@ -74,14 +73,14 @@ export class DepositBalanceService {
                 new ActivityCompletedEvent(
                     GameProviderConstant.EVOLUTION,
                     ActivityTypeConstant.FUNDS_TRANSFER,
-                    "[Funds transfer to evolution's player wallet successfully.]",
+                    "[Funds withdrawn from evolution's player wallet successfully.]",
                     ip,
                     req.headers["user-agent"],
                     user.id
                 ));
             return response;
         } catch (e) {
-            throw new DepositOperationFailedException(e);
+            throw new WithdrawOperationFailedException(e);
         }
     }
 }

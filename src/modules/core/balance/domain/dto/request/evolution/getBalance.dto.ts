@@ -1,7 +1,15 @@
-import { DataTransferObject } from "../../../../../../../lib/dto/dataTransferObject";
+import { DataTransferObject } from '../../../../../../../lib/dto/dataTransferObject';
 
-export class GetBalanceDto extends DataTransferObject{
-  readonly host_id?: string;
+export class GetBalanceDto extends DataTransferObject {
+  
+  readonly cCode: string;
+  
+  readonly ecID: string;
 
-  readonly member_id: string;
+  readonly euID: string;
+
+  readonly output: string;
+
+  readonly uID: string;
+
 }

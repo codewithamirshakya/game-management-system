@@ -63,13 +63,13 @@ export class CreateUserCommandHandler implements ICommandHandler<CreateUserComma
           command.ipAddress
         ));
 
-        // await this.arpStudioUserRepo.create(new CreateArpStudioUserDto(
-        //   {
-        //     user_id: user.id,
-        //     username: user.username,
-        //     nickname: command.userData.nickname
-        //   }
-        // ))
+        await this.arpStudioUserRepo.create(new CreateArpStudioUserDto(
+          {
+            user_id: user.id,
+            username: user.username,
+            nickname: command.userData.nickname
+          }
+        ))
         break;
     }
 

@@ -12,5 +12,8 @@ export const TYPES = {
     velaRepository: {
         CreatePlayerRepositoryInterface: 'VelaCreatePlayerRepository',
     },
+    evolutionRepository: {
+        GetUserDetailRepositoryInterface: 'EvolutionGetUserDetailRepository',
+    },
 
 };

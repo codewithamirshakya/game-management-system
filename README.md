@@ -36,7 +36,7 @@ $ npm run test:cov
 
 ## Migrations
 ```bash
-$ npm run migration:generate -- db/migrations/NewMigrations
+$ npm run migration:generate
 $ npm run migration:run
 ```
 

@@ -1,5 +1,5 @@
-import { FundRepositoryInterface } from './../../../domain/repository/evolution/fund.repository.interface';
-import { RetrieveOperationFailedException } from './../../../domain/exception/retreiveOperationFailed.exception';
+import { FundRepositoryInterface } from '../../../domain/repository/evolution/fund.repository.interface';
+import { RetrieveOperationFailedException } from '../../../domain/exception/retreiveOperationFailed.exception';
 import { GetBalanceDto } from "../../dtos/request/evolution/getBalance.dto";
 import { GetBalanceDto as DomainGetBalanceDto } from "../../../domain/dto/request/evolution/getBalance.dto";
 import { Inject } from "@nestjs/common";
@@ -23,6 +23,7 @@ export class GetBalanceService {
   @Transactional()
   async getBalance(dto: GetBalanceDto,req: Request,ip: string) { 
     try {
+
       const response = this.repo.request(new DomainGetBalanceDto(dto));
       //activity completed event dispatch
       this.eventDispatcher.dispatch(EventDefinition.ACTIVITY_COMPLETED_EVENT,

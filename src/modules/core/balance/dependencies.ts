@@ -25,6 +25,9 @@ import {
 import {
  GetRebateWalletBalanceRepository
 } from "./infrastructure/persistence/repository/velaGaming/getRebateWalletBalance.repository";
+import {
+ SaveEvolutionTransactionRepository
+} from "./infrastructure/persistence/repository/evolution/saveEvolutionTransaction.repository";
 
 
 export const DependenciesConstants = [
@@ -34,7 +37,7 @@ export const DependenciesConstants = [
  { provide: TYPES.repository.SaveTransactionRepositoryInterface, useClass: SaveTransactionRepository },
  { provide: TYPES.repository.SaveArpTransactionRepositoryInterface, useClass: SaveArpTransactionRepository },
 
- //vela gaming dependicies
+ //vela gaming dependencies
  { provide: TYPES.velaRepository.GetBalanceRepositoryInterface, useClass: GetVelaBalanceRepository },
  { provide: TYPES.velaRepository.GetWalletBalanceRepositoryInterface, useClass: GetWalletBalanceRepository },
  { provide: TYPES.velaRepository.GetRebateWalletBalanceRepositoryInterface, useClass: GetRebateWalletBalanceRepository },
@@ -46,5 +49,6 @@ export const DependenciesConstants = [
 
  //evolution dependencies
  { provide: TYPES.evolutionRepository.FundRepositoryInterface, useClass: FundRepository },
+ { provide: TYPES.evolutionRepository.SaveEvolutionTransactionRepositoryInterface, useClass: SaveEvolutionTransactionRepository },
 
 ];

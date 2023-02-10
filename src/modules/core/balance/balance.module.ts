@@ -8,13 +8,15 @@ import { ArpStudioTransaction } from "./domain/entity/arpStudioTransaction.entit
 import { Controllers } from "./controllers";
 import { VelaGamingTransaction } from "./domain/entity/velaGamingTransaction.entity";
 import { CqrsModule } from "@nestjs/cqrs";
+import {EvolutionTransaction} from "./domain/entity/evolutionTransaction.entity";
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([
       TransactionMain,
       ArpStudioTransaction,
-      VelaGamingTransaction
+      VelaGamingTransaction,
+      EvolutionTransaction
     ]),
     SharedModule, CqrsModule],
   controllers: Controllers,

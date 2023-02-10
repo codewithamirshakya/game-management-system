@@ -27,7 +27,7 @@ export class RecordActivityLog {
         'gamingProvider' : event.gamingProvider,
         'description': event.description,
         'activityType': event.activityType,
-        'userId': event.userId,
+        'user_id': event.userId,
         'browserAgent': event.browserAgent,
         'ipAddress': event.ipAddress,
     });

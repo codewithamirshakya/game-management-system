@@ -1,11 +1,9 @@
 import {DataTransferObject} from "../../../../../../../lib/dto/dataTransferObject";
 
-export class DepositBalanceDto extends DataTransferObject{
-  readonly cCode: string = 'ECR';
+export class WithdrawBalanceDto extends DataTransferObject{
+  readonly cCode: string = 'EDB';
 
   readonly amount: number;
-
-  readonly currency: string;
 
   readonly eTransID: string;
 
