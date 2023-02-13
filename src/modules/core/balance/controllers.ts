@@ -11,6 +11,7 @@ import { WalletController } from "../../../../apps/api/vela/balance/wallet.contr
 import { RebateController } from "../../../../apps/api/vela/balance/rebate.controller";
 import { ListAllRebateTransactionController } from "../../../../apps/api/vela/balance/listAllRebateTransaction.controller";
 import { GetRebateWalletBalanceController } from "../../../../apps/api/vela/balance/getRebateWalletBalance.controller";
+import {TransactionInfoController} from "../../../../apps/api/evolution/balance/transactionInfo.controller";
 
 const ArpStudioControllers = [
   ArpStudioGetController,
@@ -21,7 +22,8 @@ const ArpStudioControllers = [
 const Evolution  = [
   EvolutionGetController,
   EvolutionDepositController,
-  EvolutionWithdrawController
+  EvolutionWithdrawController,
+  TransactionInfoController
 ];
 
 const VelaGamingControllers = [

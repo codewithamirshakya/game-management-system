@@ -1,4 +1,5 @@
 import {DataTransferObject} from "../../../../../../../lib/dto/dataTransferObject";
+import {EvolutionConfig} from "../../../../../../../config/evolution.config";
 
 export class WithdrawBalanceDto extends DataTransferObject{
   readonly cCode: string = 'EDB';
@@ -7,7 +8,7 @@ export class WithdrawBalanceDto extends DataTransferObject{
 
   readonly eTransID: string;
 
-  readonly ecID: string;
+  readonly ecID: string = EvolutionConfig.ecId;
 
   readonly euID: string;
 

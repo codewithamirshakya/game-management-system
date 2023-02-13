@@ -1,6 +1,7 @@
 import { TYPES } from "./application/constants/types";
 import { GetUserByIdRepository } from "./infrastructure/persistence/getUserById.repository";
 import { CreateUserRepository } from "./infrastructure/persistence/create.user.repository";
+import { CreateUserRepository as EvolutionCreateUserRepository} from "./infrastructure/persistence/evolution/create.user.repository";
 import {
   CreateUserRepository as CreateARPStudioUserRepository
 } from "./infrastructure/persistence/arpStudio/create.user.repository";
@@ -13,6 +14,7 @@ import { CreatePlayerRepository } from "./infrastructure/persistence/vela/create
 import {
   GetUserByUsernameAndGameProviderRepository
 } from "./infrastructure/persistence/getUserByUsernameAndGameprovider.repository";
+import {GetUserByUidRepository} from "./infrastructure/persistence/evolution/getUserByUid.repository";
 
 export const DependenciesConstants = [
   {
@@ -31,6 +33,9 @@ export const DependenciesConstants = [
   { provide: TYPES.velaRepository.CreatePlayerRepositoryInterface, useClass: CreatePlayerRepository },
 
   //evolution gaming provider
-  { provide: TYPES.evolutionRepository.GetUserDetailRepositoryInterface, useClass: EvolutionGetUserDetailRepository }
+  { provide: TYPES.evolutionRepository.GetUserDetailRepositoryInterface, useClass: EvolutionGetUserDetailRepository },
+  { provide: TYPES.evolutionRepository.CreateEvolutionUserRepositoryInterface, useClass: EvolutionCreateUserRepository },
+  { provide: TYPES.evolutionRepository.GetUserByUidRepositoryInterface, useClass: GetUserByUidRepository },
+
 
 ];

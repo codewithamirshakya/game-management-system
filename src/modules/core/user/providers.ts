@@ -9,6 +9,7 @@ import {IsUserExistsQueryHandler} from "./application/queryBus/IsUserExistsQuery
 import {UpdateLastLoggedAtCommandHandler} from "./application/commandBus/updateLastLoggedAt.command.handler";
 import {CreatePlayerService} from "./application/services/vela/createPlayer.service";
 import {GetUserQueryHandler} from "./application/queryBus/GetUserQueryHandler";
+import {GetUserQueryHandler as GetEvolutionUserQueryHandler} from "./application/queryBus/evolution/GetUserQueryHandler";
 
 const ArpStudioProviders = [
     GetUserService,
@@ -25,7 +26,8 @@ const VelaGamingProviders = [
 ];
 
 const EvolutionGamingProviders = [
-    EvolutionGetUserDetailService
+    EvolutionGetUserDetailService,
+    GetEvolutionUserQueryHandler,
 ];
 
 export const Providers = [

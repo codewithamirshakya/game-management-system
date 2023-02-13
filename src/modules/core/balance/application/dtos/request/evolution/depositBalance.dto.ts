@@ -1,6 +1,7 @@
 import {  IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString, MaxLength, ValidateIf } from "class-validator";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
+import {EvolutionConfig} from "../../../../../../../config/evolution.config";
 
 export class DepositBalanceDto {
   @Transform(({ value }) => parseInt(value))
@@ -23,13 +24,6 @@ export class DepositBalanceDto {
   @MaxLength(40)
   readonly eTransID: string;
 
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty()
-  @MaxLength(32)
-  readonly ecID: string;
-
-  
   @IsString()
   @IsNotEmpty()
   @ApiPropertyOptional()

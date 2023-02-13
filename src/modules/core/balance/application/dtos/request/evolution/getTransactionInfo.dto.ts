@@ -1,7 +1,7 @@
 import {  IsNotEmpty, IsOptional, IsString, MaxLength, ValidateIf } from "class-validator";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 
-export class GetBalanceDto {
+export class GetTransactionInfoDto {
 
   @IsString()
   @IsNotEmpty()
@@ -23,5 +23,12 @@ export class GetBalanceDto {
   @IsNotEmpty({message: 'Either (uID or euID) parameter is required.'})
   @ApiProperty()
   readonly uID: string;
+
+
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty()
+  @MaxLength(40)
+  readonly eTransID: string;
 
 }

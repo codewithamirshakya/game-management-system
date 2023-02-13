@@ -17,13 +17,7 @@ export class WithdrawBalanceDto {
   @MaxLength(40)
   readonly eTransID: string;
 
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty()
-  @MaxLength(32)
-  readonly ecID: string;
 
-  
   @IsString()
   @IsNotEmpty()
   @ApiPropertyOptional()

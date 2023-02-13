@@ -14,6 +14,8 @@ export const TYPES = {
     },
     evolutionRepository: {
         GetUserDetailRepositoryInterface: 'EvolutionGetUserDetailRepository',
+        CreateEvolutionUserRepositoryInterface: 'CreateEvolutionUserRepositoryInterface',
+        GetUserByUidRepositoryInterface: 'GetUserByUidRepositoryInterface',
     },
 
 };

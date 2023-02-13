@@ -7,7 +7,6 @@ import { Transactional } from "typeorm-transactional";
 import {
   UserAuthenticationFailedException
 } from "../../../domain/exception/evolution/userAuthenticationFailed.exception";
-import { EventDispatcherInterface } from "../../../../../shared/application/EventBus/eventDispatcher.interface";
 import { EventDefinition } from "../../../../shared/application/constants/eventDefinition";
 import { ActivityCompletedEvent } from "../../../../shared/domain/event/activityLog/activityCompleted.event";
 import { GameProviderConstant } from "../../../../shared/application/constants/gameProvider.constant";
@@ -16,11 +15,12 @@ import { SHARED_TYPES } from "../../../../../shared/application/constants/types"
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { CreateUserCommand } from "../../../../shared/domain/command/user/create.user.command";
 import { IsUserExistsQuery } from "../../../../shared/domain/query/user/IsUserExistsQuery";
+import {AsyncEventDispatcherInterface} from "../../../../../shared/application/EventBus/asyncEventDispatcher.interface";
 
 export class AuthenticateService {
   constructor(
     @Inject(TYPES.evolutionRepository.AuthenticateRepositoryInterface) private repo: AuthenticateRepositoryInterface,
-    @Inject(SHARED_TYPES.eventBus.EventDispatcherInterface) private eventDispatcher: EventDispatcherInterface,
+    @Inject(SHARED_TYPES.eventBus.AsyncEventDispatcherInterface) private eventDispatcher: AsyncEventDispatcherInterface,
     private commandBus: CommandBus,
     private queryBus: QueryBus
   ) {}
@@ -32,20 +32,23 @@ export class AuthenticateService {
       const isUserExists = await this.queryBus.execute(new IsUserExistsQuery(dto.player.id,
         GameProviderConstant.EVOLUTION));
       
-      const response = this.repo.authenticate(new DomainAuthenticateDTO(dto));
+      const response = await this.repo.authenticate(new DomainAuthenticateDTO(dto));
 
       if (!isUserExists) {
         await this.commandBus.execute(
           new CreateUserCommand(
             {
               username: dto.player.id,
+              currency: dto.player.currency,
+              country: dto.player.country,
+              uid: response.uid
             },
             GameProviderConstant.EVOLUTION,
             ip)
         );
       }
       //activity completed event dispatch
-      this.eventDispatcher.dispatch(EventDefinition.ACTIVITY_COMPLETED_EVENT,
+      await this.eventDispatcher.dispatch(EventDefinition.ACTIVITY_COMPLETED_EVENT,
         new ActivityCompletedEvent(
           GameProviderConstant.EVOLUTION,
           ActivityTypeConstant.SECURITY,
@@ -54,7 +57,7 @@ export class AuthenticateService {
           req.headers["user-agent"],
         ));
 
-      return response;
+      return response.authenticateResponse;
     } catch (e) {
       throw new UserAuthenticationFailedException(e);
     }

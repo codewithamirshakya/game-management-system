@@ -23,6 +23,9 @@ import {EvolutionTransactionFailedException} from "../../../domain/exception/evo
 import {AsyncEventDispatcherInterface} from "../../../../../shared/application/EventBus/asyncEventDispatcher.interface";
 import {WithdrawBalanceDto} from "../../dtos/request/evolution/withdrawBalance.dto";
 import {WithdrawOperationFailedException} from "../../../domain/exception/withdrawOperationFailed.exception";
+import {
+    IsUserExistsValidationService as EvolutionIsUserExistsValidationService
+} from "../validation/evolution/IsUserExistsValidation.service";
 
 export class WithdrawBalanceService {
     constructor(
@@ -31,14 +34,22 @@ export class WithdrawBalanceService {
         @Inject(TYPES.repository.SaveTransactionRepositoryInterface) private saveTransactionRepo: SaveTransactionRepositoryInterface,
         @Inject(TYPES.evolutionRepository.SaveEvolutionTransactionRepositoryInterface) private saveEvolutionTransactionRepo: SaveEvolutionTransactionRepositoryInterface,
         private userExistsValidationService: IsUserExistsValidationService,
+        private evolutionUserExistsValidationService: EvolutionIsUserExistsValidationService,
     ) {
     }
 
     @Transactional()
     public async withdrawBalance(dto: WithdrawBalanceDto, req: Request, ip: string) {
-        const userID = dto.euID ? dto.euID : dto.uID;
         // validation
-        const user = await this.userExistsValidationService.isUserExists(userID, GameProviderConstant.EVOLUTION);
+        let user;
+        // validation
+        if(dto.euID) {
+            user = await this.userExistsValidationService.isUserExists(dto.euID, GameProviderConstant.EVOLUTION);
+            user = user.id;
+        } else {
+            user = await this.evolutionUserExistsValidationService.isUserExists(dto.uID);
+            user = user.userId;
+        }
         try {
 
             const response = await this.repo.request(new DomainWithdrawBalanceDto(dto));
@@ -53,7 +64,7 @@ export class WithdrawBalanceService {
                         type: TransactionTypeConstant.WITHDRAW,
                         status: 1,
                         amount: dto.amount,
-                        user_id: user.id,
+                        user_id: user,
                         currency_code: "USD",
                         game_provider: GameProviderConstant.EVOLUTION
                     }
@@ -76,7 +87,7 @@ export class WithdrawBalanceService {
                     "[Funds withdrawn from evolution's player wallet successfully.]",
                     ip,
                     req.headers["user-agent"],
-                    user.id
+                    user
                 ));
             return response;
         } catch (e) {

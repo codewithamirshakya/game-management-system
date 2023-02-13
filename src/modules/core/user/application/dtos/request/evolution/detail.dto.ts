@@ -3,13 +3,7 @@ import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 
 export class DetailDto {
 
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty()
-  @MaxLength(32)
-  readonly ecID: string;
 
-  
   @IsString()
   @IsNotEmpty()
   @ApiPropertyOptional()

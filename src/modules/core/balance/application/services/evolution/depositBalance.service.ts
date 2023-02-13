@@ -12,6 +12,7 @@ import {
 import {DepositOperationFailedException} from "../../../domain/exception/depositOperationFailed.exception";
 import {DepositBalanceDto} from "../../dtos/request/evolution/depositBalance.dto";
 import {IsUserExistsValidationService} from "../validation/IsUserExistsValidation.service";
+import {IsUserExistsValidationService as EvolutionIsUserExistsValidationService} from "../validation/evolution/IsUserExistsValidation.service";
 import {SHARED_TYPES} from "../../../../../shared/application/constants/types";
 import {FundRepositoryInterface} from "../../../domain/repository/evolution/fund.repository.interface";
 import {
@@ -31,17 +32,16 @@ export class DepositBalanceService {
         @Inject(TYPES.repository.SaveTransactionRepositoryInterface) private saveTransactionRepo: SaveTransactionRepositoryInterface,
         @Inject(TYPES.evolutionRepository.SaveEvolutionTransactionRepositoryInterface) private saveEvolutionTransactionRepo: SaveEvolutionTransactionRepositoryInterface,
         private userExistsValidationService: IsUserExistsValidationService,
+        private evolutionUserExistsValidationService: EvolutionIsUserExistsValidationService,
     ) {
     }
 
     @Transactional()
     public async depositBalance(dto: DepositBalanceDto, req: Request, ip: string) {
-        // if(dto.euID) {
+        let user;
             // validation
-            const user = await this.userExistsValidationService.isUserExists(dto.euID, GameProviderConstant.EVOLUTION);
-        // }
-        try {
 
+        try {
             const response = await this.repo.request(new DomainDepositBalanceDto(dto));
             if(response.transfer.result._text === 'N') {
                 throw new EvolutionTransactionFailedException(response);
@@ -54,7 +54,7 @@ export class DepositBalanceService {
                         type: TransactionTypeConstant.DEPOSIT,
                         status: 1,
                         amount: dto.amount,
-                        user_id: user.id,
+                        user_id: user,
                         currency_code: dto.currency ? dto.currency : "PHP",
                         game_provider: GameProviderConstant.EVOLUTION
                     }
@@ -77,7 +77,7 @@ export class DepositBalanceService {
                     "[Funds transfer to evolution's player wallet successfully.]",
                     ip,
                     req.headers["user-agent"],
-                    user.id
+                    user,
                 ));
             return response;
         } catch (e) {

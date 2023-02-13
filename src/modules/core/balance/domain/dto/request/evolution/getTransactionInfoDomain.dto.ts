@@ -1,9 +1,9 @@
 import { DataTransferObject } from '../../../../../../../lib/dto/dataTransferObject';
 import {EvolutionConfig} from "../../../../../../../config/evolution.config";
 
-export class GetBalanceDto extends DataTransferObject {
+export class GetTransactionInfoDomainDto extends DataTransferObject {
   
-  readonly cCode: string = 'RWA';
+  readonly cCode: string = 'TRI';
 
   readonly ecID: string = EvolutionConfig.ecId;
 
@@ -12,5 +12,6 @@ export class GetBalanceDto extends DataTransferObject {
   readonly output: string;
 
   readonly uID: string;
+  readonly eTransID: string;
 
 }

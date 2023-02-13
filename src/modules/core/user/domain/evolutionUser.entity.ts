@@ -1,12 +1,14 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn} from 'typeorm';
+import {User} from "./user.entity";
 
 @Entity()
 export class EvolutionUser {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({type: 'int'})
-    user_id: number; // this is euid
+    @OneToOne((type) => User, (user) => user.id)
+    @JoinColumn()
+    user: User; // this can be refereed euid or main id of main user table
 
     @Column()
     uid: string;
@@ -23,6 +25,6 @@ export class EvolutionUser {
     @Column({type: "timestamp",default: () => "CURRENT_TIMESTAMP" })
     createdAt: Date;
 
-    @Column({type: "timestamp",default: () => "CURRENT_TIMESTAMP" })
+    @Column({type: "timestamp", default: () => "CURRENT_TIMESTAMP"})
     updatedAt: Date;
 }

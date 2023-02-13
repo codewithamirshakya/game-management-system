@@ -5,16 +5,21 @@ import { Inject } from "@nestjs/common";
 import { TYPES } from "../constants/types";
 import { ICreateUserRepositoryInterface } from "../../domain/repository/intefaces/createUser.repository.interface";
 import { CreateUserDto } from "../../domain/dtos/request/create.user.dto";
+import { CreateUserDto as EvolutionCreateUserDTO} from "../../domain/dtos/request/evolution/createUser.dto";
 import { CreateUserDto as CreateArpStudioUserDto } from "../../domain/dtos/request/arpStudio/create.user.dto";
 import {
   ICreateArpStudioUserRepositoryInterface
 } from "../../domain/repository/intefaces/arpStudio/createUser.repository.interface";
+import {
+    CreateUserRepositoryInterface
+} from "../../domain/repository/intefaces/evolution/createUser.repository.interface";
 
 @CommandHandler(CreateUserCommand)
 export class CreateUserCommandHandler implements ICommandHandler<CreateUserCommand>{
   constructor(
     @Inject(TYPES.repository.ICreateUserServiceRepositoryInterface) private userRepo: ICreateUserRepositoryInterface,
     @Inject(TYPES.repository.ICreateArpStudioUserRepositoryInterface) private arpStudioUserRepo: ICreateArpStudioUserRepositoryInterface,
+    @Inject(TYPES.evolutionRepository.CreateEvolutionUserRepositoryInterface) private evolutionUserRepo: CreateUserRepositoryInterface,
   ) {
   }
   async execute(command: CreateUserCommand) {
@@ -63,11 +68,12 @@ export class CreateUserCommandHandler implements ICommandHandler<CreateUserComma
           command.ipAddress
         ));
 
-        await this.arpStudioUserRepo.create(new CreateArpStudioUserDto(
+        await this.evolutionUserRepo.create(new EvolutionCreateUserDTO(
           {
-            user_id: user.id,
-            username: user.username,
-            nickname: command.userData.nickname
+            user: user,
+            country_code: command.userData.country,
+            currency: command.userData.currency,
+            uid: command.userData.uid
           }
         ))
         break;

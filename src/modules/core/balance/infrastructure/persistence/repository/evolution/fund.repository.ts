@@ -11,6 +11,7 @@ export class FundRepository implements FundRepositoryInterface{
   public apiRequestService: ApiRequestService
 
   async request(dto: any){
+    console.log('fund dto', dto);
     return await this.apiRequestService.requestApi(new ApiRequestDto({
       gameProvider : GameProviderConstant.EVOLUTION,
       requestDTO: new EvolutionRequestDto({

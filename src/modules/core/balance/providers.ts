@@ -8,10 +8,12 @@ import { DepositService } from "./application/services/arpStudio/deposit.service
 import { DepositBalanceService as  VelaDepositService} from "./application/services/vela/depositBalance.service";
 import { DepositBalanceService as  EvolutionDepositService} from "./application/services/evolution/depositBalance.service";
 import { IsUserExistsValidationService } from "./application/services/validation/IsUserExistsValidation.service";
+import { IsUserExistsValidationService as IsEvolutionUserExistsValidationService} from "./application/services/validation/evolution/IsUserExistsValidation.service";
 import { GetWalletBalanceService } from "./application/services/vela/getWalletBalance.service";
 import { RebateBalanceService } from "./application/services/vela/rebateBalance.service";
 import { ListAllRebateTransactionService } from "./application/services/vela/listAllRebateTransaction.service";
 import { GetRebateWalletBalanceService } from "./application/services/vela/getRebateWalletBalance.service";
+import {GetTransactionInfoService} from "./application/services/evolution/getTransactionInfo.service";
 
 const VelaGamingProviders = [
     VelaGetBalanceService,
@@ -32,7 +34,9 @@ const ArpStudioProviders =[
 const EvolutionProviders = [
     EvolutionGetBalanceService,
     EvolutionDepositService,
-    EvolutionWithdrawService
+    EvolutionWithdrawService,
+    IsEvolutionUserExistsValidationService,
+    GetTransactionInfoService
 ];
 
 export const Providers = [
