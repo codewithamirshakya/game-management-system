@@ -1,21 +1,35 @@
-import { TYPES } from "./application/constants/types";
+import {TYPES} from "./application/constants/types";
 import {
- ListGameLobbyRepository
+    ListGameLobbyRepository
 } from "./infrastructure/persistence/repository/arpStudio/listGameLobby.repository";
 import {
- GetGameRoadSheetRepository
+    GetGameRoadSheetRepository
 } from "./infrastructure/persistence/repository/arpStudio/getGameRoadSheet.repository";
-import { ListGameRepository } from "./infrastructure/persistence/repository/vela/listGame.repository";
-import { GetGameReportRepository } from "./infrastructure/persistence/repository/vela/getGameReport.repository";
-import { LaunchGameRepository } from "./infrastructure/persistence/repository/vela/launchGame.repository";
+import {ListGameRepository} from "./infrastructure/persistence/repository/vela/listGame.repository";
+import {
+    ListGameRepository as EvolutionListGameRepository
+} from "./infrastructure/persistence/repository/evolution/listGame.repository";
+import {GetGameReportRepository} from "./infrastructure/persistence/repository/vela/getGameReport.repository";
+import {LaunchGameRepository} from "./infrastructure/persistence/repository/vela/launchGame.repository";
+import {
+    GetResultByTokenRepository
+} from "./infrastructure/persistence/repository/evolution/getResultByToken.repository";
+import {
+    GetResultByGameIdRepository
+} from "./infrastructure/persistence/repository/evolution/getResultByGameId.repository";
 
 export const DependenciesConstants = [
- // arp studio
- { provide: TYPES.repository.ListGameLobbyRepositoryInterface, useClass: ListGameLobbyRepository },
- { provide: TYPES.repository.GetGameRoadSheetRepositoryInterface, useClass: GetGameRoadSheetRepository },
+    // arp studio
+    {provide: TYPES.repository.ListGameLobbyRepositoryInterface, useClass: ListGameLobbyRepository},
+    {provide: TYPES.repository.GetGameRoadSheetRepositoryInterface, useClass: GetGameRoadSheetRepository},
 
- // vela gaming
- { provide: TYPES.velaRepository.ListGameRepositoryInterface, useClass: ListGameRepository },
- { provide: TYPES.velaRepository.GetGameReportRepositoryInterface, useClass: GetGameReportRepository },
- { provide: TYPES.velaRepository.LaunchGameRepositoryInterface, useClass: LaunchGameRepository },
+    // vela gaming
+    {provide: TYPES.velaRepository.ListGameRepositoryInterface, useClass: ListGameRepository},
+    {provide: TYPES.velaRepository.GetGameReportRepositoryInterface, useClass: GetGameReportRepository},
+    {provide: TYPES.velaRepository.LaunchGameRepositoryInterface, useClass: LaunchGameRepository},
+
+    //evolution
+    {provide: TYPES.evolutionRepository.ListGameRepositoryInterface, useClass: EvolutionListGameRepository},
+    {provide: TYPES.evolutionRepository.GetResultByTokenRepositoryInterface, useClass: GetResultByTokenRepository},
+    {provide: TYPES.evolutionRepository.GetResultByGameIdRepositoryInterface, useClass: GetResultByGameIdRepository},
 ];

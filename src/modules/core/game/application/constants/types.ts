@@ -8,4 +8,9 @@ export const TYPES = {
         LaunchGameRepositoryInterface: 'VelaLaunchGameRepository',
         GetGameReportRepositoryInterface: 'GetGameReportRepository',
     },
+    evolutionRepository: {
+        ListGameRepositoryInterface: 'EvolutionListGameRepository',
+        GetResultByTokenRepositoryInterface: 'EvolutionGetResultByTokenRepository',
+        GetResultByGameIdRepositoryInterface: 'EvolutionGetResultByGameIdRepository',
+    },
 };

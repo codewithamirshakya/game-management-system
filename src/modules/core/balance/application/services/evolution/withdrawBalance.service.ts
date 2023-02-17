@@ -9,7 +9,6 @@ import {SaveTransactionDto} from "../../../domain/dto/request/saveTransaction.dt
 import {
     SaveTransactionDto as SaveEvolutionTransactionDto
 } from "../../../domain/dto/request/evolution/saveTransaction.dto";
-import {IsUserExistsValidationService} from "../validation/IsUserExistsValidation.service";
 import {SHARED_TYPES} from "../../../../../shared/application/constants/types";
 import {FundRepositoryInterface} from "../../../domain/repository/evolution/fund.repository.interface";
 import {
@@ -23,9 +22,7 @@ import {EvolutionTransactionFailedException} from "../../../domain/exception/evo
 import {AsyncEventDispatcherInterface} from "../../../../../shared/application/EventBus/asyncEventDispatcher.interface";
 import {WithdrawBalanceDto} from "../../dtos/request/evolution/withdrawBalance.dto";
 import {WithdrawOperationFailedException} from "../../../domain/exception/withdrawOperationFailed.exception";
-import {
-    IsUserExistsValidationService as EvolutionIsUserExistsValidationService
-} from "../validation/evolution/IsUserExistsValidation.service";
+import {FundTransferValidationService} from "../validation/evolution/fundTransferValidation.service";
 
 export class WithdrawBalanceService {
     constructor(
@@ -33,23 +30,14 @@ export class WithdrawBalanceService {
         @Inject(SHARED_TYPES.eventBus.AsyncEventDispatcherInterface) private eventDispatcher: AsyncEventDispatcherInterface,
         @Inject(TYPES.repository.SaveTransactionRepositoryInterface) private saveTransactionRepo: SaveTransactionRepositoryInterface,
         @Inject(TYPES.evolutionRepository.SaveEvolutionTransactionRepositoryInterface) private saveEvolutionTransactionRepo: SaveEvolutionTransactionRepositoryInterface,
-        private userExistsValidationService: IsUserExistsValidationService,
-        private evolutionUserExistsValidationService: EvolutionIsUserExistsValidationService,
+        private fundTransferValidationService: FundTransferValidationService,
     ) {
     }
 
     @Transactional()
     public async withdrawBalance(dto: WithdrawBalanceDto, req: Request, ip: string) {
         // validation
-        let user;
-        // validation
-        if(dto.euID) {
-            user = await this.userExistsValidationService.isUserExists(dto.euID, GameProviderConstant.EVOLUTION);
-            user = user.id;
-        } else {
-            user = await this.evolutionUserExistsValidationService.isUserExists(dto.uID);
-            user = user.userId;
-        }
+        const userId = await this.fundTransferValidationService.validate(dto);
         try {
 
             const response = await this.repo.request(new DomainWithdrawBalanceDto(dto));
@@ -64,7 +52,7 @@ export class WithdrawBalanceService {
                         type: TransactionTypeConstant.WITHDRAW,
                         status: 1,
                         amount: dto.amount,
-                        user_id: user,
+                        user_id: userId,
                         currency_code: "USD",
                         game_provider: GameProviderConstant.EVOLUTION
                     }
@@ -87,7 +75,7 @@ export class WithdrawBalanceService {
                     "[Funds withdrawn from evolution's player wallet successfully.]",
                     ip,
                     req.headers["user-agent"],
-                    user
+                    userId
                 ));
             return response;
         } catch (e) {

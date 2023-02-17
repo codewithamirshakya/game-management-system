@@ -28,6 +28,9 @@ import {
 import {
  SaveEvolutionTransactionRepository
 } from "./infrastructure/persistence/repository/evolution/saveEvolutionTransaction.repository";
+import {
+ IseTransIdUniqueRepository
+} from "./infrastructure/persistence/repository/evolution/iseTransIdUnique.repository";
 
 
 export const DependenciesConstants = [
@@ -50,5 +53,6 @@ export const DependenciesConstants = [
  //evolution dependencies
  { provide: TYPES.evolutionRepository.FundRepositoryInterface, useClass: FundRepository },
  { provide: TYPES.evolutionRepository.SaveEvolutionTransactionRepositoryInterface, useClass: SaveEvolutionTransactionRepository },
+ { provide: TYPES.evolutionRepository.IseTransIdUniqueRepositoryInterface, useClass: IseTransIdUniqueRepository },
 
 ];

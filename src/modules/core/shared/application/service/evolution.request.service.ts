@@ -11,7 +11,7 @@ export class EvolutionRequestService {
   }
 
   async request(evolutionRequestDTO: EvolutionRequestDto) {
-
+    console.log('dto............',evolutionRequestDTO);
     const url = (evolutionRequestDTO.baseUrl ? evolutionRequestDTO.baseUrl : EvolutionConfig.baseUrl)
       + evolutionRequestDTO.endpoint;
     const params = evolutionRequestDTO.params;
@@ -29,7 +29,6 @@ export class EvolutionRequestService {
                 headers: {
                   "Authorization": "Basic "+EvolutionConfig.authorization,
                 },
-                params: params,
               }
             );
             if(this.isXML(response.data)) {
@@ -38,18 +37,23 @@ export class EvolutionRequestService {
         }
         return response.data;
       } catch (e) {
+          console.log('error response',e);
         if(e.response) {
-          console.log(e.response.data);
           throw new EvolutionApiException('Evolution: External API Error.', e.response.data);
         }
       }
   }
 
   isXML(value: string) {
+    try {
     const xmlString = value.trim();
     if(xmlString.startsWith('<')) {
       return true;
     }
     return false;
+    } catch (e) {
+      return false;
+    }
+
   }
 }

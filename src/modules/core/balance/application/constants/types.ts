@@ -1,3 +1,7 @@
+import {
+    IseTransIdUniqueRepositoryInterface
+} from "../../domain/repository/evolution/iseTransIdUnique.repository.interface";
+
 export const TYPES = {
     repository: {
         GetBalanceRepositoryInterface: 'GetBalanceRepository',
@@ -19,5 +23,6 @@ export const TYPES = {
     evolutionRepository: {
         FundRepositoryInterface: 'EvolutionFundRepository',
         SaveEvolutionTransactionRepositoryInterface: 'SaveEvolutionTransactionRepository',
+        IseTransIdUniqueRepositoryInterface: 'IseTransIdUniqueRepositoryInterface',
     }
 };

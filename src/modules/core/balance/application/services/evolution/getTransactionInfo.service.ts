@@ -12,16 +12,30 @@ import { ActivityTypeConstant } from "../../../../shared/domain/constants/activi
 import { Request } from 'express';
 import {GetTransactionInfoDto} from "../../dtos/request/evolution/getTransactionInfo.dto";
 import {GetTransactionInfoDomainDto} from "../../../domain/dto/request/evolution/getTransactionInfoDomain.dto";
+import {IsUserExistsValidationService} from "../validation/IsUserExistsValidation.service";
+import {
+  IsUserExistsValidationService as EvolutionIsUserExistsValidationService
+} from "../validation/evolution/IsUserExistsValidation.service";
 
 export class GetTransactionInfoService {
   constructor(
     @Inject(TYPES.evolutionRepository.FundRepositoryInterface) private repo: FundRepositoryInterface,
     @Inject(SHARED_TYPES.eventBus.EventDispatcherInterface) private eventDispatcher: EventDispatcherInterface,
+    private userExistsValidationService: IsUserExistsValidationService,
+    private evolutionUserExistsValidationService: EvolutionIsUserExistsValidationService,
   ) {}
 
 
   @Transactional()
   async getTransactionInfo(dto: GetTransactionInfoDto,req: Request,ip: string) {
+    let userId;
+    if(dto.euID) {
+      const user = await this.userExistsValidationService.isUserExists(dto.euID, GameProviderConstant.EVOLUTION);
+      userId = user.id;
+    } else {
+      const user = await this.evolutionUserExistsValidationService.isUserExists(dto.uID);
+      userId = user.userId;
+    }
     try {
       const response = this.repo.request(new GetTransactionInfoDomainDto(dto));
       //activity completed event dispatch
@@ -32,6 +46,7 @@ export class GetTransactionInfoService {
           "[Transaction information fetched successfully.]",
           ip,
           req.headers["user-agent"],
+            userId
         ));
 
       return response;

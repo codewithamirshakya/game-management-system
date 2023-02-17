@@ -14,6 +14,9 @@ import { RebateBalanceService } from "./application/services/vela/rebateBalance.
 import { ListAllRebateTransactionService } from "./application/services/vela/listAllRebateTransaction.service";
 import { GetRebateWalletBalanceService } from "./application/services/vela/getRebateWalletBalance.service";
 import {GetTransactionInfoService} from "./application/services/evolution/getTransactionInfo.service";
+import {
+    FundTransferValidationService
+} from "./application/services/validation/evolution/fundTransferValidation.service";
 
 const VelaGamingProviders = [
     VelaGetBalanceService,
@@ -36,7 +39,8 @@ const EvolutionProviders = [
     EvolutionDepositService,
     EvolutionWithdrawService,
     IsEvolutionUserExistsValidationService,
-    GetTransactionInfoService
+    GetTransactionInfoService,
+    FundTransferValidationService,
 ];
 
 export const Providers = [

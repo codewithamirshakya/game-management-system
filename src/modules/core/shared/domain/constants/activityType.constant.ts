@@ -5,6 +5,5 @@ export const ActivityTypeConstant = {
   'WALLET' : 'Wallet',
   'SECURITY' : 'Security',
   'FUNDS_TRANSFER' : 'Fund Transfer',
-
-
+  'REPORT' : 'Report',
 }

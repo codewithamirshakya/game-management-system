@@ -11,8 +11,6 @@ import {
 } from "../../../domain/dto/request/evolution/saveTransaction.dto";
 import {DepositOperationFailedException} from "../../../domain/exception/depositOperationFailed.exception";
 import {DepositBalanceDto} from "../../dtos/request/evolution/depositBalance.dto";
-import {IsUserExistsValidationService} from "../validation/IsUserExistsValidation.service";
-import {IsUserExistsValidationService as EvolutionIsUserExistsValidationService} from "../validation/evolution/IsUserExistsValidation.service";
 import {SHARED_TYPES} from "../../../../../shared/application/constants/types";
 import {FundRepositoryInterface} from "../../../domain/repository/evolution/fund.repository.interface";
 import {
@@ -24,6 +22,7 @@ import {ActivityCompletedEvent} from "../../../../shared/domain/event/activityLo
 import {ActivityTypeConstant} from "../../../../shared/domain/constants/activityType.constant";
 import {EvolutionTransactionFailedException} from "../../../domain/exception/evolutionTransactionFailed.exception";
 import {AsyncEventDispatcherInterface} from "../../../../../shared/application/EventBus/asyncEventDispatcher.interface";
+import {FundTransferValidationService} from "../validation/evolution/fundTransferValidation.service";
 
 export class DepositBalanceService {
     constructor(
@@ -31,16 +30,14 @@ export class DepositBalanceService {
         @Inject(SHARED_TYPES.eventBus.AsyncEventDispatcherInterface) private eventDispatcher: AsyncEventDispatcherInterface,
         @Inject(TYPES.repository.SaveTransactionRepositoryInterface) private saveTransactionRepo: SaveTransactionRepositoryInterface,
         @Inject(TYPES.evolutionRepository.SaveEvolutionTransactionRepositoryInterface) private saveEvolutionTransactionRepo: SaveEvolutionTransactionRepositoryInterface,
-        private userExistsValidationService: IsUserExistsValidationService,
-        private evolutionUserExistsValidationService: EvolutionIsUserExistsValidationService,
+        private fundTransferValidationService: FundTransferValidationService,
     ) {
     }
 
     @Transactional()
     public async depositBalance(dto: DepositBalanceDto, req: Request, ip: string) {
-        let user;
-            // validation
-
+        // validation
+        const userId = await this.fundTransferValidationService.validate(dto);
         try {
             const response = await this.repo.request(new DomainDepositBalanceDto(dto));
             if(response.transfer.result._text === 'N') {
@@ -54,7 +51,7 @@ export class DepositBalanceService {
                         type: TransactionTypeConstant.DEPOSIT,
                         status: 1,
                         amount: dto.amount,
-                        user_id: user,
+                        user_id: userId,
                         currency_code: dto.currency ? dto.currency : "PHP",
                         game_provider: GameProviderConstant.EVOLUTION
                     }
@@ -77,7 +74,7 @@ export class DepositBalanceService {
                     "[Funds transfer to evolution's player wallet successfully.]",
                     ip,
                     req.headers["user-agent"],
-                    user,
+                    userId,
                 ));
             return response;
         } catch (e) {
