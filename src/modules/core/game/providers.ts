@@ -7,6 +7,7 @@ import { LaunchGameService } from "./application/services/vela/launchGame.servic
 import { LaunchLobbyService } from "./application/services/vela/launchLobby.service";
 import {GetRenderedResultService} from "./application/services/evolution/getRenderedResult.service";
 import {GetRenderedResultByGameIdService} from "./application/services/evolution/getRenderedResultByGameId.service";
+import {GetCasinoLobbyStateService} from "./application/services/evolution/getCasinoLobbyState.service";
 
 const VelaGamingProviders = [
   ListGameService,
@@ -19,7 +20,8 @@ const EvolutionProviders = [
     ListGameService,
     EvolutionListGameService,
     GetRenderedResultService,
-    GetRenderedResultByGameIdService
+    GetRenderedResultByGameIdService,
+    GetCasinoLobbyStateService
 ];
 
 export const Providers = [

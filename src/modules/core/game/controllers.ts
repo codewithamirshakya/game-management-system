@@ -10,6 +10,7 @@ import {GetGameRenderedByTokenController} from "../../../../apps/api/evolution/g
 import {
     GetGameRenderedByGameIdController
 } from "../../../../apps/api/evolution/game/getGameRenderedByGameId.controller";
+import {GetCasinoLobbyStateController} from "../../../../apps/api/evolution/game/getCasinoLobbyState.controller";
 
 const ArpStudioControllers = [
     GameLobbyListController,
@@ -27,7 +28,8 @@ const EvolutionControllers = [
     EvolutionGameListController,
     EvolutionBetsListController,
     GetGameRenderedByTokenController,
-    GetGameRenderedByGameIdController
+    GetGameRenderedByGameIdController,
+    GetCasinoLobbyStateController
 ];
 
 export const Controllers = [

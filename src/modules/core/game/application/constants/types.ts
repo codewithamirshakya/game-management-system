@@ -12,5 +12,6 @@ export const TYPES = {
         ListGameRepositoryInterface: 'EvolutionListGameRepository',
         GetResultByTokenRepositoryInterface: 'EvolutionGetResultByTokenRepository',
         GetResultByGameIdRepositoryInterface: 'EvolutionGetResultByGameIdRepository',
+        GetCasinoStateRepositoryInterface: 'EvolutionGetCasinoStateRepositoryInterface'
     },
 };

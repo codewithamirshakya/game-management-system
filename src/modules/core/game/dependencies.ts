@@ -17,6 +17,7 @@ import {
 import {
     GetResultByGameIdRepository
 } from "./infrastructure/persistence/repository/evolution/getResultByGameId.repository";
+import {GetCasinoStateRepository} from "./infrastructure/persistence/repository/evolution/getCasinoState.repository";
 
 export const DependenciesConstants = [
     // arp studio
@@ -32,4 +33,5 @@ export const DependenciesConstants = [
     {provide: TYPES.evolutionRepository.ListGameRepositoryInterface, useClass: EvolutionListGameRepository},
     {provide: TYPES.evolutionRepository.GetResultByTokenRepositoryInterface, useClass: GetResultByTokenRepository},
     {provide: TYPES.evolutionRepository.GetResultByGameIdRepositoryInterface, useClass: GetResultByGameIdRepository},
+    {provide: TYPES.evolutionRepository.GetCasinoStateRepositoryInterface, useClass: GetCasinoStateRepository},
 ];

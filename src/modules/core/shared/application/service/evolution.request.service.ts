@@ -26,9 +26,12 @@ export class EvolutionRequestService {
             });
           } else {
             response = await this.httpService.axiosRef.get(url, {
-                headers: {
+                headers:
+                    evolutionRequestDTO.headers ?
+                    evolutionRequestDTO.headers :
+                    {
                   "Authorization": "Basic "+EvolutionConfig.authorization,
-                },
+                } ,
               }
             );
             if(this.isXML(response.data)) {
