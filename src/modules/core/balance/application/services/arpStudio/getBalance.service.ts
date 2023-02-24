@@ -11,6 +11,6 @@ export class GetBalanceService {
 
 
   public getBalance(dto: GetBalanceDto) {
-      return this.repo.getBalance(Object.assign(new DomainGetBalanceDto(),dto));
+      return this.repo.getBalance(new DomainGetBalanceDto(dto));
   }
 }

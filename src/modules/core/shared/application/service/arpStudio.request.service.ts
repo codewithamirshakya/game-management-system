@@ -11,13 +11,13 @@ export class ArpStudioRequestService {
 
   async request(arpStudioRequestDTO: ArpStudioRequestDto) {
 
+    delete arpStudioRequestDTO.params.gameProvider;
+
     const url = arpStudioConfig.baseUrl + arpStudioRequestDTO.endpoint;
-    const sign = this.buildSign(arpStudioRequestDTO.params);
+    const sign = this.buildSign({...arpStudioRequestDTO.params,appid: arpStudioConfig.appid});
     const params = new URLSearchParams({
+        appid: arpStudioConfig.appid,
         ...arpStudioRequestDTO.params,
-        appid: arpStudioRequestDTO.params.appid
-          ? arpStudioRequestDTO.params.appid
-          : arpStudioConfig.appid,
         sign: sign,
       }).toString();
 
@@ -38,6 +38,7 @@ export class ArpStudioRequestService {
       // if GET METHOD
     } else {
       try {
+        console.log('final--',url+'?'+params);
         const response = await this.httpService.axiosRef.get(url+'?'+params);
         if(response.data.result >=0) {
           return response.data;

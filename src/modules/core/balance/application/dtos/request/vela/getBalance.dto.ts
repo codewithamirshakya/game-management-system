@@ -2,12 +2,10 @@ import {  IsNotEmpty, IsOptional, IsString } from "class-validator";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 
 export class GetBalanceDto {
-  @IsString()
-  @IsNotEmpty()
-  @ApiPropertyOptional()
-  @IsOptional()
-  readonly host_id?: string;
 
+  constructor(username: string) {
+    this.member_id = username;
+  }
 
   @IsString()
   @IsNotEmpty()

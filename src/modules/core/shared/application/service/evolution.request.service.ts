@@ -11,7 +11,6 @@ export class EvolutionRequestService {
   }
 
   async request(evolutionRequestDTO: EvolutionRequestDto) {
-    console.log('dto............',evolutionRequestDTO);
     const url = (evolutionRequestDTO.baseUrl ? evolutionRequestDTO.baseUrl : EvolutionConfig.baseUrl)
       + evolutionRequestDTO.endpoint;
     const params = evolutionRequestDTO.params;
@@ -32,6 +31,7 @@ export class EvolutionRequestService {
                     {
                   "Authorization": "Basic "+EvolutionConfig.authorization,
                 } ,
+              params: params,
               }
             );
             if(this.isXML(response.data)) {

@@ -1,4 +1,4 @@
-import { GetBalanceDto } from './../../../../src/modules/core/balance/application/dtos/request/evolution/getBalance.dto';
+import { GetBalanceDto } from "../../../../src/modules/core/balance/application/dtos/request/evolution/getBalance.dto";
 import { Controller, Get, Ip, Query, Req, Res, UsePipes, ValidationPipe } from "@nestjs/common";
 import { AbstractController } from "../../../../src/modules/shared/infrastructure/controller/api/abstract.controller";
 import { Response } from "express";
@@ -15,8 +15,9 @@ export class GetController extends AbstractController{
   }
 
   @Get()
-  // @UsePipes(new ValidationPipe({ transform: true }))
+  @UsePipes(new ValidationPipe({ transform: true }))
   async get(@Query() dto: GetBalanceDto,@Res() res : Response, @Req() req,@Ip() ip) {
+
     const response = await this.service.getBalance(dto,req,ip);
     this.successResponse(res,'Player balance fetched successfully.',response)
   }

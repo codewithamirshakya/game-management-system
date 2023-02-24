@@ -3,3 +3,9 @@ export const GameProviderConstant =  {
   'EVOLUTION' : 2,
   'VELA_GAMING' : 3,
 }
+
+export const GameProviderNamesConstants = {
+  'ARP_STUDIO' : 'ARP_STUDIO',
+  'EVOLUTION' : 'EVOLUTION',
+  'VELA_GAMING' : 'VELA_GAMING',
+}

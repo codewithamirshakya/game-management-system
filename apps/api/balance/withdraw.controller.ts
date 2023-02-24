@@ -1,10 +1,10 @@
 import { Body, Controller, Post, Res, UsePipes, ValidationPipe } from "@nestjs/common";
-import { AbstractController } from "../../../../src/modules/shared/infrastructure/controller/api/abstract.controller";
+import { AbstractController } from "../../../src/modules/shared/infrastructure/controller/api/abstract.controller";
 import { Response } from "express";
-import { WithdrawService } from "../../../../src/modules/core/balance/application/services/arpStudio/withdraw.service";
+import { WithdrawService } from "../../../src/modules/core/balance/application/services/arpStudio/withdraw.service";
 import {
   WithdrawBalanceDto
-} from "../../../../src/modules/core/balance/application/dtos/request/arpStudio/withdrawBalance.dto";
+} from "../../../src/modules/core/balance/application/dtos/request/arpStudio/withdrawBalance.dto";
 
 @Controller('arp-studio/balance/withdraw')
 export class WithdrawController extends AbstractController{
