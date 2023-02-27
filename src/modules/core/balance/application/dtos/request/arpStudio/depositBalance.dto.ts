@@ -3,10 +3,6 @@ import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
 
 export class DepositBalanceDto {
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty()
-  readonly appid: string;
 
   @IsString()
   @IsNotEmpty()

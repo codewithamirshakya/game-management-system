@@ -14,20 +14,20 @@ import { GetRebateWalletBalanceController } from "../../../../apps/api/vela/bala
 import {TransactionInfoController} from "../../../../apps/api/evolution/balance/transactionInfo.controller";
 
 const ArpStudioControllers = [
-  ArpStudioGetController,
+  // ArpStudioGetController,
   WithdrawController,
-  DepositController
+  // DepositController
 ];
 
 const Evolution  = [
-  EvolutionGetController,
-  EvolutionDepositController,
+  // EvolutionGetController,
+  // EvolutionDepositController,
   EvolutionWithdrawController,
   TransactionInfoController
 ];
 
 const VelaGamingControllers = [
-  VelaDepositController,
+  // VelaDepositController,
   VelaWithdrawController,
   WalletController,
   RebateController,
@@ -40,5 +40,6 @@ export const Controllers = [
   ...ArpStudioControllers,
   ...Evolution,
   GetController,
+  DepositController
 
 ];

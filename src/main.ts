@@ -7,13 +7,15 @@ import { GlobalExceptionFilter } from "./modules/core/main/filter/global.excepti
 import { Logger, LoggerErrorInterceptor } from "nestjs-pino";
 import { Logger as BaseLogger } from '@nestjs/common';
 import {  initializeTransactionalContext } from "typeorm-transactional";
+import { useContainer } from "typeorm";
 
 async function bootstrap() {
   initializeTransactionalContext();
 
   const app = await NestFactory.create(AppModule,{bufferLogs: true
   ,abortOnError: true});
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe({transform: true,
+    whitelist: true,forbidNonWhitelisted: true}));
   app.useGlobalFilters(new GlobalExceptionFilter(app.get(Logger)));
   app.setGlobalPrefix('api');
   app.useLogger(app.get(Logger));
@@ -21,6 +23,8 @@ async function bootstrap() {
   BaseLogger.flush();// flush buffer when application starts
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('api', app, document);
+
+  useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
   await app.listen(8000);
 }

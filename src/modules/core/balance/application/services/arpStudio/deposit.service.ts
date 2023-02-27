@@ -1,7 +1,7 @@
 import { DepositBalanceDto as DomainDepositBalanceDto } from "../../../domain/dto/request/arpStudio/depositBalance.dto";
 import { Inject } from "@nestjs/common";
 import { TYPES } from "../../constants/types";
-import { WithdrawBalanceDto } from "../../dtos/request/arpStudio/withdrawBalance.dto";
+import { DepositBalanceDto } from "../../dtos/request/arpStudio/depositBalance.dto";
 import { Transactional } from "typeorm-transactional";
 import { SaveTransactionRepositoryInterface } from "../../../domain/repository/saveTransaction.repository.interface";
 import { SaveTransactionRepositoryInterface as SaveArpTransactionRepositoryInterface } from
@@ -26,7 +26,7 @@ export class DepositService {
   }
 
   @Transactional()
-  public async depositBalance(dto: WithdrawBalanceDto) {
+  public async depositBalance(dto: DepositBalanceDto) {
     // validation
     const user = await this.userExistsValidationService.isUserExists(dto.username,GameProviderConstant.VELA_GAMING);
     try {

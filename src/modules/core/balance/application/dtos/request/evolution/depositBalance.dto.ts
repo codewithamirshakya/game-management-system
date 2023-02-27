@@ -1,9 +1,15 @@
 import {  IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString, MaxLength, ValidateIf } from "class-validator";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
-import {EvolutionConfig} from "../../../../../../../config/evolution.config";
+import { DepositBalanceDto as MainDepositBalanceDto } from "../main/depositBalance.dto";
 
 export class DepositBalanceDto {
+
+  constructor(dto: MainDepositBalanceDto) {
+     Object.assign(dto,this);
+     this.eTransID = dto.transid;
+  }
+
   @Transform(({ value }) => parseInt(value))
   @IsNumber()
   @IsPositive()
