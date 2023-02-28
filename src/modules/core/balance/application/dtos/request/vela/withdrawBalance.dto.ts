@@ -1,14 +1,15 @@
 import {  IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString } from "class-validator";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
+import { WithdrawBalanceDto as MainWithdrawBalanceDto } from "../main/withdrawBalance.dto";
 
 export class WithdrawBalanceDto {
-  @IsString()
-  @IsNotEmpty()
-  @ApiPropertyOptional()
-  @IsOptional()
-  readonly host_id?: string;
 
+  constructor(dto: MainWithdrawBalanceDto) {
+    this.member_id = dto.username;
+    this.amount = dto.amount;
+    this.transid = dto.transid;
+  }
 
   @IsString()
   @IsNotEmpty()

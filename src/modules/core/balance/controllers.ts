@@ -15,20 +15,20 @@ import {TransactionInfoController} from "../../../../apps/api/evolution/balance/
 
 const ArpStudioControllers = [
   // ArpStudioGetController,
-  WithdrawController,
+  // WithdrawController,
   // DepositController
 ];
 
 const Evolution  = [
   // EvolutionGetController,
   // EvolutionDepositController,
-  EvolutionWithdrawController,
+  // EvolutionWithdrawController,
   TransactionInfoController
 ];
 
 const VelaGamingControllers = [
   // VelaDepositController,
-  VelaWithdrawController,
+  // VelaWithdrawController,
   WalletController,
   RebateController,
   ListAllRebateTransactionController,
@@ -40,6 +40,7 @@ export const Controllers = [
   ...ArpStudioControllers,
   ...Evolution,
   GetController,
-  DepositController
+  DepositController,
+  WithdrawController
 
 ];

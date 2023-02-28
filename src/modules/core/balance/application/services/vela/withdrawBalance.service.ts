@@ -28,6 +28,7 @@ export class WithdrawBalanceService {
 
   @Transactional()
   public async withdrawBalance(dto: WithdrawBalanceDto) {
+    console.log(dto);
     // validation
     const user = await this.userExistsValidationService.isUserExists(dto.member_id,GameProviderConstant.VELA_GAMING);
     try {

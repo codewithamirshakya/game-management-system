@@ -28,7 +28,7 @@ export class WithdrawService {
   @Transactional()
   public async withdrawBalance(dto: WithdrawBalanceDto) {
     // validation
-    const user = await this.userExistsValidationService.isUserExists(dto.username,GameProviderConstant.VELA_GAMING);
+    const user = await this.userExistsValidationService.isUserExists(dto.username,GameProviderConstant.ARP_STUDIO);
     try{
       const response = await this.repo.withdraw(Object.assign(new DomainWithdrawBalanceDto(),dto));
       const mainTransaction = await this.saveTransactionRepo.save(

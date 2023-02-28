@@ -6,8 +6,14 @@ import { DepositBalanceDto as MainDepositBalanceDto } from "../main/depositBalan
 export class DepositBalanceDto {
 
   constructor(dto: MainDepositBalanceDto) {
-     Object.assign(dto,this);
+     this.currency = dto.currency;
+      this.amount = dto.amount;
      this.eTransID = dto.transid;
+     this.euID = dto.euID;
+     this.uID = dto.uID;
+     this.output = dto.output;
+     this.tcheck = dto.tcheck;
+     this.createuser = dto.createuser;
   }
 
   @Transform(({ value }) => parseInt(value))

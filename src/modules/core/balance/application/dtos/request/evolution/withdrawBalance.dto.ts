@@ -1,9 +1,17 @@
 import {  IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString, MaxLength, ValidateIf } from "class-validator";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
+import { WithdrawBalanceDto as MainWithdrawBalanceDto } from "../main/withdrawBalance.dto";
 
 export class WithdrawBalanceDto {
-
+  constructor(dto: MainWithdrawBalanceDto) {
+    this.amount = dto.amount;
+    this.eTransID = dto.transid;
+    this.euID = dto.euID;
+    this.uID = dto.uID;
+    this.output = dto.output;
+    this.tcheck = dto.tcheck;
+  }
   @Transform(({ value }) => parseInt(value))
   @IsNumber()
   @IsPositive()
