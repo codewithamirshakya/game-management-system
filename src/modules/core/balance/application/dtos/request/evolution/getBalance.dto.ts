@@ -1,7 +1,14 @@
 import {  IsNotEmpty, IsOptional, IsString, MaxLength, ValidateIf } from "class-validator";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+import { GetBalanceDto as MainGetBalanceDto } from "../main/getBalance.dto";
 
 export class GetBalanceDto {
+
+  constructor(dto: MainGetBalanceDto) {
+    this.euID = dto.euID;
+    this.uID = dto.uID;
+    this.output = dto.output;
+  }
 
   @IsString()
   @IsNotEmpty()

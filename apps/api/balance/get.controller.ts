@@ -46,7 +46,7 @@ export class GetController extends AbstractController {
         return await this.getArpStudioBalanceService.getBalance(new ArpStudioGetBalanceDto(dto));
       }
       case GamingProviderEnum.EVOLUTION: {
-        return await this.getEvolutionBalanceService.getBalance(dto, req, ip);
+        return await this.getEvolutionBalanceService.getBalance(new EvolutionGetBalanceDto(dto), req, ip);
       }
       case GamingProviderEnum.VELA_GAMING: {
         return await this.getVelaBalanceService.getBalance(new VelaGetBalanceDto(dto.username));

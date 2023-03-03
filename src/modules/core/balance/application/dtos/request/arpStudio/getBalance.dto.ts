@@ -1,14 +1,18 @@
 import { IsInt, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
-import { DataTransferObject } from "../../../../../../../lib/dto/dataTransferObject";
-
-export class GetBalanceDto extends DataTransferObject{
+import { GetBalanceDto as MainGetBalanceDto } from "../main/getBalance.dto";
+export class GetBalanceDto {
+  constructor(dto: MainGetBalanceDto) {
+    this.username = dto.username;
+    this.currenttime = dto.currenttime;
+    this.atype = dto.atype;
+  }
 
   @IsString()
   @ApiProperty()
   @IsNotEmpty()
-  readonly username: string;
+  public readonly username: string;
 
   @Transform(({ value }) => parseInt(value))
   @IsInt()
