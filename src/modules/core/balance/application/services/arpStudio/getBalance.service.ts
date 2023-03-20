@@ -23,6 +23,7 @@ export class GetBalanceService {
     try {
 
       const response = this.repo.getBalance(new DomainGetBalanceDto(dto));
+
       //activity completed event dispatch
       this.eventDispatcher.dispatch(EventDefinition.ACTIVITY_COMPLETED_EVENT,
         new ActivityCompletedEvent(

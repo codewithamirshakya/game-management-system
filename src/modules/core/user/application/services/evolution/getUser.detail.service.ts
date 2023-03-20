@@ -30,7 +30,7 @@ export class GetUserDetailService {
             this.eventDispatcher.dispatch(EventDefinition.ACTIVITY_COMPLETED_EVENT,
                 new ActivityCompletedEvent(
                     GameProviderConstant.EVOLUTION,
-                    ActivityTypeConstant.FUNDS_TRANSFER,
+                    ActivityTypeConstant.USER,
                     "[Player information fetched successfully.]",
                     ip,
                     req.headers["user-agent"],

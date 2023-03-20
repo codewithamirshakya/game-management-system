@@ -6,4 +6,5 @@ export const ActivityTypeConstant = {
   'SECURITY' : 'Security',
   'FUNDS_TRANSFER' : 'Fund Transfer',
   'REPORT' : 'Report',
+  'USER' : 'User'
 }

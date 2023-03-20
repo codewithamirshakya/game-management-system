@@ -6,7 +6,6 @@ enum StateType {
 }
 
 export class UpdateUserDto {
-    readonly appid: string;
 
     readonly username: string;
 

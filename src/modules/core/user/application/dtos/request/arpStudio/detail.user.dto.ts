@@ -1,12 +1,13 @@
-import { IsString, IsNotEmpty, IsOptional, IsNumber, IsInt } from "class-validator";
+import { IsString, IsNotEmpty, IsOptional,IsInt } from "class-validator";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
-import { toNumber } from "../../../../../../../lib/utils/cast.utils";
+import { GetDetailDto } from "../common/getDetail.dto";
 export class DetailUserDto {
-    @IsString()
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly appid: string;
+
+    constructor(dto: GetDetailDto) {
+        this.username = dto.username;
+        this.currenttime = dto.currenttime;
+    }
 
     @IsString()
     @ApiProperty()

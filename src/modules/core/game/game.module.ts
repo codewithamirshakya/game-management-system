@@ -4,6 +4,7 @@ import { Providers } from "./providers";
 import { Controllers } from "./controllers";
 import {SharedModule} from "../../shared/shared.module";
 
+
 @Module({
     imports: [SharedModule],
     controllers: Controllers,

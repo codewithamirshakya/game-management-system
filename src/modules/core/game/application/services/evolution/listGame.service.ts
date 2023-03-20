@@ -10,6 +10,7 @@ import {ActivityTypeConstant} from "../../../../shared/domain/constants/activity
 import {SHARED_TYPES} from "../../../../../shared/application/constants/types";
 import {RetreiveGameListFailedException} from "../../../domain/exception/retreiveGameListFailed.exception";
 import {AsyncEventDispatcherInterface} from "../../../../../shared/application/EventBus/asyncEventDispatcher.interface";
+import { EvolutionFormatEnum, ListGameDto } from "../../dtos/request/main/listGame.dto";
 
 export class ListGameService {
     constructor(
@@ -17,11 +18,17 @@ export class ListGameService {
       @Inject(SHARED_TYPES.eventBus.AsyncEventDispatcherInterface) private eventDispatcher: AsyncEventDispatcherInterface,
     ) {}
 
+    public async getActiveGamesList(dto: ListGameDto,req: Request,ip: string) {
+        if(dto.withBets) {
+            return await this.getActiveGamesListWithBet(dto.format,req,ip)
+        }
+        return await this.getActiveGamesListWithClassification(dto.format,req,ip)
+    }
+
     @Transactional()
-    public async getActiveGamesListWithClassification(format: ('plain' | 'object'),req: Request,ip: string) {
+    public async getActiveGamesListWithClassification(format: EvolutionFormatEnum,req: Request,ip: string) {
         try {
             const response = await this.repo.getGameListWithClassification(format);
-            console.log('response',response);
             //activity completed event dispatch
             await this.eventDispatcher.dispatch(EventDefinition.ACTIVITY_COMPLETED_EVENT,
                 new ActivityCompletedEvent(
@@ -34,11 +41,12 @@ export class ListGameService {
 
             return response;
         } catch (e) {
-            throw new RetreiveGameListFailedException(e,'Bets list fetch operation failed.');
+            throw new RetreiveGameListFailedException(e,'Game list fetch operation failed.');
         }
     }
 
-    public async getActiveGamesListWithBet(format: ('plain' | 'object'),req: Request,ip: string) {
+    @Transactional()
+    public async getActiveGamesListWithBet(format: EvolutionFormatEnum,req: Request,ip: string) {
         try {
             const response = await this.repo.getGameListWithBets(format);
             //activity completed event dispatch

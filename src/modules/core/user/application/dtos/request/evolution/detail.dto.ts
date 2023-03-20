@@ -1,8 +1,12 @@
 import {  IsNotEmpty, IsOptional, IsString, MaxLength, ValidateIf } from "class-validator";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+import { GetDetailDto } from "../common/getDetail.dto";
 
 export class DetailDto {
-
+  constructor(dto: GetDetailDto) {
+    this.euID = dto.username;
+    this.output = dto.output;
+  }
 
   @IsString()
   @IsNotEmpty()

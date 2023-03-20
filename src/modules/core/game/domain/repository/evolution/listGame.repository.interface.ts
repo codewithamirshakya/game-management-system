@@ -1,4 +1,6 @@
+import { EvolutionFormatEnum } from "../../../application/dtos/request/main/listGame.dto";
+
 export interface ListGameRepositoryInterface {
-  getGameListWithClassification(format: ('plain' | 'object'));
-  getGameListWithBets(format: ('plain' | 'object'));
+  getGameListWithClassification(format: EvolutionFormatEnum);
+  getGameListWithBets(format: EvolutionFormatEnum);
 }
