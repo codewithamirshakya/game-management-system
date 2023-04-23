@@ -11,32 +11,48 @@ import { RetrieveOperationFailedException } from "../../../domain/exception/retr
 import { Request } from "express";
 import { SHARED_TYPES } from "../../../../../shared/application/constants/types";
 import { EventDispatcherInterface } from "../../../../../shared/application/EventBus/eventDispatcher.interface";
+import { ApiRequestService } from "src/modules/core/shared/application/service/apiRequest.service";
+import { ApiRequestDto } from "src/modules/core/shared/application/dto/apiRequest.dto";
+import { ArpStudioRequestDto } from "src/modules/core/shared/application/dto/arpStudio.request.dto";
+import { ArpStudioBalance } from "../../../interface/arpStudio.interface";
 
 export class GetBalanceService {
   constructor(
-    @Inject(TYPES.repository.GetBalanceRepositoryInterface) private repo: GetBalanceRepositoryInterface,
-    @Inject(SHARED_TYPES.eventBus.EventDispatcherInterface) private eventDispatcher: EventDispatcherInterface,
+    // @Inject(TYPES.repository.GetBalanceRepositoryInterface) private repo: GetBalanceRepositoryInterface,
+    // @Inject(SHARED_TYPES.eventBus.EventDispatcherInterface) private eventDispatcher: EventDispatcherInterface,
+    @Inject(ApiRequestService) public apiRequestService: ApiRequestService
+
   ) {}
 
 
-  public getBalance(dto: GetBalanceDto,req: Request,ip: string) {
+  async getBalance(dto: ArpStudioBalance,req: Request,ip: string) {
     try {
 
-      const response = this.repo.getBalance(new DomainGetBalanceDto(dto));
+      const response = await this.getBalanceArpStudio(dto);
 
       //activity completed event dispatch
-      this.eventDispatcher.dispatch(EventDefinition.ACTIVITY_COMPLETED_EVENT,
-        new ActivityCompletedEvent(
-          GameProviderConstant.ARP_STUDIO,
-          ActivityTypeConstant.FUNDS_TRANSFER,
-          "[Player balance fetched successfully.]",
-          ip,
-          req.headers["user-agent"],
-        ));
-
+      // this.eventDispatcher.dispatch(EventDefinition.ACTIVITY_COMPLETED_EVENT,
+      //   new ActivityCompletedEvent(
+      //     GameProviderConstant.ARP_STUDIO,
+      //     ActivityTypeConstant.FUNDS_TRANSFER,
+      //     "[Player balance fetched successfully.]",
+      //     ip,
+      //     req.headers["user-agent"],
+      //   ));
       return response;
     } catch (e) {
       throw new RetrieveOperationFailedException(e);
     }
+  }
+
+  async getBalanceArpStudio(dto: ArpStudioBalance){
+    return await this.apiRequestService.requestApi(new ApiRequestDto({
+      gameProvider : GameProviderConstant.ARP_STUDIO,
+      requestDTO: new ArpStudioRequestDto({
+        method: 'GET',
+        params: dto,
+        endpoint: 'user/balance'
+      })
+    }));
   }
 }
