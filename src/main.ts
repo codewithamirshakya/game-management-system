@@ -8,10 +8,13 @@ import { Logger, LoggerErrorInterceptor } from "nestjs-pino";
 import { Logger as BaseLogger } from '@nestjs/common';
 import {  initializeTransactionalContext } from "typeorm-transactional";
 import { useContainer } from "typeorm";
+import * as fs from 'fs'
 
+// Use
 async function bootstrap() {
-  initializeTransactionalContext();
+  !fs.existsSync(`./logs/pino.log`) && fs.mkdirSync(`./logs/pino.log`, { recursive: true })
 
+  initializeTransactionalContext();
   const app = await NestFactory.create(AppModule,{bufferLogs: true
   ,abortOnError: true});
   app.useGlobalPipes(new ValidationPipe({transform: true,
