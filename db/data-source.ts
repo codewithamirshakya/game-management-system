@@ -1,5 +1,5 @@
 import { DataSource, DataSourceOptions } from "typeorm";
-
+require('dotenv').config();
 export const dataSourceOptions: DataSourceOptions = {
   type: 'mysql',
   host: process.env.DB_HOST,
