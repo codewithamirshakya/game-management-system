@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { SharedModule } from "../../shared/shared.module";
-import { DependenciesConstants } from "./dependencies";
+// import { DependenciesConstants } from "./dependencies";
 // import { Providers } from "./providers";
 import { TransactionMain } from "./domain/entity/transactionMain.entity";
 import { ArpStudioTransaction } from "./domain/entity/arpStudioTransaction.entity";
