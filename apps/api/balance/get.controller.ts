@@ -1,15 +1,9 @@
 import { Controller, Get, Ip, Query, Req, Res, UsePipes, ValidationPipe } from "@nestjs/common";
 import { AbstractController } from "../../../src/modules/shared/infrastructure/controller/api/abstract.controller";
 import { Response } from "express";
-import {
-  GetBalanceService
-} from "../../../src/modules/core/balance/application/services/arpStudio/getBalance.service";
-import {
-  GetBalanceService as VelaGetBalanceService
-} from "../../../src/modules/core/balance/application/services/vela/getBalance.service";
-import {
-  GetBalanceService as EvolutionGetBalanceService
-} from "../../../src/modules/core/balance/application/services/evolution/getBalance.service";
+import {ArpStudioBalanceService} from "../../../src/modules/core/balance/application/services/arpStudio/getBalance.service";
+import {GetVelaBalanceService,} from "../../../src/modules/core/balance/application/services/vela/getBalance.service";
+import {GetEvolutionBalanceService} from "../../../src/modules/core/balance/application/services/evolution/getBalance.service";
 import { GetBalanceDto } from "../../../src/modules/core/balance/application/dtos/request/main/getBalance.dto";
 import { GetBalanceDto as VelaGetBalanceDto } from "../../../src/modules/core/balance/application/dtos/request/vela/getBalance.dto";
 import { GetBalanceDto as EvolutionGetBalanceDto } from "../../../src/modules/core/balance/application/dtos/request/evolution/getBalance.dto";
@@ -25,9 +19,9 @@ import { ApiTags } from "@nestjs/swagger";
 @Controller("/balance/get")
 export class GetController extends AbstractController {
   constructor(
-    private getArpStudioBalanceService: GetBalanceService,
-    private getVelaBalanceService: VelaGetBalanceService,
-    private getEvolutionBalanceService: EvolutionGetBalanceService
+    private getArpStudioBalanceService: ArpStudioBalanceService,
+    private getVelaBalanceService: GetVelaBalanceService,
+    private getEvolutionBalanceService: GetEvolutionBalanceService
   ) {
     super();
   }

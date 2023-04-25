@@ -11,30 +11,45 @@ import { RetrieveOperationFailedException } from "../../../domain/exception/retr
 import { Request } from "express";
 import { SHARED_TYPES } from "../../../../../shared/application/constants/types";
 import { EventDispatcherInterface } from "../../../../../shared/application/EventBus/eventDispatcher.interface";
+import { ApiRequestDto } from "src/modules/core/shared/application/dto/apiRequest.dto";
+import { VelaRequestDto } from "src/modules/core/shared/application/dto/vela.request.dto";
+import { ApiRequestService } from "src/modules/core/shared/application/service/apiRequest.service";
 
-export class GetBalanceService {
+export class GetVelaBalanceService {
   constructor(
-    @Inject(TYPES.velaRepository.GetBalanceRepositoryInterface) private repo: GetBalanceRepositoryInterface,
-    @Inject(SHARED_TYPES.eventBus.EventDispatcherInterface) private eventDispatcher: EventDispatcherInterface,
+    // @Inject(TYPES.velaRepository.GetBalanceRepositoryInterface) private repo: GetBalanceRepositoryInterface,
+    // @Inject(SHARED_TYPES.eventBus.EventDispatcherInterface) private eventDispatcher: EventDispatcherInterface,
+    public apiRequestService: ApiRequestService
   ) {}
 
 
-  public getBalance(dto: GetBalanceDto,req: Request,ip: string) {
+  async getBalance(dto: GetBalanceDto,req: Request,ip: string) {
     try {
-      const response = this.repo.getBalance(new DomainGetBalanceDto(dto));
+      const response = await this.getVelaGamingBalance(new DomainGetBalanceDto(dto));
       //activity completed event dispatch
-      this.eventDispatcher.dispatch(EventDefinition.ACTIVITY_COMPLETED_EVENT,
-        new ActivityCompletedEvent(
-          GameProviderConstant.VELA_GAMING,
-          ActivityTypeConstant.FUNDS_TRANSFER,
-          "[Player balance fetched successfully.]",
-          ip,
-          req.headers["user-agent"],
-        ));
+      // this.eventDispatcher.dispatch(EventDefinition.ACTIVITY_COMPLETED_EVENT,
+      //   new ActivityCompletedEvent(
+      //     GameProviderConstant.VELA_GAMING,
+      //     ActivityTypeConstant.FUNDS_TRANSFER,
+      //     "[Player balance fetched successfully.]",
+      //     ip,
+      //     req.headers["user-agent"],
+      //   ));
 
       return response;
     } catch (e) {
       throw new RetrieveOperationFailedException(e);
     }
+  }
+
+  async getVelaGamingBalance(dto: GetBalanceDto){
+    return await this.apiRequestService.requestApi(new ApiRequestDto({
+      gameProvider : GameProviderConstant.VELA_GAMING,
+      requestDTO: new VelaRequestDto({
+        method: 'GET',
+        params: dto,
+        endpoint: '/user/balance'
+      })
+    }));
   }
 }

@@ -3,13 +3,13 @@ import { Controller, Get, Ip, Query, Req, Res, UsePipes, ValidationPipe } from "
 import { AbstractController } from "../../../../src/modules/shared/infrastructure/controller/api/abstract.controller";
 import { Response } from "express";
 import { ApiTags } from "@nestjs/swagger";
-import { GetBalanceService } from 'src/modules/core/balance/application/services/evolution/getBalance.service';
+import { GetEvolutionBalanceService } from 'src/modules/core/balance/application/services/evolution/getBalance.service';
 
 @ApiTags('Evolution')
 @Controller('evolution/balance/get')
 export class GetController extends AbstractController{
   constructor(
-    private service : GetBalanceService,
+    private service : GetEvolutionBalanceService,
   ) {
     super();
   }

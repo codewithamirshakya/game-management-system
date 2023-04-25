@@ -16,7 +16,7 @@ import { ApiRequestDto } from "src/modules/core/shared/application/dto/apiReques
 import { ArpStudioRequestDto } from "src/modules/core/shared/application/dto/arpStudio.request.dto";
 import { ArpStudioBalance } from "../../../interface/arpStudio.interface";
 
-export class GetBalanceService {
+export class ArpStudioBalanceService {
   constructor(
     // @Inject(TYPES.repository.GetBalanceRepositoryInterface) private repo: GetBalanceRepositoryInterface,
     // @Inject(SHARED_TYPES.eventBus.EventDispatcherInterface) private eventDispatcher: EventDispatcherInterface,
