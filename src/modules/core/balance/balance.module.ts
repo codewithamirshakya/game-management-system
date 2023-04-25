@@ -5,7 +5,7 @@ import { SharedModule } from "../../shared/shared.module";
 // import { Providers } from "./providers";
 import { TransactionMain } from "./domain/entity/transactionMain.entity";
 import { ArpStudioTransaction } from "./domain/entity/arpStudioTransaction.entity";
-import { Controllers } from "./controllers";
+// import { Controllers } from "./controllers";
 import { VelaGamingTransaction } from "./domain/entity/velaGamingTransaction.entity";
 import { CqrsModule } from "@nestjs/cqrs";
 import {EvolutionTransaction} from "./domain/entity/evolutionTransaction.entity";
