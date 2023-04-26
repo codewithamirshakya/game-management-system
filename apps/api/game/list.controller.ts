@@ -2,19 +2,22 @@ import { Controller, Get, Ip, Query, Req, Res } from "@nestjs/common";
 import { Request, Response } from "express";
 import { ApiTags } from "@nestjs/swagger";
 import { AbstractController } from "../../../src/modules/shared/infrastructure/controller/api/abstract.controller";
-import { ListGameService as EvolutionListGameService} from "../../../src/modules/core/game/application/services/evolution/listGame.service";
-import { ListGameLobbyService as ArpStudioListGameLobbyService} from "../../../src/modules/core/game/application/services/arpStudio/listGameLobby.service";
-import { ListGameService as VelaListGameService} from "../../../src/modules/core/game/application/services/vela/listGame.service";
+// import { ListGameService as EvolutionListGameService} from "../../../src/modules/core/game/application/services/evolution/listGame.service";
+// import { ListGameLobbyService as ArpStudioListGameLobbyService} from "../../../src/modules/core/game/application/services/arpStudio/listGameLobby.service";
+// import { ListGameService as VelaListGameService} from "../../../src/modules/core/game/application/services/vela/listGame.service";
 import { GamingProviderEnum } from "../../../src/modules/core/shared/domain/interface/RequestInterface";
 import {
   UnknownGamingProviderException
 } from "../../../src/modules/core/shared/domain/exception/unknownGamingProvider.exception";
 import { ListGameDto } from "../../../src/modules/core/game/application/dtos/request/main/listGame.dto";
 import { ListGameLobbyDto } from "../../../src/modules/core/game/application/dtos/request/arpStudio/listGameLobby.dto";
+import { EvolutionListGameService } from "src/modules/core/game/application/services/evolution/listGame.service";
+import { VelaListGameService } from "src/modules/core/game/application/services/vela/listGame.service";
+import { ArpStudioListGameLobbyService } from "src/modules/core/game/application/services/arpStudio/listGameLobby.service";
 
 @ApiTags('General')
 @Controller('games/list')
-export class ListController extends AbstractController{
+export class GameListController extends AbstractController{
   constructor(
     private evolutionService : EvolutionListGameService,
     private velaService : VelaListGameService,
@@ -32,7 +35,7 @@ export class ListController extends AbstractController{
 
     switch (dto.gameProvider) {
       case GamingProviderEnum.ARP_STUDIO: {
-        return await this.arpStudioService.getList(new ListGameLobbyDto(dto),req,ip);
+        return await this.arpStudioService.getArpStudioGameList(new ListGameLobbyDto(dto),req,ip);
       }
       case GamingProviderEnum.EVOLUTION: {
         return await this.evolutionService.getActiveGamesList(dto, req, ip);

@@ -11,11 +11,15 @@ import {SHARED_TYPES} from "../../../../../shared/application/constants/types";
 import {RetreiveGameListFailedException} from "../../../domain/exception/retreiveGameListFailed.exception";
 import {AsyncEventDispatcherInterface} from "../../../../../shared/application/EventBus/asyncEventDispatcher.interface";
 import { EvolutionFormatEnum, ListGameDto } from "../../dtos/request/main/listGame.dto";
+import { ApiRequestService } from "src/modules/core/shared/application/service/apiRequest.service";
+import { ApiRequestDto } from "src/modules/core/shared/application/dto/apiRequest.dto";
+import { EvolutionRequestDto } from "src/modules/core/shared/application/dto/evolution.request.dto";
 
-export class ListGameService {
+export class EvolutionListGameService {
     constructor(
-      @Inject(TYPES.evolutionRepository.ListGameRepositoryInterface) private repo: ListGameRepositoryInterface,
+    //   @Inject(TYPES.evolutionRepository.ListGameRepositoryInterface) private repo: ListGameRepositoryInterface,
       @Inject(SHARED_TYPES.eventBus.AsyncEventDispatcherInterface) private eventDispatcher: AsyncEventDispatcherInterface,
+      @Inject(ApiRequestService)  public apiRequestService: ApiRequestService
     ) {}
 
     public async getActiveGamesList(dto: ListGameDto,req: Request,ip: string) {
@@ -28,7 +32,7 @@ export class ListGameService {
     @Transactional()
     public async getActiveGamesListWithClassification(format: EvolutionFormatEnum,req: Request,ip: string) {
         try {
-            const response = await this.repo.getGameListWithClassification(format);
+            const response = await this.getGameListWithClassification(format);
             //activity completed event dispatch
             await this.eventDispatcher.dispatch(EventDefinition.ACTIVITY_COMPLETED_EVENT,
                 new ActivityCompletedEvent(
@@ -48,7 +52,7 @@ export class ListGameService {
     @Transactional()
     public async getActiveGamesListWithBet(format: EvolutionFormatEnum,req: Request,ip: string) {
         try {
-            const response = await this.repo.getGameListWithBets(format);
+            const response = await this.getGameListWithBets(format);
             //activity completed event dispatch
             await this.eventDispatcher.dispatch(EventDefinition.ACTIVITY_COMPLETED_EVENT,
                 new ActivityCompletedEvent(
@@ -63,5 +67,29 @@ export class ListGameService {
         } catch (e) {
             throw new RetreiveGameListFailedException(e,'Bets list fetch operation failed.');
         }
+    }
+
+
+
+    getGameListWithClassification(format: string): Promise<any> {
+      return this.apiRequestService.requestApi(new ApiRequestDto({
+        gameProvider : GameProviderConstant.EVOLUTION,
+        requestDTO: new EvolutionRequestDto({
+          method: 'GET',
+          params: {},
+          endpoint: '/api/classification/v1/games'+(format === 'plain' ? '/plain' : '')
+        })
+      }));
+    }
+
+    getGameListWithBets(format: string): Promise<any> {
+      return this.apiRequestService.requestApi(new ApiRequestDto({
+        gameProvider : GameProviderConstant.EVOLUTION,
+        requestDTO: new EvolutionRequestDto({
+          method: 'GET',
+          params: {},
+          endpoint: '/api/classification/v1/bets'+(format === 'plain' ? '/plain' : '')
+        })
+      }));
     }
 }

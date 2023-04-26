@@ -14,16 +14,20 @@ import { SHARED_TYPES } from "../../../../../shared/application/constants/types"
 import {
     AsyncEventDispatcherInterface
 } from "../../../../../shared/application/EventBus/asyncEventDispatcher.interface";
+import { ArpStudioRequestService } from "src/modules/core/shared/application/service/arpStudio.request.service";
+import { ListGameLobbyDomainDto } from "../../../domain/dto/request/arpStudio/listGameLobby.domain.dto";
+import { ArpStudioRequestDto } from "src/modules/core/shared/application/dto/arpStudio.request.dto";
 
-export class ListGameLobbyService {
+export class ArpStudioListGameLobbyService {
     constructor(
-      @Inject(TYPES.repository.ListGameLobbyRepositoryInterface) private repo: ListGameLobbyRepositoryInterface,
+      // @Inject(TYPES.repository.ListGameLobbyRepositoryInterface) private repo: ListGameLobbyRepositoryInterface,
       @Inject(SHARED_TYPES.eventBus.AsyncEventDispatcherInterface) private eventDispatcher: AsyncEventDispatcherInterface,
+      @Inject(ArpStudioRequestService) public arpStudioRequestService: ArpStudioRequestService
     ) {}
 
-    public async getList(dto: ListGameLobbyDto,req: Request,ip: string) {
+     async getArpStudioGameList(dto: ListGameLobbyDto,req: Request,ip: string) {
         try {
-            const response = await this.repo.getList(dto);
+            const response = await this.getArpStudioGamesList(dto);
             //activity completed event dispatch
             await this.eventDispatcher.dispatch(EventDefinition.ACTIVITY_COMPLETED_EVENT,
               new ActivityCompletedEvent(
@@ -33,10 +37,18 @@ export class ListGameLobbyService {
                 ip,
                 req.headers["user-agent"],
               ));
-
             return response;
         } catch (e) {
             throw new RetreiveGameListFailedException(e,'Game list fetch operation failed.');
         }
+    }
+
+
+    getArpStudioGamesList(dto: ListGameLobbyDomainDto): Promise<any> {
+      return this.arpStudioRequestService.request(new ArpStudioRequestDto({
+        method: 'GET',
+        params: dto,
+        endpoint: '/client/game/lobby'
+      }));
     }
 }
