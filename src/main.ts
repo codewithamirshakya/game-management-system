@@ -12,7 +12,7 @@ import * as fs from 'fs'
 
 // Use
 async function bootstrap() {
-  !fs.existsSync(`./logs/pino.log`) && fs.mkdirSync(`./logs/pino.log`, { recursive: true })
+  !fs.existsSync(`./logs/pino.log`) && fs.createReadStream(`./logs/pino.log`)
 
   initializeTransactionalContext();
   const app = await NestFactory.create(AppModule,{bufferLogs: true
