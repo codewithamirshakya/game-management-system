@@ -16,7 +16,7 @@
 // import {GetTransactionInfoService} from "./application/services/evolution/getTransactionInfo.service";
 // import {
 //     FundTransferValidationService
-// } from "./application/services/validation/evolution/fundTransferValidation.service";
+
 
 // const VelaGamingProviders = [
 //     VelaGetBalanceService,
