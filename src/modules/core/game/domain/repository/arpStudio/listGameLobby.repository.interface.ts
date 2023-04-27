@@ -1,5 +1,5 @@
-import { ListGameLobbyDomainDto } from "../../dto/request/arpStudio/listGameLobby.domain.dto";
+// import { ListGameLobbyDomainDto } from "../../dto/request/arpStudio/listGameLobby.domain.dto";
 
-export interface ListGameLobbyRepositoryInterface {
-  getList(dto:ListGameLobbyDomainDto);
-}
+// export interface ListGameLobbyRepositoryInterface {
+//   getList(dto:ListGameLobbyDomainDto);
+// }
