@@ -1,9 +1,9 @@
 import { Inject } from "@nestjs/common";
 import { TYPES } from "../../constants/types";
 import { ListGameLobbyDto } from "../../dtos/request/arpStudio/listGameLobby.dto";
-import {
-    ListGameLobbyRepositoryInterface
-} from "../../../domain/repository/arpStudio/listGameLobby.repository.interface";
+// import {
+//     ListGameLobbyRepositoryInterface
+// } from "../../../domain/repository/arpStudio/listGameLobby.repository.interface";
 import { Request } from "express";
 import { EventDefinition } from "../../../../shared/application/constants/eventDefinition";
 import { ActivityCompletedEvent } from "../../../../shared/domain/event/activityLog/activityCompleted.event";

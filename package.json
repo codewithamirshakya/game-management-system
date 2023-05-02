@@ -21,7 +21,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "typeorm": "npm run build && npx typeorm -d dist/db/data-source.js",
     "migration:generate": "npm run typeorm migration:generate db/migrations/newmigration",
-    "migration:create": "npx typeorm migration:create ./db/migrations/%npm_config_name%",
+    "migration:create": "npx typeorm migration:create ./db/migrations/${npm_config_name}",
     "migration:run": "npm run typeorm -- migration:run",
     "migration:revert": "npm run typeorm -- migration:revert"
   },
