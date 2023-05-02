@@ -19,7 +19,7 @@ import { ArpStudioBalance } from "../../../interface/arpStudio.interface";
 export class ArpStudioBalanceService {
   constructor(
     // @Inject(TYPES.repository.GetBalanceRepositoryInterface) private repo: GetBalanceRepositoryInterface,
-    // @Inject(SHARED_TYPES.eventBus.EventDispatcherInterface) private eventDispatcher: EventDispatcherInterface,
+    @Inject(SHARED_TYPES.eventBus.EventDispatcherInterface) private eventDispatcher: EventDispatcherInterface,
     @Inject(ApiRequestService) public apiRequestService: ApiRequestService
 
   ) {}
@@ -31,14 +31,14 @@ export class ArpStudioBalanceService {
       const response = await this.getBalanceArpStudio(dto);
 
       //activity completed event dispatch
-      // this.eventDispatcher.dispatch(EventDefinition.ACTIVITY_COMPLETED_EVENT,
-      //   new ActivityCompletedEvent(
-      //     GameProviderConstant.ARP_STUDIO,
-      //     ActivityTypeConstant.FUNDS_TRANSFER,
-      //     "[Player balance fetched successfully.]",
-      //     ip,
-      //     req.headers["user-agent"],
-      //   ));
+      this.eventDispatcher.dispatch(EventDefinition.ACTIVITY_COMPLETED_EVENT,
+        new ActivityCompletedEvent(
+          GameProviderConstant.ARP_STUDIO,
+          ActivityTypeConstant.FUNDS_TRANSFER,
+          "[Player balance fetched successfully.]",
+          ip,
+          req.headers["user-agent"],
+        ));
       return response;
     } catch (e) {
       throw new RetrieveOperationFailedException(e);
