@@ -40,9 +40,9 @@ export class DetailController extends AbstractController{
       case GamingProviderEnum.ARP_STUDIO: {
         return await this.detailUserService.getDetail(new DetailUserDto(dto),req,ip);
       }
-      case GamingProviderEnum.EVOLUTION: {
-        return await this.evolutionDetailUserService.getDetail(new DetailDto(dto), req, ip);
-      }
+      // case GamingProviderEnum.EVOLUTION: {
+      //   return await this.evolutionDetailUserService.getDetail(new DetailDto(dto), req, ip);
+      // }
       // case GamingProviderEnum.VELA_GAMING: {
         // return await this.getVelaBalanceService.getBalance(new VelaGetBalanceDto(dto.username),req,ip);
       // }

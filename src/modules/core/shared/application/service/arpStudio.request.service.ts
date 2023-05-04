@@ -10,7 +10,6 @@ export class ArpStudioRequestService {
   constructor(public readonly httpService: HttpService) {}
 
   async request(arpStudioRequestDTO: ArpStudioRequestDto) {
-
     delete arpStudioRequestDTO.params.gameProvider;
 
     const url = arpStudioConfig.baseUrl + arpStudioRequestDTO.endpoint;

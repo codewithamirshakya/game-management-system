@@ -3,7 +3,7 @@ import { AbstractException } from "../../../../../lib/exception/abstract.excepti
 
 export class UserCreationFailedException extends AbstractException{
   private readonly error;
-  constructor(message,error) {
+  constructor(error,message= 'User Create retrieve operation failed.') {
     super(message,HttpStatus.BAD_REQUEST);
     this.error = error;
   }

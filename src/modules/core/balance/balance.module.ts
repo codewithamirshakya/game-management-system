@@ -9,10 +9,13 @@ import { ArpStudioTransaction } from "./domain/entity/arpStudioTransaction.entit
 import { VelaGamingTransaction } from "./domain/entity/velaGamingTransaction.entity";
 import { CqrsModule } from "@nestjs/cqrs";
 import {EvolutionTransaction} from "./domain/entity/evolutionTransaction.entity";
-import { ArpStudioBalanceService } from "./application/services/arpStudio/getBalance.service";
-import { GetVelaBalanceService } from "./application/services/vela/getBalance.service";
-import { GetEvolutionBalanceService } from "./application/services/evolution/getBalance.service";
+// import { ArpStudioBalanceService } from "./application/services/arpStudio/getBalance.service";
+// import { GetVelaBalanceService } from "./application/services/vela/getBalance.service";
+// import { GetEvolutionBalanceService } from "./application/services/evolution/getBalance.service";
 import { GetController } from "apps/api/balance/get.controller";
+import { ArpStudioBalanceService } from "./services/arpStudio/getBalance.service";
+import { GetVelaBalanceService } from "./services/vela/getBalance.service";
+import { GetEvolutionBalanceService } from "./services/evolution/getBalance.service";
 
 @Module({
   imports: [

@@ -38,6 +38,7 @@ $ npm run test:cov
 ```bash
 $ npm run migration:generate
 $ npm run migration:run
+$ npm run migration:create --name='migration name'
 ```
 
 ## Support

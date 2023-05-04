@@ -1,21 +1,21 @@
-import * as moment from "moment";
-import {DataTransferObject} from "../../../../../../../lib/dto/dataTransferObject";
-import {User} from "../../../user.entity";
+// import * as moment from "moment";
+// import {DataTransferObject} from "../../../../../../../lib/dto/dataTransferObject";
+// import {User} from "../../../user.entity";
 
-export class CreateUserDto extends DataTransferObject{
+// export class CreateUserDto extends DataTransferObject{
 
-    user: User;
+//     user: User;
 
-    uid: string;
+//     uid: string;
 
-    country_code: string;
+//     country_code: string;
 
-    currency: string;
+//     currency: string;
 
-    state?: number;
+//     state?: number;
 
-    createdAt?: string;
+//     createdAt?: string;
 
-    updatedAt?: string;
+//     updatedAt?: string;
 
-}
+// }
