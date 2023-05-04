@@ -7,7 +7,7 @@ import { GamingProviderEnum } from "../../../src/modules/core/shared/domain/inte
 import {
   UnknownGamingProviderException
 } from "../../../src/modules/core/shared/domain/exception/unknownGamingProvider.exception";
-import { GetDetailDto } from "../../../src/modules/core/user/application/dtos/request/common/getDetail.dto";
+// import { GetDetailDto } from "../../../src/modules/core/user/application/dtos/request/common/getDetail.dto";
 import { AbstractController } from "../../../src/modules/shared/infrastructure/controller/api/abstract.controller";
 import {
   GetUserDetailService as ArpStudioGetUserDetailService
@@ -15,14 +15,18 @@ import {
 import {
   GetUserDetailService as EvolutionGetUserDetailService
 } from "../../../src/modules/core/user/application/services/evolution/getUser.detail.service";
-import { DetailUserDto } from "../../../src/modules/core/user/application/dtos/request/arpStudio/detail.user.dto";
 import { DetailDto } from "../../../src/modules/core/user/application/dtos/request/evolution/detail.dto";
-
+import { ApiTags } from "@nestjs/swagger";
+import { GetDetailDto } from "src/modules/core/user/dtos/main/getDetail.dto";
+import { DetailUserDto } from "src/modules/core/user/dtos/arpStudio/detail.user.dto";
+import { GetUserDetailArpStudioService } from "src/modules/core/user/services/arpstudio/getUserDetail.service";
+@ApiTags('User')
 @Controller('user/detail')
-export class DetailController extends AbstractController{
+export class UserDetailController extends AbstractController{
   constructor(
-    private detailUserService : ArpStudioGetUserDetailService,
-    private evolutionDetailUserService : EvolutionGetUserDetailService,
+    private detailUserService :GetUserDetailArpStudioService ,
+
+    // private evolutionDetailUserService : EvolutionGetUserDetailService,
   ) {
     super();
   }
@@ -44,7 +48,7 @@ export class DetailController extends AbstractController{
       //   return await this.evolutionDetailUserService.getDetail(new DetailDto(dto), req, ip);
       // }
       // case GamingProviderEnum.VELA_GAMING: {
-        // return await this.getVelaBalanceService.getBalance(new VelaGetBalanceDto(dto.username),req,ip);
+      //   return await this.getVelaBalanceService.getBalance(new VelaGetBalanceDto(dto.username),req,ip);
       // }
       default:
         throw new UnknownGamingProviderException();

@@ -10,9 +10,5 @@ export class BaseRequestDto implements RequestInterface{
   @IsEnum(GamingProviderEnum)
   readonly gameProvider: GamingProviderEnum;
 
-  // @IsObject()
-  // @IsNotEmpty()
-  // @ApiProperty()
-  // readonly request: Object;
 
 }

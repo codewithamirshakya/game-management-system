@@ -1,6 +1,5 @@
 import { IsInt, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
-import { Transform } from "class-transformer";
 import { CreateUserDto as MainCreateUserDto } from "../main/createUser.dto";
 export class CreateUserArpStudioDto {
   constructor(dto: MainCreateUserDto) {
