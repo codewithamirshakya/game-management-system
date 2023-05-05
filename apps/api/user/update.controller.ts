@@ -2,17 +2,20 @@ import { Body, Controller, Ip, Post, Req, Res } from "@nestjs/common";
 import { Request, Response } from "express";
 import { AbstractController } from "../../../src/modules/shared/infrastructure/controller/api/abstract.controller";
 import { UpdateUserService as ArpStudioUpdateUserService } from "../../../src/modules/core/user/application/services/arpStudio/update.user.service";
-import { UpdateUserDto } from "../../../src/modules/core/user/application/dtos/request/common/updateUser.dto";
-import { UpdateUserDto as ArpStudioUpdateUserDto } from "../../../src/modules/core/user/application/dtos/request/arpStudio/update.user.dto";
+
 import { GamingProviderEnum } from "../../../src/modules/core/shared/domain/interface/RequestInterface";
 import {
   UnknownGamingProviderException
 } from "../../../src/modules/core/shared/domain/exception/unknownGamingProvider.exception";
-
+import { ApiTags } from "@nestjs/swagger";
+import { UpdateArpStudioUserService } from "src/modules/core/user/services/arpstudio/updateUser.service";
+import { UpdateUserDto } from "src/modules/core/user/dtos/main/updateUser.dto";
+import { ArpStudioUpdateUserDto } from "src/modules/core/user/dtos/arpStudio/updateUser.dto";
+@ApiTags('User')
 @Controller('user/update')
 export class UpdateController extends AbstractController {
   constructor(
-    private arpStudioUpdateUserService: ArpStudioUpdateUserService
+    private arpStudioUpdateUserService: UpdateArpStudioUserService
   ) {
     super();
   }

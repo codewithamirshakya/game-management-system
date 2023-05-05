@@ -9,14 +9,16 @@ import { UserDetailController } from 'apps/api/user/detail.controller';
 import { GetUserDetailArpStudioService } from './services/arpstudio/getUserDetail.service';
 import { VelaCreateUserService } from './services/vela/createUser.service';
 import { VelaUser } from './entity/createVelaUser.entity';
+import { UpdateController } from 'apps/api/user/update.controller';
+import { UpdateArpStudioUserService } from './services/arpstudio/updateUser.service';
 
 @Module({
     imports: [TypeOrmModule.forFeature([ArpStudioUser,VelaUser]),
         SharedModule,CqrsModule],
-    controllers: [CreateController,UserDetailController],
+    controllers: [CreateController,UserDetailController,UpdateController],
     providers: [
         ArpStudioCreateUserService,GetUserDetailArpStudioService,
-        VelaCreateUserService
+        VelaCreateUserService,UpdateArpStudioUserService
     ],
 })
 
