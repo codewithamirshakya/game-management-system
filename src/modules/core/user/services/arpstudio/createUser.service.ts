@@ -1,5 +1,4 @@
 import { ApiRequestService } from "src/modules/core/shared/application/service/apiRequest.service";
-import { UserCreationFailedException } from "../../domain/exception/userCreationFailed.exception";
 import { createUserArpStudio } from "../../interface/arpStudioCreateUser.interface";
 import { Inject } from "@nestjs/common";
 import { GameProviderConstant } from "src/modules/core/shared/application/constants/gameProvider.constant";
@@ -9,6 +8,7 @@ import { Request } from "express";
 import { InjectRepository } from "@nestjs/typeorm";
 import { ArpStudioUser } from "../../entity/createArpStudio.entity";
 import { DataSource, Repository} from 'typeorm';
+import { UserCreationFailedException } from "../../exception/userCreationFailed.exception";
 
 export class ArpStudioCreateUserService {
     constructor(

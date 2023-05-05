@@ -5,8 +5,8 @@ import { CreateUserDto as MainCreateUserDto } from "../main/createUser.dto";
 export class CreatVelaUserDto {
 
     constructor(dto: MainCreateUserDto) {
-        this.host_id = dto.username;
-        this.member_id = dto.nickname;
+        this.host_id = dto.host_id;
+        this.member_id = dto.member_id;
         this.currency = dto.currency;
 
       }

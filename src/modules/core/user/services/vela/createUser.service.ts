@@ -11,10 +11,16 @@ import { VelaRequestDto } from "src/modules/core/shared/application/dto/vela.req
 import { CreateUserVela } from "../../interface/velaCreateUser.interface";
 import { UserCreationFailedException } from "../../domain/exception/userCreationFailed.exception";
 import { GameProviderConstant } from "src/modules/core/shared/application/constants/gameProvider.constant";
+import { InjectRepository } from "@nestjs/typeorm";
+import { VelaUser } from "../../entity/createVelaUser.entity";
+import { DataSource, Repository } from "typeorm";
+import { UserAlreadyExistsException } from "../../domain/exception/userAlreadyExists.exception";
 
 export class VelaCreateUserService {
   constructor(
-
+    @InjectRepository(VelaUser)
+    private readonly repo: Repository<VelaUser>,
+    private dataSource: DataSource,
   @Inject(ApiRequestService)
   public apiRequestService: ApiRequestService,
   ) {}
@@ -22,10 +28,16 @@ export class VelaCreateUserService {
   @Transactional()
    async create(createPlayerDTO:CreateUserVela,req: Request, ip: string) {
     try {
-
-
-        const response = await this.createPlayer(createPlayerDTO);
+      const userExits = await this.repo.findOneBy({ member_id: createPlayerDTO.member_id });
+        if(userExits){
+          throw new UserAlreadyExistsException()
+        }
+      const serverResponse = await this.createPlayer(createPlayerDTO);
+      if(serverResponse && serverResponse.status_code==0){
+        const insertedData = await this.saveData(createPlayerDTO);
+        const response= this.makeResponseData(insertedData,serverResponse);
         return response;
+      }
     } catch (e) {
       throw new UserCreationFailedException('Player creation failed.',e)
     }
@@ -41,5 +53,36 @@ export class VelaCreateUserService {
         endpoint: '/user/create'
       })
     }));
+  }
+
+  async saveData(data) {
+    const queryRunner = this.dataSource.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+    try {
+      const responseData = this.repo.create({
+        username: data.member_id,
+        member_id:data.member_id,
+        host_id:data.host_id,
+        currency:data?data.currency:null
+
+      });
+      await queryRunner.manager.save(responseData);
+      await queryRunner.commitTransaction();
+      return responseData;
+    } catch (error) {
+      await queryRunner.rollbackTransaction();
+      throw error;
+    } finally {
+      await queryRunner.release();
+    }
+  }
+
+  makeResponseData(data,serverResponse){
+    return {
+      username: data.username,
+      // nickname: data.nickname,
+      // openurl: serverResponse.openurl
+    }
   }
 }
