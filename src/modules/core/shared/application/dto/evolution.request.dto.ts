@@ -10,6 +10,5 @@ export class EvolutionRequestDto {
   public params : any;
   public method : MethodEnum;
   public baseUrl?: string;
-
   public headers?: object;
 }

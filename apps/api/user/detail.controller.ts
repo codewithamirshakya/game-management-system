@@ -9,24 +9,20 @@ import {
 } from "../../../src/modules/core/shared/domain/exception/unknownGamingProvider.exception";
 // import { GetDetailDto } from "../../../src/modules/core/user/application/dtos/request/common/getDetail.dto";
 import { AbstractController } from "../../../src/modules/shared/infrastructure/controller/api/abstract.controller";
-import {
-  GetUserDetailService as ArpStudioGetUserDetailService
-} from "../../../src/modules/core/user/application/services/arpStudio/getUser.detail.service";
-import {
-  GetUserDetailService as EvolutionGetUserDetailService
-} from "../../../src/modules/core/user/application/services/evolution/getUser.detail.service";
+
 import { DetailDto } from "../../../src/modules/core/user/application/dtos/request/evolution/detail.dto";
 import { ApiTags } from "@nestjs/swagger";
 import { GetDetailDto } from "src/modules/core/user/dtos/main/getDetail.dto";
 import { DetailUserDto } from "src/modules/core/user/dtos/arpStudio/detail.user.dto";
 import { GetUserDetailArpStudioService } from "src/modules/core/user/services/arpstudio/getUserDetail.service";
+import { GetUserDetailEvolutionService } from "src/modules/core/user/services/evolution/getDetail.service";
 @ApiTags('User')
 @Controller('user/detail')
 export class UserDetailController extends AbstractController{
   constructor(
     private detailUserService :GetUserDetailArpStudioService ,
 
-    // private evolutionDetailUserService : EvolutionGetUserDetailService,
+    private evolutionDetailUserService : GetUserDetailEvolutionService,
   ) {
     super();
   }
@@ -44,9 +40,9 @@ export class UserDetailController extends AbstractController{
       case GamingProviderEnum.ARP_STUDIO: {
         return await this.detailUserService.getDetail(new DetailUserDto(dto),req,ip);
       }
-      // case GamingProviderEnum.EVOLUTION: {
-      //   return await this.evolutionDetailUserService.getDetail(new DetailDto(dto), req, ip);
-      // }
+      case GamingProviderEnum.EVOLUTION: {
+        return await this.evolutionDetailUserService.getDetail(new DetailDto(dto), req, ip);
+      }
       // case GamingProviderEnum.VELA_GAMING: {
       //   return await this.getVelaBalanceService.getBalance(new VelaGetBalanceDto(dto.username),req,ip);
       // }
