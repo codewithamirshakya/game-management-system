@@ -45,8 +45,8 @@ export class CreateController extends AbstractController {
       }
 
       case GamingProviderEnum.EVOLUTION: {
-        const evolutionDto=dto;
-        return await this.evelutionCreateUserService.create(evolutionDto,req,ip);
+
+        return await this.evelutionCreateUserService.create(dto,req,ip);
       }
       default:
         throw new UnknownGamingProviderException();

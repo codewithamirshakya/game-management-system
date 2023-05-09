@@ -9,13 +9,25 @@ import { AuthenticateDto } from "../../interface/evolution/authenticate.dto";
 import { EvolutionAuthenticateResponse } from "../../interface/evolution/authenticateResponse.interface";
 import { UserAuthenticationFailedException } from "src/modules/core/security/domain/exception/evolution/userAuthenticationFailed.exception";
 import { Request } from "express";
+import { EvolutionUser } from "../../entity/createEvolutionUser.entity";
+import { DataSource, Repository } from "typeorm";
+import { UserAlreadyExistsException } from "../../exception/userAlreadyExists.exception";
 
 export class EvolutionCreateUserService {
-    @Inject(ApiRequestService)
-    public apiRequestService: ApiRequestService
+    constructor(
+        @InjectRepository(EvolutionUser)
+        private readonly repo: Repository<EvolutionUser>,
+        private dataSource: DataSource,
+        @Inject(ApiRequestService) public apiRequestService: ApiRequestService
+
+    ) {}
 
     async create(dto: AuthenticateDto,req: Request, ip: string): Promise<any> {
         try {
+            const userExits= await this.repo.findOneBy({ username: dto.uuid });
+            if(userExits){
+                throw new UserAlreadyExistsException()
+            }
             const authenticate = await this.apiRequestService.requestApi(new ApiRequestDto({
                 gameProvider: GameProviderConstant.EVOLUTION,
                 requestDTO: new EvolutionRequestDto({
@@ -25,9 +37,10 @@ export class EvolutionCreateUserService {
                 })
             }));
             if (authenticate){
-
+                    const insertedData = await this.saveData(dto);
+                    const response= this.makeResponseData(insertedData);
+                    return response;
             }
-
             const userRequestDto = {
                 cCode: 'GUI',
                 ecID: EvolutionConfig.casinoKey + EvolutionConfig.apiToken,
@@ -54,5 +67,35 @@ export class EvolutionCreateUserService {
             throw new UserAuthenticationFailedException(e);
         }
     }
+
+    async saveData(data) {
+        const queryRunner = this.dataSource.createQueryRunner();
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
+        try {
+          const responseData = this.repo.create({
+            username: data.username,
+            uid:data.uid,
+            currency:data.curreny,
+            country:data.country,
+          });
+          await queryRunner.manager.save(responseData);
+          await queryRunner.commitTransaction();
+          return responseData;
+        } catch (error) {
+          await queryRunner.rollbackTransaction();
+          throw error;
+        } finally {
+          await queryRunner.release();
+        }
+      }
+
+      makeResponseData(data){
+        return {
+          username: data.username,
+          currency: data.currency,
+          country: data.country,
+        }
+      }
 
 }

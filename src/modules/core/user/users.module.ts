@@ -13,9 +13,10 @@ import { UpdateController } from 'apps/api/user/update.controller';
 import { UpdateArpStudioUserService } from './services/arpstudio/updateUser.service';
 import { GetUserDetailEvolutionService } from './services/evolution/getDetail.service';
 import { EvolutionCreateUserService } from './services/evolution/createUser.service';
+import { EvolutionUser } from './entity/createEvolutionUser.entity';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([ArpStudioUser,VelaUser]),
+    imports: [TypeOrmModule.forFeature([ArpStudioUser,VelaUser,EvolutionUser]),
         SharedModule,CqrsModule],
     controllers: [CreateController,UserDetailController,UpdateController],
     providers: [
