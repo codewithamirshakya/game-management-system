@@ -31,7 +31,6 @@ export class AuthenticateService {
       //check if user exists already
       const isUserExists = await this.queryBus.execute(new IsUserExistsQuery(dto.player.id,
         GameProviderConstant.EVOLUTION));
-      
       const response = await this.repo.authenticate(new DomainAuthenticateDTO(dto));
 
       if (!isUserExists) {

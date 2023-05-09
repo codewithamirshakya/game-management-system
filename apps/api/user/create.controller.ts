@@ -14,12 +14,15 @@ import { ArpStudioCreateUserService } from "src/modules/core/user/services/arpst
 import { ApiTags } from "@nestjs/swagger";
 import { VelaCreateUserService } from "src/modules/core/user/services/vela/createUser.service";
 import { CreatVelaUserDto } from "src/modules/core/user/dtos/vela/createUser.dto";
+import { EvolutionCreateUserService } from "src/modules/core/user/services/evolution/createUser.service";
+import { CreateEvolutionUserDto } from "src/modules/core/user/dtos/evolution/createUser.dto";
 @ApiTags('User')
 @Controller('user/create')
 export class CreateController extends AbstractController {
   constructor(
     private arpStudioCreateUserService: ArpStudioCreateUserService,
     private velaCreateUserService: VelaCreateUserService,
+    private evelutionCreateUserService: EvolutionCreateUserService,
   ) {
     super();
   }
@@ -39,6 +42,11 @@ export class CreateController extends AbstractController {
 
        case GamingProviderEnum.VELA_GAMING: {
         return await this.velaCreateUserService.create(new CreatVelaUserDto(dto),req,ip);
+      }
+
+      case GamingProviderEnum.EVOLUTION: {
+        const evolutionDto=dto;
+        return await this.evelutionCreateUserService.create(evolutionDto,req,ip);
       }
       default:
         throw new UnknownGamingProviderException();

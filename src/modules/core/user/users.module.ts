@@ -12,6 +12,7 @@ import { VelaUser } from './entity/createVelaUser.entity';
 import { UpdateController } from 'apps/api/user/update.controller';
 import { UpdateArpStudioUserService } from './services/arpstudio/updateUser.service';
 import { GetUserDetailEvolutionService } from './services/evolution/getDetail.service';
+import { EvolutionCreateUserService } from './services/evolution/createUser.service';
 
 @Module({
     imports: [TypeOrmModule.forFeature([ArpStudioUser,VelaUser]),
@@ -19,7 +20,8 @@ import { GetUserDetailEvolutionService } from './services/evolution/getDetail.se
     controllers: [CreateController,UserDetailController,UpdateController],
     providers: [
         ArpStudioCreateUserService,GetUserDetailArpStudioService,
-        VelaCreateUserService,UpdateArpStudioUserService,GetUserDetailEvolutionService
+        VelaCreateUserService,UpdateArpStudioUserService,GetUserDetailEvolutionService,
+        EvolutionCreateUserService
     ],
 })
 
