@@ -20,16 +20,18 @@ export class DepositBalanceDto extends BaseRequestDto{
   @IsNotEmpty()
   readonly username: string;
 
-  @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.ARP_STUDIO]))
-  @IsInt()
-  @IsNotEmpty()
-  readonly atype: number;
 
   @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.ARP_STUDIO]))
   @IsNumber()
   @ApiPropertyOptional()
   @IsOptional()
   readonly tradeno: number;
+
+  @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.ARP_STUDIO]))
+  @IsInt()
+  @ApiPropertyOptional()
+  @IsNotEmpty()
+   atype: number;
 
   @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.ARP_STUDIO]))
   @Transform(({ value }) => parseInt(value))

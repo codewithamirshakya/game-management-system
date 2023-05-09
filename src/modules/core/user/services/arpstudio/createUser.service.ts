@@ -9,6 +9,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { ArpStudioUser } from "../../entity/createArpStudio.entity";
 import { DataSource, Repository} from 'typeorm';
 import { UserCreationFailedException } from "../../exception/userCreationFailed.exception";
+import { UserAlreadyExistsException } from "../../exception/userAlreadyExists.exception";
 
 export class ArpStudioCreateUserService {
     constructor(
@@ -21,18 +22,16 @@ export class ArpStudioCreateUserService {
 
     async create(dto: createUserArpStudio, req: Request, ip: string) {
         try {
-
-            const serverResponse = await this.createUserArpStudio(dto);
+            let serverResponse;
+            serverResponse = await this.createUserArpStudio(dto);
             if (serverResponse) {
                 const userExits = await this.repo.findOneBy({ username: dto.username });
-                if(!userExits){
-                    const insertedData = await this.saveData(dto);
-                    const response= this.makeResponseData(insertedData,serverResponse);
-                    return response;
-
+                if(userExits){
+                  throw new UserAlreadyExistsException()
                 }
-                const response= this.makeResponseData(userExits,serverResponse);
-                return response;
+                const insertedData = await this.saveData(dto,serverResponse);
+                  const response= this.makeResponseData(insertedData,serverResponse);
+                  return response;
             }
         } catch (e) {
             throw new UserCreationFailedException(e);
@@ -50,7 +49,7 @@ export class ArpStudioCreateUserService {
       }));
     }
 
-    async saveData(data) {
+    async saveData(data,serverResponse) {
         const queryRunner = this.dataSource.createQueryRunner();
         await queryRunner.connect();
         await queryRunner.startTransaction();
@@ -58,6 +57,7 @@ export class ArpStudioCreateUserService {
           const responseData = this.repo.create({
             username: data.username,
             nickname:data.nickname,
+            open_url:serverResponse.openurl,
           });
           await queryRunner.manager.save(responseData);
           await queryRunner.commitTransaction();

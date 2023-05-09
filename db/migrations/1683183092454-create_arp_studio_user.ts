@@ -31,6 +31,11 @@ export class createArpStudioUser1683183092454 implements MigrationInterface {
                     default: 0,
                 },
                 {
+                  name: 'open_url',
+                  type: 'text',
+                  isNullable: true,
+              },
+                {
                   name: 'created_at',
                   type: 'timestamp',
                   default: 'NOW()',

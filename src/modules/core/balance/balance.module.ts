@@ -16,6 +16,8 @@ import { GetController } from "apps/api/balance/get.controller";
 import { ArpStudioBalanceService } from "./services/arpStudio/getBalance.service";
 import { GetVelaBalanceService } from "./services/vela/getBalance.service";
 import { GetEvolutionBalanceService } from "./services/evolution/getBalance.service";
+import { ArpStudioDepositService } from "./services/arpStudio/depositBalance.service";
+import { DepositController } from "apps/api/balance/deposit.controller";
 
 @Module({
   imports: [
@@ -26,8 +28,8 @@ import { GetEvolutionBalanceService } from "./services/evolution/getBalance.serv
       EvolutionTransaction
     ]),
     SharedModule, CqrsModule],
-  controllers: [GetController],
-  providers: [ArpStudioBalanceService,GetVelaBalanceService,GetEvolutionBalanceService]
+  controllers: [GetController,DepositController],
+  providers: [ArpStudioBalanceService,GetVelaBalanceService,GetEvolutionBalanceService,ArpStudioDepositService]
 })
 
 export class BalanceModule {

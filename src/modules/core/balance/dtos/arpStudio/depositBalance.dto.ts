@@ -1,8 +1,18 @@
 import { IsInt, IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString } from "class-validator";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
+import { DepositBalanceDto } from "../main/depositBalance.dto";
 
-export class DepositBalanceDto {
+export class ArpStudioDepositBalanceDto {
+
+  constructor(dto: DepositBalanceDto) {
+    this.username = dto.username;
+    // this.currenttime = dto.currenttime;
+    this.notifyid = dto.notifyid;
+    this.amount = dto.amount;
+    this.source = dto.source;
+    this.atype = dto.atype;
+  }
 
   @IsString()
   @IsNotEmpty()
@@ -15,6 +25,7 @@ export class DepositBalanceDto {
   readonly username: string;
 
   @IsInt()
+  @ApiPropertyOptional()
   @IsNotEmpty()
   readonly atype: number;
 

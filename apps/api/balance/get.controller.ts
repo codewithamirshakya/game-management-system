@@ -15,7 +15,7 @@ import {
 } from "../../../src/modules/core/shared/domain/exception/unknownGamingProvider.exception";
 import { ApiTags } from "@nestjs/swagger";
 
-@ApiTags('General')
+@ApiTags('Balance')
 @Controller("/balance/get")
 export class GetController extends AbstractController {
   constructor(

@@ -12,6 +12,9 @@ export class ArpStudioUser {
     @Column()
     nickname: string;
 
+    @Column('text')
+    open_url: string;
+
     @Column({type:"int",default: 0})
     state: number; // 0 for open, -1 prohibited, -2 locked
 

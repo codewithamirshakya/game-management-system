@@ -11,7 +11,6 @@ export class ArpStudioRequestService {
 
   async request(arpStudioRequestDTO: ArpStudioRequestDto) {
     delete arpStudioRequestDTO.params.gameProvider;
-
     const url = arpStudioConfig.baseUrl + arpStudioRequestDTO.endpoint;
     const sign = this.buildSign({...arpStudioRequestDTO.params,appid: arpStudioConfig.appid});
     const params = new URLSearchParams({
