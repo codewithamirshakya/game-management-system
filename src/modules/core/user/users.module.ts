@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { SharedModule } from "../../shared/shared.module";
 import { CqrsModule } from "@nestjs/cqrs";
@@ -14,16 +14,19 @@ import { UpdateArpStudioUserService } from './services/arpstudio/updateUser.serv
 import { GetUserDetailEvolutionService } from './services/evolution/getDetail.service';
 import { EvolutionCreateUserService } from './services/evolution/createUser.service';
 import { EvolutionUser } from './entity/createEvolutionUser.entity';
+import { BalanceModule } from '../balance/balance.module';
 
 @Module({
     imports: [TypeOrmModule.forFeature([ArpStudioUser,VelaUser,EvolutionUser]),
-        SharedModule,CqrsModule],
+        SharedModule,CqrsModule,forwardRef(() => BalanceModule),],
     controllers: [CreateController,UserDetailController,UpdateController],
     providers: [
         ArpStudioCreateUserService,GetUserDetailArpStudioService,
         VelaCreateUserService,UpdateArpStudioUserService,GetUserDetailEvolutionService,
         EvolutionCreateUserService
     ],
+    exports: [ArpStudioCreateUserService]
+
 })
 
 export class UsersModule {}

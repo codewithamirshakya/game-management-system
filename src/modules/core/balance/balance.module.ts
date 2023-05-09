@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { Module, forwardRef } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { SharedModule } from "../../shared/shared.module";
 // import { DependenciesConstants } from "./dependencies";
@@ -18,17 +18,20 @@ import { GetVelaBalanceService } from "./services/vela/getBalance.service";
 import { GetEvolutionBalanceService } from "./services/evolution/getBalance.service";
 import { ArpStudioDepositService } from "./services/arpStudio/depositBalance.service";
 import { DepositController } from "apps/api/balance/deposit.controller";
+import { UsersModule } from "../user/users.module";
+import { ArpStudioBalance } from "./entity/arpStudioBalance.entity";
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([
-      TransactionMain,
+      ArpStudioBalance,
       ArpStudioTransaction,
       VelaGamingTransaction,
       EvolutionTransaction
     ]),
+    forwardRef(() => UsersModule),
     SharedModule, CqrsModule],
-  controllers: [GetController,DepositController],
+  controllers: [GetController,DepositController,],
   providers: [ArpStudioBalanceService,GetVelaBalanceService,GetEvolutionBalanceService,ArpStudioDepositService]
 })
 
