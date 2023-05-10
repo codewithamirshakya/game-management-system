@@ -9,7 +9,7 @@ import {
 } from "../../../../src/modules/core/security/application/dto/request/evolution/authenticate.dto";
 import { ApiTags } from "@nestjs/swagger";
 
-@ApiTags('Evolution')
+// @ApiTags('Evolution')
 @Controller('evolution/security/user-authenticate')
 export class UserAuthenticateController extends AbstractController{
   constructor(

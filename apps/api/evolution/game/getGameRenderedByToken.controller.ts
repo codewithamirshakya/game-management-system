@@ -9,7 +9,7 @@ import {
   GetRenderedResultDto
 } from "../../../../src/modules/core/game/application/dtos/request/evolution/getRenderedResult.dto";
 
-@ApiTags('Evolution')
+// @ApiTags('Evolution')
 @Controller('evolution/games/get-rendered-by-token')
 export class GetGameRenderedByTokenController extends AbstractController{
   constructor(

@@ -2,7 +2,6 @@ import { Body, Controller, Ip, Post, Req, Res, UsePipes, ValidationPipe } from "
 import { AbstractController } from "../../../src/modules/shared/infrastructure/controller/api/abstract.controller";
 import { Request, Response } from "express";
 import { ApiTags } from "@nestjs/swagger";
-import { WithdrawBalanceDto } from "../../../src/modules/core/balance/application/dtos/request/main/withdrawBalance.dto";
 import { GamingProviderEnum } from "../../../src/modules/core/shared/domain/interface/RequestInterface";
 import {
   WithdrawBalanceDto as VelaWithdrawBalanceDto
@@ -10,23 +9,23 @@ import {
 import {
   WithdrawBalanceDto as EvolutionWithdrawBalanceDto
 } from "../../../src/modules/core/balance/application/dtos/request/evolution/withdrawBalance.dto";
-import {
-  WithdrawBalanceDto as ArpStudioWithdrawBalanceDto
-} from "../../../src/modules/core/balance/application/dtos/request/arpStudio/withdrawBalance.dto";
+
 import {
   UnknownGamingProviderException
 } from "../../../src/modules/core/shared/domain/exception/unknownGamingProvider.exception";
-import { WithdrawService as ArpStudioWithdrawService } from "../../../src/modules/core/balance/application/services/arpStudio/withdraw.service";
 import { WithdrawBalanceService as VelaWithdrawService } from "../../../src/modules/core/balance/application/services/vela/withdrawBalance.service";
 import { WithdrawBalanceService as EvolutionWithdrawService } from "../../../src/modules/core/balance/application/services/evolution/withdrawBalance.service";
+import { ArpStudioWithdrawService } from "src/modules/core/balance/services/arpStudio/withdraw.service";
+import { WithdrawBalanceDto } from "src/modules/core/balance/dtos/main/withdrawBalance.dto";
+import { ArpStudioWithdrawBalanceDto } from "src/modules/core/balance/dtos/arpStudio/withdrawBalance.dto";
 
-@ApiTags('General')
+@ApiTags('Balance')
 @Controller('balance/withdraw')
 export class WithdrawController extends AbstractController{
   constructor(
     private arpStudioWithdrawService : ArpStudioWithdrawService,
-    private velaWithdrawService : VelaWithdrawService,
-    private evolutionWithdrawService : EvolutionWithdrawService,
+    // private velaWithdrawService : VelaWithdrawService,
+    // private evolutionWithdrawService : EvolutionWithdrawService,
   ) {super();}
 
   @Post()
@@ -40,14 +39,15 @@ export class WithdrawController extends AbstractController{
 
     switch (dto.gameProvider) {
       case GamingProviderEnum.ARP_STUDIO: {
+        // console.log(new ArpStudioWithdrawBalanceDto(dto));
         return await this.arpStudioWithdrawService.withdrawBalance(new ArpStudioWithdrawBalanceDto(dto));
       }
-      case GamingProviderEnum.VELA_GAMING: {
-        return await this.velaWithdrawService.withdrawBalance(new VelaWithdrawBalanceDto(dto));
-      }
-      case GamingProviderEnum.EVOLUTION: {
-        return await this.evolutionWithdrawService.withdrawBalance(new EvolutionWithdrawBalanceDto(dto),req,ip);
-      }
+      // case GamingProviderEnum.VELA_GAMING: {
+      //   return await this.velaWithdrawService.withdrawBalance(new VelaWithdrawBalanceDto(dto));
+      // }
+      // case GamingProviderEnum.EVOLUTION: {
+      //   return await this.evolutionWithdrawService.withdrawBalance(new EvolutionWithdrawBalanceDto(dto),req,ip);
+      // }
       default:
         throw new UnknownGamingProviderException();
     }

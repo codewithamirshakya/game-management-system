@@ -9,7 +9,7 @@ import {
     GetCasinoTipsService
 } from "../../../../../src/modules/core/report/application/services/evolution/getCasinoTips.service";
 
-@ApiTags('Evolution')
+// @ApiTags('Evolution')
 @Controller('evolution/report/casino/get-tips')
 export class GetTipsController extends AbstractController{
     constructor(

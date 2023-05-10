@@ -9,7 +9,7 @@ import {
   GetRenderedResultByGameIdDto
 } from "../../../../src/modules/core/game/application/dtos/request/evolution/getRenderedResultByGameId.dto";
 
-@ApiTags('Evolution')
+// @ApiTags('Evolution')
 @Controller('evolution/games/get-rendered-by-game-id')
 export class GetGameRenderedByGameIdController extends AbstractController{
   constructor(

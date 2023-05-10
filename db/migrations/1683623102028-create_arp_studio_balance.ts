@@ -42,6 +42,17 @@ export class createArpStudioBalance1683623102028 implements MigrationInterface {
                         isNullable: true,
                     },
                     {
+                        name: 'withdraw_balance',
+                        type: 'double',
+                        isNullable: true,
+                        default: 0,
+                    },
+                    {
+                        name: 'available_balance',
+                        type: 'double',
+                        isNullable: true,
+                    },
+                    {
                         name: 'transaction_date',
                         type: 'timestamp',
                         default: 'NOW()',

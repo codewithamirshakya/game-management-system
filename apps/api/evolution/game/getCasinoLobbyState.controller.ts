@@ -9,7 +9,7 @@ import {
   GetCasinoStateDto
 } from "../../../../src/modules/core/game/application/dtos/request/evolution/getCasinoState.dto";
 
-@ApiTags('Evolution')
+// @ApiTags('Evolution')
 @Controller('evolution/games/get-casino-lobby-state')
 export class GetCasinoLobbyStateController extends AbstractController{
   constructor(

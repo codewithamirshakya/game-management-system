@@ -5,7 +5,7 @@ import { Response } from "express";
 import { ApiTags } from "@nestjs/swagger";
 import { GetEvolutionBalanceService } from 'src/modules/core/balance/application/services/evolution/getBalance.service';
 
-@ApiTags('Evolution')
+// @ApiTags('Evolution')
 @Controller('evolution/balance/get')
 export class GetController extends AbstractController{
   constructor(

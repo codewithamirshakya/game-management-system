@@ -21,6 +21,7 @@ export class WithdrawBalanceDto extends BaseRequestDto{
 
   @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.ARP_STUDIO]))
   @IsInt()
+  @ApiPropertyOptional()
   @IsNotEmpty()
   readonly atype: number;
 

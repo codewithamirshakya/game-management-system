@@ -3,7 +3,7 @@ import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
 import { WithdrawBalanceDto as MainWithdrawBalanceDto } from "../main/withdrawBalance.dto";
 
-export class WithdrawBalanceDto {
+export class ArpStudioWithdrawBalanceDto {
 
   constructor(dto: MainWithdrawBalanceDto) {
     Object.assign(this,dto);
@@ -20,6 +20,7 @@ export class WithdrawBalanceDto {
   readonly username: string;
 
   @IsInt()
+  @ApiPropertyOptional()
   @IsNotEmpty()
   readonly atype: number;
 

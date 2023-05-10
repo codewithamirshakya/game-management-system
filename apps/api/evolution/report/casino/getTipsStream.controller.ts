@@ -9,7 +9,7 @@ import {
     GetCasinoTipsStreamService
 } from "../../../../../src/modules/core/report/application/services/evolution/getCasinoTipsStream..service";
 
-@ApiTags('Evolution')
+// @ApiTags('Evolution')
 @Controller('evolution/report/casino/get-tips-stream')
 export class GetTipsStreamController extends AbstractController{
     constructor(

@@ -9,7 +9,7 @@ import {
   DepositBalanceDto
 } from "../../../../src/modules/core/balance/application/dtos/request/evolution/depositBalance.dto";
 
-@ApiTags('Evolution')
+// @ApiTags('Evolution')
 @Controller('evolution/balance/deposit')
 export class DepositController extends AbstractController{
   constructor(

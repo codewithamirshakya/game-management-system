@@ -20,6 +20,12 @@ export class ArpStudioBalance {
     @Column()
     amount: number;
 
+    @Column()
+    withdraw_balance: number;
+
+    @Column()
+    available_balance: number;
+
     @Column({type: "timestamp",default: () => "CURRENT_TIMESTAMP" })
     transaction_date: Date;
 

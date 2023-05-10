@@ -9,7 +9,7 @@ import {
     GetTransactionInfoDto
 } from "../../../../src/modules/core/balance/application/dtos/request/evolution/getTransactionInfo.dto";
 
-@ApiTags('Evolution')
+// @ApiTags('Evolution')
 @Controller('evolution/balance/transaction-info')
 export class TransactionInfoController extends AbstractController{
     constructor(

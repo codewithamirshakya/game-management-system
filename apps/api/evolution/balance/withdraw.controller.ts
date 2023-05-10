@@ -9,7 +9,7 @@ import {
   WithdrawBalanceDto
 } from "../../../../src/modules/core/balance/application/dtos/request/evolution/withdrawBalance.dto";
 
-@ApiTags('Evolution')
+// @ApiTags('Evolution')
 @Controller('evolution/balance/withdraw')
 export class WithdrawController extends AbstractController{
   constructor(

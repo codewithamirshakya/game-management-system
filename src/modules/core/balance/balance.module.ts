@@ -20,6 +20,8 @@ import { ArpStudioDepositService } from "./services/arpStudio/depositBalance.ser
 import { DepositController } from "apps/api/balance/deposit.controller";
 import { UsersModule } from "../user/users.module";
 import { ArpStudioBalance } from "./entity/arpStudioBalance.entity";
+import { WithdrawController } from "apps/api/balance/withdraw.controller";
+import { ArpStudioWithdrawService } from "./services/arpStudio/withdraw.service";
 
 @Module({
   imports: [
@@ -31,8 +33,10 @@ import { ArpStudioBalance } from "./entity/arpStudioBalance.entity";
     ]),
     forwardRef(() => UsersModule),
     SharedModule, CqrsModule],
-  controllers: [GetController,DepositController,],
-  providers: [ArpStudioBalanceService,GetVelaBalanceService,GetEvolutionBalanceService,ArpStudioDepositService]
+  controllers: [GetController,DepositController,WithdrawController],
+  providers: [ArpStudioBalanceService,GetVelaBalanceService,
+    GetEvolutionBalanceService,ArpStudioDepositService,ArpStudioWithdrawService
+  ]
 })
 
 export class BalanceModule {

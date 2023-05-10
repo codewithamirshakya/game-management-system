@@ -9,7 +9,7 @@ import {
     GetPlayersGameReportDto
 } from "../../../../../src/modules/core/report/application/dtos/request/evolution/getPlayersGameReport.dto";
 
-@ApiTags('Evolution')
+// @ApiTags('Evolution')
 @Controller('evolution/report/casino/get-players-game-report')
 export class GetPlayersGamesReportController extends AbstractController{
     constructor(
