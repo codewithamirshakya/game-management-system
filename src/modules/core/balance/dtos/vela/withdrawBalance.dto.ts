@@ -3,10 +3,11 @@ import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
 import { WithdrawBalanceDto as MainWithdrawBalanceDto } from "../main/withdrawBalance.dto";
 
-export class WithdrawBalanceDto {
+export class VelaWithdrawBalanceDto {
 
   constructor(dto: MainWithdrawBalanceDto) {
     this.member_id = dto.username;
+    this.host_id = dto.host_id;
     this.amount = dto.amount;
     this.transid = dto.transid;
   }
@@ -15,6 +16,12 @@ export class WithdrawBalanceDto {
   @IsNotEmpty()
   @ApiProperty()
   readonly member_id: string;
+
+
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty()
+  readonly host_id: string;
 
   @Transform(({ value }) => parseInt(value))
   @IsNumber()

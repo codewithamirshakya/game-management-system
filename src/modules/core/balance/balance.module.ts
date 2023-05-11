@@ -23,6 +23,8 @@ import { ArpStudioBalance } from "./entity/arpStudioBalance.entity";
 import { WithdrawController } from "apps/api/balance/withdraw.controller";
 import { ArpStudioWithdrawService } from "./services/arpStudio/withdraw.service";
 import { VelaDepositBalanceService } from "./services/vela/deposit-balance.service";
+import { VelaBalance } from "./entity/vela-balance.entity";
+import { VelaWithdrawBalanceService } from "./services/vela/withdraw-balance.service";
 
 @Module({
   imports: [
@@ -30,14 +32,15 @@ import { VelaDepositBalanceService } from "./services/vela/deposit-balance.servi
       ArpStudioBalance,
       ArpStudioTransaction,
       VelaGamingTransaction,
-      EvolutionTransaction
+      EvolutionTransaction,
+      VelaBalance
     ]),
     forwardRef(() => UsersModule),
     SharedModule, CqrsModule],
   controllers: [GetController,DepositController,WithdrawController],
   providers: [ArpStudioBalanceService,GetVelaBalanceService,
     GetEvolutionBalanceService,ArpStudioDepositService,ArpStudioWithdrawService,
-    VelaDepositBalanceService
+    VelaDepositBalanceService,VelaWithdrawBalanceService
   ]
 })
 

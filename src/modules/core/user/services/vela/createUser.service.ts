@@ -86,10 +86,10 @@ export class VelaCreateUserService {
     }
   }
 
-  async isUserExits(username: string): Promise<any> {
+  async isUserExits(memberId: string): Promise<any> {
     const result = await this.repo.findOne({
       where: {
-        username: username,
+        member_id: memberId,
       },
     });
     return result ? true : false;

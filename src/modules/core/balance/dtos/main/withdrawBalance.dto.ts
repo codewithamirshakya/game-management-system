@@ -51,6 +51,18 @@ export class WithdrawBalanceDto extends BaseRequestDto{
   @IsNotEmpty()
   readonly amount: number;
 
+  @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.VELA_GAMING]))
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty()
+  readonly host_id: string;
+  
+  @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.VELA_GAMING]))
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty()
+  readonly member_id: string;
+
   @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.VELA_GAMING,GamingProviderEnum.EVOLUTION]))
   @IsString()
   @IsNotEmpty()
