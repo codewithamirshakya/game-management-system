@@ -59,8 +59,6 @@ export class VelaWithdrawBalanceService {
     }
   }
 
-
-
   async withdraw(dto: VelaDepositBalanceDto) {
     return await this.apiRequestService.requestApi(new ApiRequestDto({
       gameProvider: GameProviderConstant.VELA_GAMING,
@@ -98,34 +96,6 @@ export class VelaWithdrawBalanceService {
       await queryRunner.release();
     }
   }
-
-
-  // async updateData(response, data) {
-  //   const queryRunner = this.dataSource.createQueryRunner();
-  //   await queryRunner.connect();
-  //   await queryRunner.startTransaction();
-  //   try {
-  //     await queryRunner.manager.update(
-  //       ArpStudioBalance,
-  //       {
-  //         id: response.id,
-  //         account_type: data.atype,
-  //         username: data.username,
-  //       },
-  //       {
-  //         available_balance:response.amount - response.withdraw_balance - data.amount,
-  //         withdraw_balance:response.withdraw_balance + data.amount,
-  //       }
-  //     );
-  //     await queryRunner.commitTransaction();
-  //     return true;
-  //   } catch (error) {
-  //     await queryRunner.rollbackTransaction();
-  //     throw error;
-  //   } finally {
-  //     await queryRunner.release();
-  //   }
-  // }
 
   makeResponseData(data) {
     return {
