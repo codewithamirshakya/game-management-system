@@ -7,6 +7,7 @@ import {
 export class DepositBalanceDto {
   constructor(dto: MainDepositBalanceDto) {
     this.member_id = dto.username;
+    // this.host_id = dto.host_id;
     this.amount= dto.amount;
     this.transid = dto.transid;
   }

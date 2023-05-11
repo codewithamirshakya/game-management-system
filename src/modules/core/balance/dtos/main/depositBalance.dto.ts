@@ -67,6 +67,12 @@ export class DepositBalanceDto extends BaseRequestDto{
   @MaxLength(3)
   readonly currency: string;
 
+  @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.VELA_GAMING]))
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty()
+  readonly host_id: string;
+
   @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.EVOLUTION]))
   @IsString()
   @IsNotEmpty()

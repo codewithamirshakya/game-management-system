@@ -1,12 +1,7 @@
 import { Body, Controller, Ip, Post, Req, Res, UsePipes, ValidationPipe } from "@nestjs/common";
 import { AbstractController } from "../../../src/modules/shared/infrastructure/controller/api/abstract.controller";
 import { Request, Response } from "express";
-import { DepositBalanceService as VelaDepositService } from "../../../src/modules/core/balance/application/services/vela/depositBalance.service";
 import { DepositBalanceService as EvolutionDepositService } from "../../../src/modules/core/balance/application/services/evolution/depositBalance.service";
-
-import {
-  DepositBalanceDto as VelaDepositBalanceDto
-} from "../../../src/modules/core/balance/application/dtos/request/vela/depositBalance.dto";
 import {
   DepositBalanceDto as EvolutionDepositBalanceDto
 } from "../../../src/modules/core/balance/application/dtos/request/evolution/depositBalance.dto";
@@ -18,13 +13,15 @@ import { ApiTags } from "@nestjs/swagger";
 import { ArpStudioDepositService } from "src/modules/core/balance/services/arpStudio/depositBalance.service";
 import { DepositBalanceDto } from "src/modules/core/balance/dtos/main/depositBalance.dto";
 import { ArpStudioDepositBalanceDto } from "src/modules/core/balance/dtos/arpStudio/depositBalance.dto";
+import { VelaDepositBalanceService } from "src/modules/core/balance/services/vela/deposit-balance.service";
+import { VelaDepositBalanceDto } from "src/modules/core/balance/dtos/vela/depositBalance.dto";
 
 @ApiTags('Balance')
 @Controller('balance/deposit')
 export class DepositController extends AbstractController{
   constructor(
     private arpStudioDepositService : ArpStudioDepositService,
-    // private velaDepositService : VelaDepositService,
+    private velaDepositService : VelaDepositBalanceService,
     // private evolutionDepositService : EvolutionDepositService,
   ) {super();}
 
@@ -40,9 +37,9 @@ export class DepositController extends AbstractController{
       case GamingProviderEnum.ARP_STUDIO: {
         return await this.arpStudioDepositService.depositBalance(new ArpStudioDepositBalanceDto(dto));
       }
-    //   case GamingProviderEnum.VELA_GAMING: {
-    //     return await this.velaDepositService.depositBalance(new VelaDepositBalanceDto(dto));
-    //   }
+      case GamingProviderEnum.VELA_GAMING: {
+        return await this.velaDepositService.depositBalance(new VelaDepositBalanceDto(dto));
+      }
     //   case GamingProviderEnum.EVOLUTION: {
     //     return await this.evolutionDepositService.depositBalance(new EvolutionDepositBalanceDto(dto),req,ip);
     //   }

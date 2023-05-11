@@ -4,16 +4,22 @@ import { Transform } from "class-transformer";
 
 import { DepositBalanceDto as MainDepositBalanceDto } from "../main/depositBalance.dto";
 
-export class DepositBalanceDto {
+export class VelaDepositBalanceDto {
   constructor(dto: MainDepositBalanceDto) {
     this.member_id = dto.username;
     this.amount= dto.amount;
     this.transid = dto.transid;
+    this.host_id = dto.host_id;
   }
   @IsString()
   @IsNotEmpty()
   @ApiProperty()
   readonly member_id: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty()
+  readonly host_id: string;
 
   @Transform(({ value }) => parseInt(value))
   @IsNumber()

@@ -85,4 +85,14 @@ export class VelaCreateUserService {
       // openurl: serverResponse.openurl
     }
   }
+
+  async isUserExits(username: string): Promise<any> {
+    const result = await this.repo.findOne({
+      where: {
+        username: username,
+      },
+    });
+    return result ? true : false;
+  }
+
 }

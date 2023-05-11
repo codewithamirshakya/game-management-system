@@ -25,7 +25,7 @@ import { BalanceModule } from '../balance/balance.module';
         VelaCreateUserService,UpdateArpStudioUserService,GetUserDetailEvolutionService,
         EvolutionCreateUserService
     ],
-    exports: [ArpStudioCreateUserService]
+    exports: [ArpStudioCreateUserService,VelaCreateUserService]
 
 })
 
