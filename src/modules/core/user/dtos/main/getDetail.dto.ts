@@ -1,8 +1,8 @@
 import { IsString, IsNotEmpty, IsOptional, IsInt, MaxLength, ValidateIf } from "class-validator";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
-import { BaseRequestDto } from "src/modules/core/shared/application/dto/baseRequest.dto";
-import { GamingProviderEnum } from "src/modules/core/shared/domain/interface/RequestInterface";
+import { BaseRequestDto } from "@src/modules/core/shared/application/dto/baseRequest.dto";
+import { GamingProviderEnum } from "@src/modules/core/shared/domain/interface/RequestInterface";
 export class GetDetailDto extends BaseRequestDto{
 
     @IsString()

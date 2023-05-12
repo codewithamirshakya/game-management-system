@@ -1,19 +1,19 @@
-import { ArpStudioRequestService } from "src/modules/core/shared/application/service/arpStudio.request.service";
+import { ArpStudioRequestService } from "@src/modules/core/shared/application/service/arpStudio.request.service";
 import { DepositOperationFailedException } from "../../exception/depositOperationFailed.exception";
 import { Inject } from "@nestjs/common";
-import { ArpStudioRequestDto } from "src/modules/core/shared/application/dto/arpStudio.request.dto";
+import { ArpStudioRequestDto } from "@src/modules/core/shared/application/dto/arpStudio.request.dto";
 import { InjectRepository } from "@nestjs/typeorm";
 import { ArpStudioBalance } from "../../entity/arpStudioBalance.entity";
 import { DataSource, Repository } from "typeorm";
 import { UserNotFoundException } from "../../exception/userNotFound.exception";
-import { ArpStudioCreateUserService } from "src/modules/core/user/services/arpstudio/createUser.service";
-import { VelaCreateUserService } from "src/modules/core/user/services/vela/createUser.service";
-import { ApiRequestDto } from "src/modules/core/shared/application/dto/apiRequest.dto";
-import { GameProviderConstant } from "src/modules/core/shared/application/constants/gameProvider.constant";
+import { ArpStudioCreateUserService } from "@src/modules/core/user/services/arpstudio/createUser.service";
+import { VelaCreateUserService } from "@src/modules/core/user/services/vela/createUser.service";
+import { ApiRequestDto } from "@src/modules/core/shared/application/dto/apiRequest.dto";
+import { GameProviderConstant } from "@src/modules/core/shared/application/constants/gameProvider.constant";
 import { VelaDepositBalanceDto } from "../../interface/vela/deposit-balance.service";
-import { VelaRequestDto } from "src/modules/core/shared/application/dto/vela.request.dto";
+import { VelaRequestDto } from "@src/modules/core/shared/application/dto/vela.request.dto";
 import { VelaBalance } from "../../entity/vela-balance.entity";
-import { ApiRequestService } from "src/modules/core/shared/application/service/apiRequest.service";
+import { ApiRequestService } from "@src/modules/core/shared/application/service/apiRequest.service";
 import { TransIdreadyExistsException } from "../../exception/TransidAlreadyExists.exception";
 
 export class VelaDepositBalanceService {

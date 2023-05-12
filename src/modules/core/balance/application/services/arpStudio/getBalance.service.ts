@@ -11,9 +11,9 @@
 // import { Request } from "express";
 // import { SHARED_TYPES } from "../../../../../shared/application/constants/types";
 // import { EventDispatcherInterface } from "../../../../../shared/application/EventBus/eventDispatcher.interface";
-// import { ApiRequestService } from "src/modules/core/shared/application/service/apiRequest.service";
-// import { ApiRequestDto } from "src/modules/core/shared/application/dto/apiRequest.dto";
-// import { ArpStudioRequestDto } from "src/modules/core/shared/application/dto/arpStudio.request.dto";
+// import { ApiRequestService } from "@src/modules/core/shared/application/service/apiRequest.service";
+// import { ApiRequestDto } from "@src/modules/core/shared/application/dto/apiRequest.dto";
+// import { ArpStudioRequestDto } from "@src/modules/core/shared/application/dto/arpStudio.request.dto";
 // import { ArpStudioBalance } from "../../../interface/arpStudio.interface";
 
 // export class ArpStudioBalanceService {

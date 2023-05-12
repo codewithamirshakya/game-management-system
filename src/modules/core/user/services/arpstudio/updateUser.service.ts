@@ -1,20 +1,20 @@
 import { Inject } from "@nestjs/common";
 import { Transactional } from "typeorm-transactional";
-import { EventDefinition } from "src/modules/core/shared/application/constants/eventDefinition";
-import { ActivityCompletedEvent } from "src/modules/core/shared/domain/event/activityLog/activityCompleted.event";
-import { GameProviderConstant } from "src/modules/core/shared/application/constants/gameProvider.constant";
-import { ActivityTypeConstant } from "src/modules/core/shared/domain/constants/activityType.constant";
+import { EventDefinition } from "@src/modules/core/shared/application/constants/eventDefinition";
+import { ActivityCompletedEvent } from "@src/modules/core/shared/domain/event/activityLog/activityCompleted.event";
+import { GameProviderConstant } from "@src/modules/core/shared/application/constants/gameProvider.constant";
+import { ActivityTypeConstant } from "@src/modules/core/shared/domain/constants/activityType.constant";
 import { Request } from "express";
-import { SHARED_TYPES } from "src/modules/shared/application/constants/types";
-import { EventDispatcherInterface } from "src/modules/shared/application/EventBus/eventDispatcher.interface";
+import { SHARED_TYPES } from "@src/modules/shared/application/constants/types";
+import { EventDispatcherInterface } from "@src/modules/shared/application/EventBus/eventDispatcher.interface";
 import { UserUpdateFailedException } from "../../exception/userUpdateFailed.exception";
 import { UserNotFoundException } from "../../exception/userNotFound.exception";
 import moment from "moment";
-import { ArpStudioRequestService } from "src/modules/core/shared/application/service/arpStudio.request.service";
+import { ArpStudioRequestService } from "@src/modules/core/shared/application/service/arpStudio.request.service";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { ArpStudioUser } from "../../entity/createArpStudio.entity";
-import { ArpStudioRequestDto } from "src/modules/core/shared/application/dto/arpStudio.request.dto";
+import { ArpStudioRequestDto } from "@src/modules/core/shared/application/dto/arpStudio.request.dto";
 import { UpdateUserDto } from "../../interface/arpStudioUpdateUser.interface";
 export class UpdateArpStudioUserService {
   constructor(

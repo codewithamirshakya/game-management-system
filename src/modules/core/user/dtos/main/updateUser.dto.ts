@@ -1,7 +1,7 @@
 import { IsString, IsInt, IsOptional, IsEnum, ValidateIf } from "class-validator";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
-import { GamingProviderEnum } from "src/modules/core/shared/application/dto/apiRequest.dto";
-import { BaseRequestDto } from "src/modules/core/shared/application/dto/baseRequest.dto";
+import { GamingProviderEnum } from "@src/modules/core/shared/application/dto/apiRequest.dto";
+import { BaseRequestDto } from "@src/modules/core/shared/application/dto/baseRequest.dto";
 enum StateType {
     'zero' = 0 ,
     'Minus one'= -1,

@@ -1,4 +1,4 @@
-import { DataTransferObject } from "src/lib/dto/dataTransferObject";
+import { DataTransferObject } from "@src/lib/dto/dataTransferObject";
 
 export class VelaDepositBalanceDto extends DataTransferObject{
   readonly host_id ?: string;

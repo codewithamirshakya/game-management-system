@@ -13,11 +13,11 @@ import {
 } from "../../../src/modules/core/shared/domain/exception/unknownGamingProvider.exception";
 import { WithdrawBalanceService as VelaWithdrawService } from "../../../src/modules/core/balance/application/services/vela/withdrawBalance.service";
 import { WithdrawBalanceService as EvolutionWithdrawService } from "../../../src/modules/core/balance/application/services/evolution/withdrawBalance.service";
-import { ArpStudioWithdrawService } from "src/modules/core/balance/services/arpStudio/withdraw.service";
-import { WithdrawBalanceDto } from "src/modules/core/balance/dtos/main/withdrawBalance.dto";
-import { ArpStudioWithdrawBalanceDto } from "src/modules/core/balance/dtos/arpStudio/withdrawBalance.dto";
-import { VelaWithdrawBalanceService } from "src/modules/core/balance/services/vela/withdraw-balance.service";
-import { VelaWithdrawBalanceDto } from "src/modules/core/balance/dtos/vela/withdrawBalance.dto";
+import { ArpStudioWithdrawService } from "@src/modules/core/balance/services/arpStudio/withdraw.service";
+import { WithdrawBalanceDto } from "@src/modules/core/balance/dtos/main/withdrawBalance.dto";
+import { ArpStudioWithdrawBalanceDto } from "@src/modules/core/balance/dtos/arpStudio/withdrawBalance.dto";
+import { VelaWithdrawBalanceService } from "@src/modules/core/balance/services/vela/withdraw-balance.service";
+import { VelaWithdrawBalanceDto } from "@src/modules/core/balance/dtos/vela/withdrawBalance.dto";
 
 @ApiTags('Balance')
 @Controller('balance/withdraw')

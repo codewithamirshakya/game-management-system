@@ -12,10 +12,10 @@ import { AbstractController } from "../../../src/modules/shared/infrastructure/c
 
 import { DetailDto } from "../../../src/modules/core/user/application/dtos/request/evolution/detail.dto";
 import { ApiTags } from "@nestjs/swagger";
-import { GetDetailDto } from "src/modules/core/user/dtos/main/getDetail.dto";
-import { DetailUserDto } from "src/modules/core/user/dtos/arpStudio/detail.user.dto";
-import { GetUserDetailArpStudioService } from "src/modules/core/user/services/arpstudio/getUserDetail.service";
-import { GetUserDetailEvolutionService } from "src/modules/core/user/services/evolution/getDetail.service";
+import { GetDetailDto } from "@src/modules/core/user/dtos/main/getDetail.dto";
+import { DetailUserDto } from "@src/modules/core/user/dtos/arpStudio/detail.user.dto";
+import { GetUserDetailArpStudioService } from "@src/modules/core/user/services/arpstudio/getUserDetail.service";
+import { GetUserDetailEvolutionService } from "@src/modules/core/user/services/evolution/getDetail.service";
 @ApiTags('User')
 @Controller('user/detail')
 export class UserDetailController extends AbstractController{

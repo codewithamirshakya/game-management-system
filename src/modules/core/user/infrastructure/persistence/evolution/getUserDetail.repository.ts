@@ -1,5 +1,5 @@
 import { Inject } from "@nestjs/common";
-import { EvolutionRequestDto } from "src/modules/core/shared/application/dto/evolution.request.dto";
+import { EvolutionRequestDto } from "@src/modules/core/shared/application/dto/evolution.request.dto";
 import {
   GetUserDetailRepositoryInterface
 } from "../../../domain/repository/intefaces/evolution/getUserDetail.repository.interface";

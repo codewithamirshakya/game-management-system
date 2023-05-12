@@ -11,9 +11,9 @@ import {
 } from "../../../src/modules/core/shared/domain/exception/unknownGamingProvider.exception";
 import { ListGameDto } from "../../../src/modules/core/game/application/dtos/request/main/listGame.dto";
 import { ListGameLobbyDto } from "../../../src/modules/core/game/application/dtos/request/arpStudio/listGameLobby.dto";
-import { EvolutionListGameService } from "src/modules/core/game/application/services/evolution/listGame.service";
-import { VelaListGameService } from "src/modules/core/game/application/services/vela/listGame.service";
-import { ArpStudioListGameLobbyService } from "src/modules/core/game/application/services/arpStudio/listGameLobby.service";
+import { EvolutionListGameService } from "@src/modules/core/game/application/services/evolution/listGame.service";
+import { VelaListGameService } from "@src/modules/core/game/application/services/vela/listGame.service";
+import { ArpStudioListGameLobbyService } from "@src/modules/core/game/application/services/arpStudio/listGameLobby.service";
 
 @ApiTags('General')
 @Controller('games/list')

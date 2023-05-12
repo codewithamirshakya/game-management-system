@@ -1,4 +1,4 @@
-import { DataTransferObject } from "src/lib/dto/dataTransferObject";
+import { DataTransferObject } from "@src/lib/dto/dataTransferObject";
 
 export interface WithDrawBalance extends DataTransferObject{
 

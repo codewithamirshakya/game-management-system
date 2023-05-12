@@ -11,9 +11,9 @@ import {SHARED_TYPES} from "../../../../../shared/application/constants/types";
 import {RetreiveGameListFailedException} from "../../../domain/exception/retreiveGameListFailed.exception";
 import {AsyncEventDispatcherInterface} from "../../../../../shared/application/EventBus/asyncEventDispatcher.interface";
 import { EvolutionFormatEnum, ListGameDto } from "../../dtos/request/main/listGame.dto";
-import { ApiRequestService } from "src/modules/core/shared/application/service/apiRequest.service";
-import { ApiRequestDto } from "src/modules/core/shared/application/dto/apiRequest.dto";
-import { EvolutionRequestDto } from "src/modules/core/shared/application/dto/evolution.request.dto";
+import { ApiRequestService } from "@src/modules/core/shared/application/service/apiRequest.service";
+import { ApiRequestDto } from "@src/modules/core/shared/application/dto/apiRequest.dto";
+import { EvolutionRequestDto } from "@src/modules/core/shared/application/dto/evolution.request.dto";
 
 export class EvolutionListGameService {
     constructor(

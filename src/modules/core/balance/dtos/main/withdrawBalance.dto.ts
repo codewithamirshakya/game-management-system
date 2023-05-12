@@ -1,9 +1,9 @@
 import { IsInt, IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString, MaxLength, ValidateIf } from "class-validator";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
-import { BaseRequestDto } from "src/modules/core/shared/application/dto/baseRequest.dto";
-import { GamingProviderEnum } from "src/modules/core/shared/domain/interface/RequestInterface";
-import { isExists } from "src/modules/core/shared/infrastructure/persistence/utils/isExists";
+import { BaseRequestDto } from "@src/modules/core/shared/application/dto/baseRequest.dto";
+import { GamingProviderEnum } from "@src/modules/core/shared/domain/interface/RequestInterface";
+import { isExists } from "@src/modules/core/shared/infrastructure/persistence/utils/isExists";
 export class WithdrawBalanceDto extends BaseRequestDto{
 
   @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.ARP_STUDIO]))

@@ -1,5 +1,5 @@
-import { EvolutionConfig } from "src/config/evolution.config";
-import { DataTransferObject } from "src/lib/dto/dataTransferObject";
+import { EvolutionConfig } from "@src/config/evolution.config";
+import { DataTransferObject } from "@src/lib/dto/dataTransferObject";
 
 
 export interface DetailEvolution {

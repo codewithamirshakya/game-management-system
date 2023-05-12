@@ -8,9 +8,9 @@ import {
   UnknownGamingProviderException
 } from "../../../src/modules/core/shared/domain/exception/unknownGamingProvider.exception";
 import { ApiTags } from "@nestjs/swagger";
-import { UpdateArpStudioUserService } from "src/modules/core/user/services/arpstudio/updateUser.service";
-import { UpdateUserDto } from "src/modules/core/user/dtos/main/updateUser.dto";
-import { ArpStudioUpdateUserDto } from "src/modules/core/user/dtos/arpStudio/updateUser.dto";
+import { UpdateArpStudioUserService } from "@src/modules/core/user/services/arpstudio/updateUser.service";
+import { UpdateUserDto } from "@src/modules/core/user/dtos/main/updateUser.dto";
+import { ArpStudioUpdateUserDto } from "@src/modules/core/user/dtos/arpStudio/updateUser.dto";
 @ApiTags('User')
 @Controller('user/update')
 export class UpdateController extends AbstractController {

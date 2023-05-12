@@ -8,14 +8,14 @@ import { GamingProviderEnum } from "../../../src/modules/core/shared/domain/inte
 import {
   UnknownGamingProviderException
 } from "../../../src/modules/core/shared/domain/exception/unknownGamingProvider.exception";
-import { CreateUserDto } from "src/modules/core/user/dtos/main/createUser.dto";
-import { CreateUserArpStudioDto } from "src/modules/core/user/dtos/arpStudio/createUser.dto";
-import { ArpStudioCreateUserService } from "src/modules/core/user/services/arpstudio/createUser.service";
+import { CreateUserDto } from "@src/modules/core/user/dtos/main/createUser.dto";
+import { CreateUserArpStudioDto } from "@src/modules/core/user/dtos/arpStudio/createUser.dto";
+import { ArpStudioCreateUserService } from "@src/modules/core/user/services/arpstudio/createUser.service";
 import { ApiTags } from "@nestjs/swagger";
-import { VelaCreateUserService } from "src/modules/core/user/services/vela/createUser.service";
-import { CreatVelaUserDto } from "src/modules/core/user/dtos/vela/createUser.dto";
-import { EvolutionCreateUserService } from "src/modules/core/user/services/evolution/createUser.service";
-import { CreateEvolutionUserDto } from "src/modules/core/user/dtos/evolution/createUser.dto";
+import { VelaCreateUserService } from "@src/modules/core/user/services/vela/createUser.service";
+import { CreatVelaUserDto } from "@src/modules/core/user/dtos/vela/createUser.dto";
+import { EvolutionCreateUserService } from "@src/modules/core/user/services/evolution/createUser.service";
+import { CreateEvolutionUserDto } from "@src/modules/core/user/dtos/evolution/createUser.dto";
 @ApiTags('User')
 @Controller('user/create')
 export class CreateController extends AbstractController {
@@ -37,7 +37,7 @@ export class CreateController extends AbstractController {
 
     switch (dto.gameProvider) {
       case GamingProviderEnum.ARP_STUDIO: {
-        return await this.arpStudioCreateUserService.create(new CreateUserArpStudioDto(dto),req,ip);
+        return await this.arpStudioCreateUserService.create(new CreateUserArpStudioDto(dto));
       }
 
        case GamingProviderEnum.VELA_GAMING: {

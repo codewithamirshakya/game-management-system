@@ -1,5 +1,5 @@
 import {  HttpStatus } from "@nestjs/common";
-import { AbstractException } from "src/lib/exception/abstract.exception";
+import { AbstractException } from "@src/lib/exception/abstract.exception";
 
 export class ETransIdAlreadyExistsException extends AbstractException{
   private readonly data;

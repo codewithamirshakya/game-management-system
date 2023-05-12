@@ -3,7 +3,7 @@ import { Inject } from "@nestjs/common";
 import { ApiRequestService } from "../../../../../shared/application/service/apiRequest.service";
 import { ApiRequestDto } from "../../../../../shared/application/dto/apiRequest.dto";
 import { GameProviderConstant } from "../../../../../shared/application/constants/gameProvider.constant";
-import { EvolutionRequestDto } from "src/modules/core/shared/application/dto/evolution.request.dto";
+import { EvolutionRequestDto } from "@src/modules/core/shared/application/dto/evolution.request.dto";
 
 export class FundRepository implements FundRepositoryInterface{
 

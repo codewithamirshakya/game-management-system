@@ -1,6 +1,6 @@
 import { QueryBus } from "@nestjs/cqrs";
 import { Injectable } from "@nestjs/common";
-import { GetEvolutionUserQuery } from "src/modules/core/shared/domain/query/user/GetEvolutionUserQuery";
+import { GetEvolutionUserQuery } from "@src/modules/core/shared/domain/query/user/GetEvolutionUserQuery";
 
 
 @Injectable()

@@ -5,7 +5,7 @@ import { GetBalanceDto as DomainGetBalanceDto } from "../../../domain/dto/reques
 import { Inject } from "@nestjs/common";
 import { TYPES } from "../../constants/types";
 import { Transactional } from "typeorm-transactional";
-import { EventDefinition } from "src/modules/core/shared/application/constants/eventDefinition";
+import { EventDefinition } from "@src/modules/core/shared/application/constants/eventDefinition";
 import { SHARED_TYPES } from "../../../../../shared/application/constants/types";
 import { EventDispatcherInterface } from "../../../../../shared/application/EventBus/eventDispatcher.interface";
 import { ActivityCompletedEvent } from "../../../../shared/domain/event/activityLog/activityCompleted.event";

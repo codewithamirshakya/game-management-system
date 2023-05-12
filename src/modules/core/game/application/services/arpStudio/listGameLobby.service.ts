@@ -14,9 +14,9 @@ import { SHARED_TYPES } from "../../../../../shared/application/constants/types"
 import {
     AsyncEventDispatcherInterface
 } from "../../../../../shared/application/EventBus/asyncEventDispatcher.interface";
-import { ArpStudioRequestService } from "src/modules/core/shared/application/service/arpStudio.request.service";
+import { ArpStudioRequestService } from "@src/modules/core/shared/application/service/arpStudio.request.service";
 import { ListGameLobbyDomainDto } from "../../../domain/dto/request/arpStudio/listGameLobby.domain.dto";
-import { ArpStudioRequestDto } from "src/modules/core/shared/application/dto/arpStudio.request.dto";
+import { ArpStudioRequestDto } from "@src/modules/core/shared/application/dto/arpStudio.request.dto";
 
 export class ArpStudioListGameLobbyService {
     constructor(

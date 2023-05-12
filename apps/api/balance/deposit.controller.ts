@@ -10,11 +10,11 @@ import {
   UnknownGamingProviderException
 } from "../../../src/modules/core/shared/domain/exception/unknownGamingProvider.exception";
 import { ApiTags } from "@nestjs/swagger";
-import { ArpStudioDepositService } from "src/modules/core/balance/services/arpStudio/depositBalance.service";
-import { DepositBalanceDto } from "src/modules/core/balance/dtos/main/depositBalance.dto";
-import { ArpStudioDepositBalanceDto } from "src/modules/core/balance/dtos/arpStudio/depositBalance.dto";
-import { VelaDepositBalanceService } from "src/modules/core/balance/services/vela/deposit-balance.service";
-import { VelaDepositBalanceDto } from "src/modules/core/balance/dtos/vela/depositBalance.dto";
+import { ArpStudioDepositService } from "@src/modules/core/balance/services/arpStudio/depositBalance.service";
+import { DepositBalanceDto } from "@src/modules/core/balance/dtos/main/depositBalance.dto";
+import { ArpStudioDepositBalanceDto } from "@src/modules/core/balance/dtos/arpStudio/depositBalance.dto";
+import { VelaDepositBalanceService } from "@src/modules/core/balance/services/vela/deposit-balance.service";
+import { VelaDepositBalanceDto } from "@src/modules/core/balance/dtos/vela/depositBalance.dto";
 
 @ApiTags('Balance')
 @Controller('balance/deposit')

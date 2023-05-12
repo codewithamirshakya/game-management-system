@@ -1,26 +1,28 @@
-import { ApiRequestService } from "src/modules/core/shared/application/service/apiRequest.service";
+import { ApiRequestService } from "@src/modules/core/shared/application/service/apiRequest.service";
 import { createUserArpStudio } from "../../interface/arpStudioCreateUser.interface";
 import { Inject } from "@nestjs/common";
-import { GameProviderConstant } from "src/modules/core/shared/application/constants/gameProvider.constant";
-import { ApiRequestDto } from "src/modules/core/shared/application/dto/apiRequest.dto";
-import { ArpStudioRequestDto } from "src/modules/core/shared/application/dto/arpStudio.request.dto";
+import { ApiRequestDto } from "@src/modules/core/shared/application/dto/apiRequest.dto";
+import { ArpStudioRequestDto } from "@src/modules/core/shared/application/dto/arpStudio.request.dto";
 import { Request } from "express";
 import { InjectRepository } from "@nestjs/typeorm";
 import { ArpStudioUser } from "../../entity/createArpStudio.entity";
 import { DataSource, Repository} from 'typeorm';
 import { UserCreationFailedException } from "../../exception/userCreationFailed.exception";
 import { UserAlreadyExistsException } from "../../exception/userAlreadyExists.exception";
+import { GameProviderConstant } from "@src/modules/core/shared/application/constants/gameProvider.constant";
+// import { GameProviderConstant } from "../../../shared/application/constants/gameProvider.constant";
 
 export class ArpStudioCreateUserService {
     constructor(
         @InjectRepository(ArpStudioUser)
         private readonly repo: Repository<ArpStudioUser>,
         private dataSource: DataSource,
-        @Inject(ApiRequestService) public apiRequestService: ApiRequestService
+        @Inject(ApiRequestService)
+        public apiRequestService: ApiRequestService
 
     ) {}
 
-    async create(dto: createUserArpStudio, req: Request, ip: string) {
+    async create(dto: createUserArpStudio) {
         try {
             let serverResponse;
             serverResponse = await this.createUserArpStudio(dto);

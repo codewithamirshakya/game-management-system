@@ -1,7 +1,7 @@
 
 import { Inject } from "@nestjs/common";
 import { Transactional } from "typeorm-transactional";
-import { EventDefinition } from "src/modules/core/shared/application/constants/eventDefinition";
+import { EventDefinition } from "@src/modules/core/shared/application/constants/eventDefinition";
 
 import { Request } from 'express';
 import { ApiRequestService } from 'src/modules/core/shared/application/service/apiRequest.service';
@@ -9,7 +9,7 @@ import { ApiRequestDto } from 'src/modules/core/shared/application/dto/apiReques
 import { EvolutionRequestDto } from 'src/modules/core/shared/application/dto/evolution.request.dto';
 import { RetrieveOperationFailedException } from "../../domain/exception/retreiveOperationFailed.exception";
 import { GetBalanceDto as DomainGetBalanceDto, GetBalanceDto } from "../../interface/getBalanceEvolution.interface";
-import { GameProviderConstant } from "src/modules/core/shared/application/constants/gameProvider.constant";
+import { GameProviderConstant } from "@src/modules/core/shared/application/constants/gameProvider.constant";
 
 export class GetEvolutionBalanceService {
   constructor(

@@ -11,9 +11,9 @@ import { RetrieveOperationFailedException } from "../../../domain/exception/retr
 import { Request } from "express";
 import { SHARED_TYPES } from "../../../../../shared/application/constants/types";
 import { EventDispatcherInterface } from "../../../../../shared/application/EventBus/eventDispatcher.interface";
-import { ApiRequestDto } from "src/modules/core/shared/application/dto/apiRequest.dto";
-import { VelaRequestDto } from "src/modules/core/shared/application/dto/vela.request.dto";
-import { ApiRequestService } from "src/modules/core/shared/application/service/apiRequest.service";
+import { ApiRequestDto } from "@src/modules/core/shared/application/dto/apiRequest.dto";
+import { VelaRequestDto } from "@src/modules/core/shared/application/dto/vela.request.dto";
+import { ApiRequestService } from "@src/modules/core/shared/application/service/apiRequest.service";
 
 export class GetVelaBalanceService {
   constructor(

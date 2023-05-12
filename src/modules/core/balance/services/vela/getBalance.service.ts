@@ -1,16 +1,16 @@
 
 import { Inject } from "@nestjs/common";
 import { Request } from "express";
-import { ApiRequestDto } from "src/modules/core/shared/application/dto/apiRequest.dto";
-import { VelaRequestDto } from "src/modules/core/shared/application/dto/vela.request.dto";
-import { ApiRequestService } from "src/modules/core/shared/application/service/apiRequest.service";
+import { ApiRequestDto } from "@src/modules/core/shared/application/dto/apiRequest.dto";
+import { VelaRequestDto } from "@src/modules/core/shared/application/dto/vela.request.dto";
+import { ApiRequestService } from "@src/modules/core/shared/application/service/apiRequest.service";
 import { VelaBalanceInterface } from "../../interface/getBalanceVela.interface";
 import { RetrieveOperationFailedException } from "../../domain/exception/retreiveOperationFailed.exception";
-import { GameProviderConstant } from "src/modules/core/shared/application/constants/gameProvider.constant";
+import { GameProviderConstant } from "@src/modules/core/shared/application/constants/gameProvider.constant";
 import { InjectRepository } from "@nestjs/typeorm";
 import { VelaBalance } from "../../entity/vela-balance.entity";
 import { DataSource, Repository } from "typeorm";
-import { VelaCreateUserService } from "src/modules/core/user/services/vela/createUser.service";
+import { VelaCreateUserService } from "@src/modules/core/user/services/vela/createUser.service";
 import { UserNotFoundException } from "../../exception/userNotFound.exception";
 
 export class GetVelaBalanceService {
