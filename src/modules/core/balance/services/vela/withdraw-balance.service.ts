@@ -1,15 +1,8 @@
-import { ArpStudioRequestService } from "src/modules/core/shared/application/service/arpStudio.request.service";
 import { DepositOperationFailedException } from "../../exception/depositOperationFailed.exception";
-import { DepositBalance } from "../../interface/arpStudio/arpStudioDepositBalance";
 import { Inject } from "@nestjs/common";
-import { ArpStudioRequestDto } from "src/modules/core/shared/application/dto/arpStudio.request.dto";
 import { InjectRepository } from "@nestjs/typeorm";
-import { ArpStudioBalance } from "../../entity/arpStudioBalance.entity";
 import { DataSource, Repository } from "typeorm";
 import { UserNotFoundException } from "../../exception/userNotFound.exception";
-import { ArpStudioCreateUserService } from "src/modules/core/user/services/arpstudio/createUser.service";
-import { WithDrawBalance } from "../../interface/arpStudio/arpStudioWithdraw.interface";
-import { DetailEvolution } from "src/modules/core/user/interface/evolutionDetail.interface";
 import { VelaDepositBalanceDto } from "../../interface/vela/deposit-balance.service";
 import { ApiRequestService } from "src/modules/core/shared/application/service/apiRequest.service";
 import { ApiRequestDto } from "src/modules/core/shared/application/dto/apiRequest.dto";

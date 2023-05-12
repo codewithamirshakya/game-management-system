@@ -1,4 +1,4 @@
-export interface ArpStudioBalance {
+export interface ArpStudioGetBalance {
 
     appid?: string;
 

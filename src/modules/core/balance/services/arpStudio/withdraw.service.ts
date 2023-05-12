@@ -33,21 +33,16 @@ export class ArpStudioWithdrawService {
       if (!userExits) {
         throw new UserNotFoundException()
       }
-      const data = await this.repo.findOne({ where: { 'username': dto.username, 'account_type': dto.atype } });
-      if (data) {
         const withdrawData: WithDrawBalance = {
           ...dto,
           amount: -dto.amount,
       };
         const serverResponse = await this.withdraw(withdrawData);
-        console.log(serverResponse);
         if (serverResponse) {
-          const updateResponse = await this.updateData(data, dto);
-          const updateResponsedata = await this.repo.findOne({ where: { 'username': dto.username, 'account_type': dto.atype } });
-          const response = this.makeResponseData(updateResponsedata);
+          const insertData = await this.saveData(dto);
+          const response = this.makeResponseData(insertData);
           return response;
         }
-      }
 
     } catch (e) {
       throw new DepositOperationFailedException(e);
@@ -60,6 +55,30 @@ export class ArpStudioWithdrawService {
       params: dto,
       endpoint: '/user/dw'
     }));
+  }
+
+  async saveData(data) {
+    const queryRunner = this.dataSource.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+    try {
+      const responseData = this.repo.create({
+        username: data.username,
+        account_type:data.atype,
+        source:data.source,
+        amount:0,
+        withdraw_balance:data.amount,
+        currency:"USD",
+      });
+      await queryRunner.manager.save(responseData);
+      await queryRunner.commitTransaction();
+      return responseData;
+    } catch (error) {
+      await queryRunner.rollbackTransaction();
+      throw error;
+    } finally {
+      await queryRunner.release();
+    }
   }
 
   async updateData(response, data) {
@@ -92,9 +111,6 @@ export class ArpStudioWithdrawService {
   makeResponseData(data){
     return {
       username: data.username,
-      account_type: data.account_type,
-      amount: data.amount,
-      available_balance: data.available_balance,
       withdraw_balance: data.withdraw_balance,
     }
   }

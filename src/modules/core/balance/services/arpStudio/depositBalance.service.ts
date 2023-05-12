@@ -8,7 +8,7 @@ import { ArpStudioBalance } from "../../entity/arpStudioBalance.entity";
 import { DataSource, Repository } from "typeorm";
 import { UserNotFoundException } from "../../exception/userNotFound.exception";
 import { ArpStudioCreateUserService } from "src/modules/core/user/services/arpstudio/createUser.service";
-
+import{toDate} from "../../../../../lib/utils/cast.utils"
 export class ArpStudioDepositService {
   constructor(
     // @Inject(ArpStudioCreateUserService)
@@ -31,24 +31,12 @@ export class ArpStudioDepositService {
       if (!userExits) {
         throw new UserNotFoundException()
       }
-      const data = await this.repo.findOne({ where: { 'username': dto.username, 'account_type': dto.atype } });
-      if (!data) {
         const serverResponse = await this.deposit(dto);
-        if (serverResponse) {
+        if (serverResponse && serverResponse.result == 0) {
           const UpdateData = await this.saveData(dto);
           const response = this.makeResponseData(UpdateData);
           return response;
         }
-      }
-      const serverResponse = await this.deposit(dto);
-      if (serverResponse) {
-        const updateResponse = await this.updateData(data, dto);
-        const updateResponsedata = await this.repo.findOne({ where: { 'username': dto.username, 'account_type': dto.atype } });
-        const response = this.makeResponseData(updateResponsedata);
-        return response;
-      }
-
-
     } catch (e) {
       throw new DepositOperationFailedException(e);
     }
@@ -72,7 +60,9 @@ export class ArpStudioDepositService {
         account_type:data.atype,
         source:data.source,
         amount:data.amount,
+        withdraw_balance:0,
         currency:"USD",
+        transaction_date: new Date(),
       });
       await queryRunner.manager.save(responseData);
       await queryRunner.commitTransaction();
@@ -115,7 +105,6 @@ export class ArpStudioDepositService {
   makeResponseData(data){
     return {
       username: data.username,
-      account_type: data.account_type,
       amount: data.amount,
     }
   }

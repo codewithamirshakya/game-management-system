@@ -7,20 +7,44 @@ import { ApiRequestService } from "src/modules/core/shared/application/service/a
 import { VelaBalanceInterface } from "../../interface/getBalanceVela.interface";
 import { RetrieveOperationFailedException } from "../../domain/exception/retreiveOperationFailed.exception";
 import { GameProviderConstant } from "src/modules/core/shared/application/constants/gameProvider.constant";
+import { InjectRepository } from "@nestjs/typeorm";
+import { VelaBalance } from "../../entity/vela-balance.entity";
+import { DataSource, Repository } from "typeorm";
+import { VelaCreateUserService } from "src/modules/core/user/services/vela/createUser.service";
+import { UserNotFoundException } from "../../exception/userNotFound.exception";
 
 export class GetVelaBalanceService {
   constructor(
-    // @Inject(TYPES.velaRepository.GetBalanceRepositoryInterface) private repo: GetBalanceRepositoryInterface,
     // @Inject(SHARED_TYPES.eventBus.EventDispatcherInterface) private eventDispatcher: EventDispatcherInterface,
-    
+    @InjectRepository(VelaBalance)
+    private readonly repo: Repository<VelaBalance>,
+    private dataSource: DataSource,
+
     @Inject(ApiRequestService)
-     public apiRequestService: ApiRequestService
+     public apiRequestService: ApiRequestService,
+     @Inject(VelaCreateUserService)
+    public velaUserService: VelaCreateUserService,
   ) {}
 
 
   async getBalance(dto: VelaBalanceInterface,req: Request,ip: string) {
     try {
-      const response = await this.getVelaGamingBalance(dto);
+      const userExits = await this.velaUserService.isUserExits(dto.member_id);
+      if (!userExits) {
+        throw new UserNotFoundException()
+      }
+       const serverResponse = await this.getVelaGamingBalance(dto);
+      if(serverResponse && serverResponse.status_code ==0){
+
+      const queryResult = await this.repo.createQueryBuilder('vela_balance')
+      .select("vela_balance.member_id")
+      .addSelect('SUM(vela_balance.amount)', 'totalAmount')
+      .addSelect('SUM(vela_balance.withdraw_balance)', 'withDrawBalane')
+      .where("vela_balance.member_id = :member_id", { 'member_id': dto.member_id })
+      .getRawOne();
+        const response = this.makeResponseData(queryResult,serverResponse);
+        return response;
+      }
       //activity completed event dispatch
       // this.eventDispatcher.dispatch(EventDefinition.ACTIVITY_COMPLETED_EVENT,
       //   new ActivityCompletedEvent(
@@ -31,7 +55,7 @@ export class GetVelaBalanceService {
       //     req.headers["user-agent"],
       //   ));
 
-      return response;
+
     } catch (e) {
       throw new RetrieveOperationFailedException(e);
     }
@@ -46,5 +70,15 @@ export class GetVelaBalanceService {
         endpoint: '/user/balance'
       })
     }));
+  }
+
+  makeResponseData(data, serverResponse) {
+    return {
+      username: data? data.vela_balance_member_id :null,
+      amount:data? data.totalAmount :0,
+      withdraw_balance: data? data.withDrawBalane :0,
+      available_balance:data ? (data.totalAmount) -(data.withDrawBalane) :0,
+
+    }
   }
 }
