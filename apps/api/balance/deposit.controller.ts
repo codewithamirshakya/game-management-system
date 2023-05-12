@@ -38,12 +38,11 @@ export class DepositController extends AbstractController{
         return await this.arpStudioDepositService.depositBalance(new ArpStudioDepositBalanceDto(dto));
       }
       case GamingProviderEnum.VELA_GAMING: {
-        console.log(new VelaDepositBalanceDto(dto));
         return await this.velaDepositService.depositBalance(new VelaDepositBalanceDto(dto));
       }
-    //   case GamingProviderEnum.EVOLUTION: {
-    //     return await this.evolutionDepositService.depositBalance(new EvolutionDepositBalanceDto(dto),req,ip);
-    //   }
+      // case GamingProviderEnum.EVOLUTION: {
+      //   return await this.evolutionDepositService.depositBalance(new EvolutionDepositBalanceDto(dto),req,ip);
+      // }
       default:
         throw new UnknownGamingProviderException();
     }
