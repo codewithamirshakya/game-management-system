@@ -42,7 +42,7 @@ export class GetVelaBalanceService {
       .addSelect('SUM(vela_balance.withdraw_balance)', 'withDrawBalane')
       .where("vela_balance.member_id = :member_id", { 'member_id': dto.member_id })
       .getRawOne();
-        const response = this.makeResponseData(queryResult,serverResponse);
+        const response = this.makeResponseData(queryResult,dto.member_id);
         return response;
       }
       //activity completed event dispatch
@@ -72,11 +72,11 @@ export class GetVelaBalanceService {
     }));
   }
 
-  makeResponseData(data, serverResponse) {
+  makeResponseData(data, username) {
     return {
-      username: data? data.vela_balance_member_id :null,
-      amount:data? data.totalAmount :0,
-      withdraw_balance: data? data.withDrawBalane :0,
+      username:  data.vela_balance_member_id ?  data.vela_balance_member_id :username,
+      amount: data.totalAmount ?  data.totalAmount :0,
+      withdraw_balance: data.withDrawBalane? data.withDrawBalane :0,
       available_balance:data ? (data.totalAmount) -(data.withDrawBalane) :0,
 
     }

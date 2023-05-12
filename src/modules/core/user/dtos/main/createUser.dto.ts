@@ -368,7 +368,7 @@ export class CreateUserDto extends BaseRequestDto {
   @IsEnum(GamingProviderEnum)
   readonly gameProvider: GamingProviderEnum;
 
-  @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.ARP_STUDIO, GamingProviderEnum.VELA_GAMING]))
+  @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.ARP_STUDIO]))
   @IsString()
   @ApiProperty({ required: false, example: "hello_world" })
   @IsNotEmpty()

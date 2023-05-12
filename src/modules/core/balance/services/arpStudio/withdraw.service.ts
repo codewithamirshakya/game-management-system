@@ -69,6 +69,8 @@ export class ArpStudioWithdrawService {
         amount:0,
         withdraw_balance:data.amount,
         currency:"USD",
+        transaction_date: new Date(),
+
       });
       await queryRunner.manager.save(responseData);
       await queryRunner.commitTransaction();

@@ -48,8 +48,9 @@ export class ArpStudioBalanceService {
       .addSelect('SUM(arp_studio_balance.withdraw_balance)', 'withDrawBalane')
       .where("arp_studio_balance.username = :username", { 'username': dto.username })
       .getRawOne();
+
       if(serverResponse &&  serverResponse.result==0){
-        const response = this.makeResponseData(queryResult);
+        const response = this.makeResponseData(queryResult,dto.username);
         this.eventDispatcher.dispatch(EventDefinition.ACTIVITY_COMPLETED_EVENT,
           new ActivityCompletedEvent(
             GameProviderConstant.ARP_STUDIO,
@@ -79,11 +80,11 @@ export class ArpStudioBalanceService {
     }));
   }
 
-  makeResponseData(data) {
+  makeResponseData(data,username) {
     return {
-      username: data.username,
-      amount: data.totalAmount,
-      withdraw_balance: data.withDrawBalane,
+      username: data.username ? data.username :username,
+      amount: data.totalAmount ?data.totalAmount:0 ,
+      withdraw_balance: data.withDrawBalane ? data.withDrawBalane:0,
       available_balance: (data.totalAmount) -(data.withDrawBalane),
 
     }
