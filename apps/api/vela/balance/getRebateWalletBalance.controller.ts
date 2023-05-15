@@ -17,7 +17,7 @@ export class GetRebateWalletBalanceController extends AbstractController{
   }
 
   @Get()
-  @UsePipes(new ValidationPipe({ transform: true }))
+  // @UsePipes(new ValidationPipe({ transform: true }))
   async get(@Query() dto: GetRebateWalletBalanceDto,@Res() res : Response, @Req() req,@Ip() ip) {
     const response = await this.service.get(dto,req,ip);
     this.successResponse(res,'Player rebate wallet balance fetched successfully.',response)

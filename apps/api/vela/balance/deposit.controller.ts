@@ -17,7 +17,7 @@ export class DepositController extends AbstractController{
   }
 
   @Get()
-  @UsePipes(new ValidationPipe({ transform: true }))
+  // @UsePipes(new ValidationPipe({ transform: true }))
   async get(@Query() dto: DepositBalanceDto,@Res() res : Response) {
     const response = await this.service.depositBalance(dto);
     this.successResponse(res,'Funds deposited successfully.',response)

@@ -15,7 +15,7 @@ export class GetController extends AbstractController{
   }
 
   @Get()
-  @UsePipes(new ValidationPipe({ transform: true }))
+  // @UsePipes(new ValidationPipe({ transform: true }))
   async get(@Query() dto: GetBalanceDto,@Res() res : Response, @Req() req,@Ip() ip) {
 
     const response = await this.service.getBalance(dto,req,ip);

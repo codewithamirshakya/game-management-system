@@ -17,7 +17,7 @@ export class WithdrawController extends AbstractController{
   }
 
   @Get()
-  @UsePipes(new ValidationPipe({ transform: true }))
+  // @UsePipes(new ValidationPipe({ transform: true }))
   async get(@Query() dto: WithdrawBalanceDto,@Res() res : Response) {
     const response = await this.service.withdrawBalance(dto);
     this.successResponse(res,'Funds withdrawn successfully.',response)

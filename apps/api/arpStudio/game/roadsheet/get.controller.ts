@@ -20,7 +20,7 @@ export class GetController extends AbstractController{
   }
 
   @Get()
-  @UsePipes(new ValidationPipe({ transform: true }))
+  // @UsePipes(new ValidationPipe({ transform: true }))
   async get(@Query() dto: GetGameRoadSheetDto,@Res() res : Response) {
     const response = await this.service.get(dto);
     this.successResponse(res,'Game roadsheet fetched successfully.',response)

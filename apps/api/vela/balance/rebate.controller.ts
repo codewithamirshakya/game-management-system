@@ -15,7 +15,7 @@ export class RebateController extends AbstractController{
   }
 
   @Get()
-  @UsePipes(new ValidationPipe({ transform: true }))
+  // @UsePipes(new ValidationPipe({ transform: true }))
   async get(@Query() dto: RebateBalanceDto,@Res() res : Response, @Req() req,@Ip() ip) {
     const response = await this.service.rebateBalance(dto,req,ip);
     this.successResponse(res,'Rebate claim request operated successfully.',response)

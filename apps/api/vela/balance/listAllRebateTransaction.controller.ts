@@ -17,7 +17,7 @@ export class ListAllRebateTransactionController extends AbstractController{
   }
 
   @Get()
-  @UsePipes(new ValidationPipe({ transform: true }))
+  // @UsePipes(new ValidationPipe({ transform: true }))
   async get(@Query() dto: ListAllRebateTransactionDto,@Res() res : Response, @Req() req,@Ip() ip) {
     const response = await this.service.listAll(dto,req,ip);
     this.successResponse(res,'Rebate transactions fetched successfully.',response)

@@ -17,7 +17,7 @@ export class LaunchController extends AbstractController{
   }
 
   @Get()
-  @UsePipes(new ValidationPipe({ transform: true }))
+  // @UsePipes(new ValidationPipe({ transform: true }))
   async get(@Req() req,@Res() res : Response,@Query() dto: LaunchGameDto,@Ip() ip) {
     const responseUrl = await this.service.launch(dto,ip,req);
     res.redirect(responseUrl);

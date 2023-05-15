@@ -20,7 +20,7 @@ export class DetailController extends AbstractController{
   }
 
   @Get()
-  @UsePipes(new ValidationPipe({ transform: true }))
+  // @UsePipes(new ValidationPipe({ transform: true }))
   async get(@Query() dto: DetailBetDto,@Res() res : Response) {
     const response = await this.detailBetService.getDetail(dto);
     this.successResponse(res,'User bet records fetched successfully.',response)

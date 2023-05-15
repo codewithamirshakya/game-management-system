@@ -18,7 +18,7 @@ export class DetailController extends AbstractController{
   }
 
   @Get()
-  @UsePipes(new ValidationPipe({ transform: true }))
+  // @UsePipes(new ValidationPipe({ transform: true }))
   async get(@Query() dto: DetailTradeDto,@Res() res : Response) {
     const response = await this.detailTradeService.getDetail(dto);
     this.successResponse(res,'User trade detail fetched successfully.',response)

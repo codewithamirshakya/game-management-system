@@ -15,7 +15,7 @@ export class WalletController extends AbstractController{
   }
 
   @Get()
-  @UsePipes(new ValidationPipe({ transform: true }))
+  // @UsePipes(new ValidationPipe({ transform: true }))
   async get(@Query() dto: GetBalanceDto,@Res() res : Response) {
     const response = await this.getBalanceService.getBalance(dto);
     this.successResponse(res,'User balance info fetched successfully.',response)
