@@ -18,7 +18,7 @@ export class ReportController extends AbstractController{
   }
 
   @Get()
-  @UsePipes(new ValidationPipe({ transform: true }))
+  // @UsePipes(new ValidationPipe({ transform: true }))
   async get(@Res() res : Response,@Query() dto: GetGameReportDto) {
     const response = await this.service.getReport(dto);
     this.successResponse(res,'Game reports fetched successfully.',response)

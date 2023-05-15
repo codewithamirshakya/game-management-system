@@ -16,7 +16,7 @@ export class CreateController extends AbstractController{
   }
 
   @Get()
-  @UsePipes(new ValidationPipe({ transform: true }))
+  // @UsePipes(new ValidationPipe({ transform: true }))
   async get(@Res() res : Response,@Query() query: CreatePlayerDto,@Ip() ip) {
     const response = await this.service.create(query,ip);
     this.successResponse(res,'User created successfully.',response)

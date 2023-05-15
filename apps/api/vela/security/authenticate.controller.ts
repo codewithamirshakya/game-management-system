@@ -15,7 +15,7 @@ export class AuthenticateController extends AbstractController{
   }
 
   @Get()
-  @UsePipes(new ValidationPipe({ transform: true }))
+  // @UsePipes(new ValidationPipe({ transform: true }))
   async get(@Query() dto: AuthenticateDto,@Res() res : Response) {
     const response = await this.service.authenticate(dto);
     this.successResponse(res,'User authenticated successfully.',response)

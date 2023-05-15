@@ -17,7 +17,7 @@ export class GetTransactionStatusController extends AbstractController{
   }
 
   @Get()
-  @UsePipes(new ValidationPipe({ transform: true }))
+  // @UsePipes(new ValidationPipe({ transform: true }))
   async get(@Query() dto: GetTransactionStatusDto,@Res() res : Response, @Req() req,@Ip() ip) {
     const response = await this.service.getTransactionStatus(dto,req,ip);
     this.successResponse(res,'Wallet Transaction status fetched successfully.',response)
