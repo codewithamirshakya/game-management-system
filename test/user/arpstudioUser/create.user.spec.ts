@@ -63,12 +63,12 @@ describe('ArpStudioCreateUserService', () => {
     expect(service).toBeDefined();
   });
 
-  // it('create', async () => {
-  //   const createUserDto: createUserArpStudio = bodyPayload ;
-  //   // jest.spyOn(service, 'findOneBy').mockReturnValue(mockRefreshToken);
-  //   const result = await service.create(createUserDto);
-  //   expect(apiRequestService.requestApi).toHaveBeenCalledTimes(1);
-  //   // expect(service.findOneBy).not.toThrow();
-  //   // expect(result).toBe(undefined);
-  // });
+  it('create', async () => {
+    const createUserDto: createUserArpStudio = bodyPayload ;
+    // jest.spyOn(service, 'findOneBy').mockReturnValue(mockRefreshToken);
+    const result = await service.create(createUserDto);
+    expect(apiRequestService.requestApi).toHaveBeenCalledTimes(1);
+    // expect(service.findOneBy).not.toThrow();
+    // expect(result).toBe(undefined);
+  });
 });
