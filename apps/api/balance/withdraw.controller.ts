@@ -5,14 +5,8 @@ import { ApiTags } from "@nestjs/swagger";
 import { GamingProviderEnum } from "../../../src/modules/core/shared/domain/interface/RequestInterface";
 
 import {
-  WithdrawBalanceDto as EvolutionWithdrawBalanceDto
-} from "../../../src/modules/core/balance/application/dtos/request/evolution/withdrawBalance.dto";
-
-import {
   UnknownGamingProviderException
 } from "../../../src/modules/core/shared/domain/exception/unknownGamingProvider.exception";
-import { WithdrawBalanceService as VelaWithdrawService } from "../../../src/modules/core/balance/application/services/vela/withdrawBalance.service";
-import { WithdrawBalanceService as EvolutionWithdrawService } from "../../../src/modules/core/balance/application/services/evolution/withdrawBalance.service";
 import { ArpStudioWithdrawService } from "@src/modules/core/balance/services/arpStudio/withdraw.service";
 import { WithdrawBalanceDto } from "@src/modules/core/balance/dtos/main/withdrawBalance.dto";
 import { ArpStudioWithdrawBalanceDto } from "@src/modules/core/balance/dtos/arpStudio/withdrawBalance.dto";

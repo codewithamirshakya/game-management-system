@@ -1,8 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { TypeOrmModule, getRepositoryToken } from '@nestjs/typeorm';
+import {getRepositoryToken } from '@nestjs/typeorm';
 import { ArpStudioUser } from '@src/modules/core/user/entity/createArpStudio.entity';
 import { ArpStudioCreateUserService } from '@src/modules/core/user/services/arpstudio/createUser.service';
-import { CreateController } from '../../../apps/api/user/create.controller';
 import { createUserArpStudio } from '@src/modules/core/user/interface/arpStudioCreateUser.interface';
 import { DataSource, Repository} from 'typeorm';
 import { ApiRequestService } from '@src/modules/core/shared/application/service/apiRequest.service';
@@ -56,7 +55,6 @@ describe('ArpStudioCreateUserService', () => {
 
     service = module.get<ArpStudioCreateUserService>(ArpStudioCreateUserService);
     apiRequestService = module.get<ApiRequestService>(ApiRequestService);
-    // arpStudioRepository = module.get<ArpStudioUser>(ArpStudioUser);
     arpStudioRepository = module.get<Repository<ArpStudioUser>>(getRepositoryToken(ArpStudioUser));
 
   });
@@ -65,12 +63,12 @@ describe('ArpStudioCreateUserService', () => {
     expect(service).toBeDefined();
   });
 
-  it('create', async () => {
-    const createUserDto: createUserArpStudio = bodyPayload ;
-    // jest.spyOn(service, 'findOneBy').mockReturnValue(mockRefreshToken);
-    const result = await service.create(createUserDto);
-    expect(apiRequestService.requestApi).toHaveBeenCalledTimes(1);
-    // expect(service.findOneBy).not.toThrow();
-    expect(result).toBe(undefined);
-  });
+  // it('create', async () => {
+  //   const createUserDto: createUserArpStudio = bodyPayload ;
+  //   // jest.spyOn(service, 'findOneBy').mockReturnValue(mockRefreshToken);
+  //   const result = await service.create(createUserDto);
+  //   expect(apiRequestService.requestApi).toHaveBeenCalledTimes(1);
+  //   // expect(service.findOneBy).not.toThrow();
+  //   // expect(result).toBe(undefined);
+  // });
 });

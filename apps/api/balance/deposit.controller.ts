@@ -26,6 +26,7 @@ export class DepositController extends AbstractController{
   ) {super();}
 
   @Post()
+  @UsePipes(new ValidationPipe({ transform: true }))
   async get(@Body() dto: DepositBalanceDto,@Res() res : Response,  @Req() req, @Ip() ip) {
     const response = await this.requestService(dto,req,ip);
     this.successResponse(res,'User balance deposited successfully.',response)
