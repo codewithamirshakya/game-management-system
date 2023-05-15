@@ -6,7 +6,6 @@ import { createUserArpStudio } from '@src/modules/core/user/interface/arpStudioC
 import { DataSource, Repository} from 'typeorm';
 import { ApiRequestService } from '@src/modules/core/shared/application/service/apiRequest.service';
 import {dataSourceStubs} from '../../stubs/datasource.stubs'
-import { createMock } from '@golevelup/nestjs-testing';
 
 const arpStudioServiceMock = () => ({
     create: jest.fn(),
@@ -31,6 +30,7 @@ const arpStudioServiceMock = () => ({
 
 describe('ArpStudioCreateUserService', () => {
   let service: ArpStudioCreateUserService,apiRequestService,arpStudioRepository;
+  let repo: Repository<ArpStudioUser>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -48,8 +48,8 @@ describe('ArpStudioCreateUserService', () => {
 
           {
             provide: getRepositoryToken(ArpStudioUser),
-            useValue: createMock<Repository<ArpStudioUser>>(),
-        },
+            useClass: Repository,
+          },
     ],
     }).compile();
 
