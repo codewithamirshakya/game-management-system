@@ -1,12 +1,10 @@
 
 import { Inject } from "@nestjs/common";
 import { Request } from "express";
-import { ApiRequestService } from "@src/modules/core/shared/application/service/apiRequest.service";
-import { ApiRequestDto } from "@src/modules/core/shared/application/dto/apiRequest.dto";
-import { ArpStudioRequestDto } from "@src/modules/core/shared/application/dto/arpStudio.request.dto";
+import { ApiRequestService } from "../../../common/service/apiRequest.service";
+import { ArpStudioRequestDto } from "@src/modules/core/common/dto/arpStudio.request.dto";
 import { EventDefinition } from "@src/modules/core/shared/application/constants/eventDefinition";
 import { ActivityCompletedEvent } from "@src/modules/core/shared/domain/event/activityLog/activityCompleted.event";
-import { GameProviderConstant } from "@src/modules/core/shared/application/constants/gameProvider.constant";
 import { ActivityTypeConstant } from "@src/modules/core/shared/domain/constants/activityType.constant";
 import { ArpStudioGetBalance } from "../../interface/arpStudio.interface";
 import { SHARED_TYPES } from "@src/modules/shared/application/constants/types";
@@ -19,12 +17,13 @@ import { ArpStudioBalance } from "../../entity/arpStudioBalance.entity";
 import { DataSource, Repository } from "typeorm";
 import { EvolutionTransactionFailedException } from "../../exception/evolutionTransactionFailed.exception";
 import { WithDrawExceptionFailed } from "../../exception/withdrawFailedException";
+import { ApiRequestDto } from "@src/modules/core/common/dto/apiRequest.dto";
+import { GameProviderConstant } from "@src/modules/core/common/constants/gameProvider.constant";
 
 export class ArpStudioBalanceService {
   constructor(
     @InjectRepository(ArpStudioBalance)
     private readonly repo: Repository<ArpStudioBalance>,
-    private dataSource: DataSource,
 
     @Inject(SHARED_TYPES.eventBus.EventDispatcherInterface) private eventDispatcher: EventDispatcherInterface,
     @Inject(ApiRequestService) public apiRequestService: ApiRequestService,
