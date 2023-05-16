@@ -11,14 +11,11 @@ import { ArpStudioCreateUserService } from "@src/modules/core/user/services/arps
 import{toDate} from "../../../../../lib/utils/cast.utils"
 export class ArpStudioDepositService {
   constructor(
-    // @Inject(ArpStudioCreateUserService)
-    // public arpStudioUserService: ArpStudioCreateUserService,
     @InjectRepository(ArpStudioBalance)
     private readonly repo: Repository<ArpStudioBalance>,
     private dataSource: DataSource,
 
     @Inject(ArpStudioRequestService)
-    // public arpStudioRequestService: ArpStudioRequestService,
     public arpStudioRequestService: ArpStudioRequestService,
 
       @Inject(ArpStudioCreateUserService)
@@ -34,10 +31,12 @@ export class ArpStudioDepositService {
       }
         const serverResponse = await this.deposit(dto);
         if (serverResponse && serverResponse.result == 0) {
-          const UpdateData = await this.saveData(dto);
-          const response = this.makeResponseData(UpdateData);
+          const insertData = await this.saveData(dto);
+          const response = this.makeResponseData(insertData);
           return response;
         }
+        throw new DepositOperationFailedException({});
+
     } catch (e) {
       throw new DepositOperationFailedException(e);
     }
