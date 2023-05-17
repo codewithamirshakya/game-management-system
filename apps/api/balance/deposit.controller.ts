@@ -1,4 +1,4 @@
-import { Body, Controller, Ip, Post, Req, Res, UsePipes, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, HttpStatus, Ip, Post, Req, Res, UsePipes, ValidationPipe } from "@nestjs/common";
 import { AbstractController } from "../../../src/modules/shared/infrastructure/controller/api/abstract.controller";
 import { Request, Response } from "express";
 import { DepositBalanceService as EvolutionDepositService } from "../../../src/modules/core/balance/application/services/evolution/depositBalance.service";
@@ -26,7 +26,6 @@ export class DepositController extends AbstractController{
   ) {super();}
 
   @Post()
-  // @UsePipes(new ValidationPipe({ transform: true }))
   async get(@Body() dto: DepositBalanceDto,@Res() res : Response,  @Req() req, @Ip() ip) {
     const response = await this.requestService(dto,req,ip);
     this.successResponse(res,'User balance deposited successfully.',response)
@@ -45,7 +44,7 @@ export class DepositController extends AbstractController{
       //   return await this.evolutionDepositService.depositBalance(new EvolutionDepositBalanceDto(dto),req,ip);
       // }
       default:
-        throw new UnknownGamingProviderException();
+        throw new UnknownGamingProviderException('Game provider not found',null,HttpStatus.NOT_FOUND);
     }
   }
 }
