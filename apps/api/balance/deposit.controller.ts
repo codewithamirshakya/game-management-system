@@ -44,7 +44,7 @@ export class DepositController extends AbstractController{
       //   return await this.evolutionDepositService.depositBalance(new EvolutionDepositBalanceDto(dto),req,ip);
       // }
       default:
-        throw new UnknownGamingProviderException('Game provider not found',null,HttpStatus.NOT_FOUND);
+        throw new UnknownGamingProviderException('Game provider not found');
     }
   }
 }
