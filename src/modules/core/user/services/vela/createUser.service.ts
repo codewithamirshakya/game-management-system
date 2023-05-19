@@ -25,11 +25,13 @@ export class VelaCreateUserService {
   public apiRequestService: ApiRequestService,
   ) {}
 
-  @Transactional()
+  // @Transactional()
    async create(createPlayerDTO:CreateUserVela,req: Request, ip: string) {
     try {
       const userExits = await this.repo.findOneBy({ member_id: createPlayerDTO.member_id });
-        if(userExits){
+      console.log(userExits);
+
+      if(userExits){
           throw new UserAlreadyExistsException()
         }
       const serverResponse = await this.createPlayer(createPlayerDTO);
@@ -39,7 +41,7 @@ export class VelaCreateUserService {
         return response;
       }
     } catch (e) {
-      throw new UserCreationFailedException('Player creation failed.',e)
+      throw new UserCreationFailedException(e)
     }
   }
 
@@ -81,8 +83,6 @@ export class VelaCreateUserService {
   makeResponseData(data,serverResponse){
     return {
       username: data.username,
-      // nickname: data.nickname,
-      // openurl: serverResponse.openurl
     }
   }
 

@@ -126,18 +126,7 @@ describe("BalanceDepositController get()", () => {
     // it('should throw UnknownGamingProviderException when gameProvider is not recognized', async () => {
     //     const dto = { gameProvider: 'UNKNOWN_PROVIDER' };
     //     const depositBalanceDto = {...depositDto,...dto,  } as any
-    //     // try {
-    //         // Call the code that throws the exception
     //          await expect(()=>depositController.get(depositBalanceDto, res, req, ip)).rejects.toThrow(UnknownGamingProviderException);
-
-    //         // If the exception is not thrown, fail the test
-    //         // expect.fail('Expected UnknownGamingProviderException to be thrown');
-    //     //   } catch (error) {
-    //     //     // Assert that the correct exception is thrown
-    //     //     expect(error.message).toBe('Game provider not found');
-    //     //     expect(error.getStatus()).toBe(400);
-    //     //   }
-    //     // await expect(()=>depositController.get(depositBalanceDto, res, req, ip)).rejects.toThrow(UnknownGamingProviderException);
     // });
 
     it('should call arpStudioDepositService.depositBalance() when gameProvider is ARP_STUDIO', async () => {
@@ -167,6 +156,5 @@ describe("BalanceDepositController get()", () => {
         );
     });
 
-  
 
 });
