@@ -25,6 +25,7 @@ import { ArpStudioWithdrawService } from "./services/arpStudio/withdraw.service"
 import { VelaDepositBalanceService } from "./services/vela/deposit-balance.service";
 import { VelaBalance } from "./entity/vela-balance.entity";
 import { VelaWithdrawBalanceService } from "./services/vela/withdraw-balance.service";
+import { EvolutionDepositBalanceService } from "./services/evolution/deposit-balance.service";
 
 @Module({
   imports: [
@@ -40,7 +41,7 @@ import { VelaWithdrawBalanceService } from "./services/vela/withdraw-balance.ser
   controllers: [GetController,DepositController,WithdrawController],
   providers: [ArpStudioBalanceService,GetVelaBalanceService,
     GetEvolutionBalanceService,ArpStudioDepositService,ArpStudioWithdrawService,
-    VelaDepositBalanceService,VelaWithdrawBalanceService
+    VelaDepositBalanceService,VelaWithdrawBalanceService,EvolutionDepositBalanceService
   ]
 })
 

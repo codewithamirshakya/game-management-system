@@ -29,8 +29,6 @@ export class VelaCreateUserService {
    async create(createPlayerDTO:CreateUserVela,req: Request, ip: string) {
     try {
       const userExits = await this.repo.findOneBy({ member_id: createPlayerDTO.member_id });
-      console.log(userExits);
-
       if(userExits){
           throw new UserAlreadyExistsException()
         }
