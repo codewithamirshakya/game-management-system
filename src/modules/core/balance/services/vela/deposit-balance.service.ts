@@ -42,7 +42,7 @@ export class VelaDepositBalanceService {
 
       }
       const serverResponse = await this.deposit(dto);
-      if (serverResponse && serverResponse.status_code == 0) {
+        if (serverResponse && serverResponse.status_code == 0) {
         const insertData = await this.saveData(dto,serverResponse);
         const response = this.makeResponseData(insertData);
         return response;

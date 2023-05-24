@@ -8,8 +8,9 @@ import { ApiRequestService } from 'src/modules/core/shared/application/service/a
 import { ApiRequestDto } from 'src/modules/core/shared/application/dto/apiRequest.dto';
 import { EvolutionRequestDto } from 'src/modules/core/shared/application/dto/evolution.request.dto';
 import { RetrieveOperationFailedException } from "../../domain/exception/retreiveOperationFailed.exception";
-import { GetBalanceDto as DomainGetBalanceDto, GetBalanceDto } from "../../interface/getBalanceEvolution.interface";
 import { GameProviderConstant } from "@src/modules/core/shared/application/constants/gameProvider.constant";
+import { EvolutionConfig } from "@src/config/evolution.config";
+import { EvolutionGetBalanceDto } from "../../interface/getBalanceEvolution.interface";
 
 export class GetEvolutionBalanceService {
   constructor(
@@ -22,9 +23,14 @@ export class GetEvolutionBalanceService {
 
 
   @Transactional()
-  async getBalance(dto: GetBalanceDto,req: Request,ip: string) { 
+  async getBalance(dto: EvolutionGetBalanceDto,req: Request,ip: string) { 
     try {
-      const response = await this.getEvolutionBalance(new DomainGetBalanceDto(dto));
+      const getBalanceDto = {
+        cCode:  'RWA',
+        ecID:EvolutionConfig.ecId,
+        ...dto
+    };
+      const response = await this.getEvolutionBalance(getBalanceDto);
       //activity completed event dispatch
       // this.eventDispatcher.dispatch(EventDefinition.ACTIVITY_COMPLETED_EVENT,
       //   new ActivityCompletedEvent(
@@ -34,7 +40,6 @@ export class GetEvolutionBalanceService {
       //     ip,
       //     req.headers["user-agent"],
       //   ));
-
       return response;
     } catch (e) {
       throw new RetrieveOperationFailedException(e);
@@ -42,7 +47,6 @@ export class GetEvolutionBalanceService {
   }
 
   async getEvolutionBalance(dto: any){
-    console.log('fund dto', dto);
     return await this.apiRequestService.requestApi(new ApiRequestDto({
       gameProvider : GameProviderConstant.EVOLUTION,
       requestDTO: new EvolutionRequestDto({

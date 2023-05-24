@@ -12,6 +12,8 @@ import { WithdrawBalanceDto } from "@src/modules/core/balance/dtos/main/withdraw
 import { ArpStudioWithdrawBalanceDto } from "@src/modules/core/balance/dtos/arpStudio/withdrawBalance.dto";
 import { VelaWithdrawBalanceService } from "@src/modules/core/balance/services/vela/withdraw-balance.service";
 import { VelaWithdrawBalanceDto } from "@src/modules/core/balance/dtos/vela/withdrawBalance.dto";
+import { EvolutionWithdrawBalanceService } from "@src/modules/core/balance/services/evolution/withdraw.service";
+import { EvolutionWithdrawBalanceDto } from "@src/modules/core/balance/dtos/evolution/withdrawBalance.dto";
 
 @ApiTags('Balance')
 @Controller('balance/withdraw')
@@ -19,11 +21,10 @@ export class WithdrawController extends AbstractController{
   constructor(
     private arpStudioWithdrawService : ArpStudioWithdrawService,
     private velaWithdrawService : VelaWithdrawBalanceService,
-    // private evolutionWithdrawService : EvolutionWithdrawService,
+    private evolutionWithdrawService : EvolutionWithdrawBalanceService,
   ) {super();}
 
   @Post()
-  // @UsePipes(new ValidationPipe({ transform: true }))
   async get(@Body() dto: WithdrawBalanceDto,@Res() res : Response,@Req() req, @Ip() ip) {
     const response = await this.requestService(dto,req,ip);
     this.successResponse(res,'User balance withdrawn successfully.',response)
@@ -33,15 +34,14 @@ export class WithdrawController extends AbstractController{
 
     switch (dto.gameProvider) {
       case GamingProviderEnum.ARP_STUDIO: {
-        // console.log(new ArpStudioWithdrawBalanceDto(dto));
         return await this.arpStudioWithdrawService.withdrawBalance(new ArpStudioWithdrawBalanceDto(dto));
       }
       case GamingProviderEnum.VELA_GAMING: {
         return await this.velaWithdrawService.withdrawBalance(new VelaWithdrawBalanceDto(dto));
       }
-      // case GamingProviderEnum.EVOLUTION: {
-      //   return await this.evolutionWithdrawService.withdrawBalance(new EvolutionWithdrawBalanceDto(dto),req,ip);
-      // }
+      case GamingProviderEnum.EVOLUTION: {
+        return await this.evolutionWithdrawService.withdrawBalance(new EvolutionWithdrawBalanceDto(dto));
+      }
       default:
         throw new UnknownGamingProviderException();
     }

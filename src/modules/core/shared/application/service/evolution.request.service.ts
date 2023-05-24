@@ -14,7 +14,7 @@ export class EvolutionRequestService {
     const url = (evolutionRequestDTO.baseUrl ? evolutionRequestDTO.baseUrl : EvolutionConfig.baseUrl)
       + evolutionRequestDTO.endpoint;
     const params = evolutionRequestDTO.params;
-
+console.log(url,params);
       try {
           let response;
           if (evolutionRequestDTO.method === 'POST') {
@@ -25,12 +25,15 @@ export class EvolutionRequestService {
             });
           } else {
             response = await this.httpService.axiosRef.get(url, {
-                headers:
-                    evolutionRequestDTO.headers ?
-                    evolutionRequestDTO.headers :
-                    {
-                  "Authorization": "Basic "+EvolutionConfig.authorization,
-                } ,
+                // headers:
+                //     evolutionRequestDTO.headers ?
+                //     evolutionRequestDTO.headers :
+                //     {
+                //   "Authorization": "Basic "+EvolutionConfig.authorization,
+                // } ,
+                headers: {
+                  'Content-Type': 'application/json'
+                  },
               params: params,
               }
             );

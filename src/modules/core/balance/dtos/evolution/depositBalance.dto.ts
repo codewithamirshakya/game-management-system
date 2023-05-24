@@ -6,13 +6,11 @@ import { DepositBalanceDto as MainDepositBalanceDto } from "../main/depositBalan
 export class EvolutionDepositBalanceDto {
 
   constructor(dto: MainDepositBalanceDto) {
-    this.currency = dto.currency;
     this.amount = dto.amount;
     this.eTransID = dto.transid;
     this.euID = dto.euID;
-    this.uID = dto.uID;
+    // this.uID = dto.uID;
     this.output = dto.output;
-    this.tcheck = dto.tcheck;
     this.createuser = dto.createuser;
   }
 
@@ -49,12 +47,12 @@ export class EvolutionDepositBalanceDto {
   @MaxLength(1)
   readonly output: string;
 
-  @IsString()
-  @IsNotEmpty()
-  @ApiPropertyOptional()
-  @IsOptional()
-  @MaxLength(1)
-  readonly tcheck: string;
+  // @IsString()
+  // @IsNotEmpty()
+  // @ApiPropertyOptional()
+  // @IsOptional()
+  // @MaxLength(1)
+  // readonly tcheck: string;
 
 
   @ValidateIf(x => x.euID === undefined)
