@@ -29,6 +29,7 @@ describe('Balance Controller (e2e)', () => {
     atype: 1,
     source: "test",
     amount: 10,
+    id: 1,
   }
 
   describe('getUsers detail', () => {
