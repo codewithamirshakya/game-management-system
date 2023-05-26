@@ -5,7 +5,7 @@ export const dataSourceOptions: DataSourceOptions = {
   host: process.env.DB_HOST,
   port: parseInt(process.env.DB_PORT, 10),
   username: process.env.DB_USERNAME || 'root',
-  database: process.env.DB_NAME || 'nest_game_integration',
+  database: process.env.APP_ENV === 'test'?process.env.DB_NAME_TEST : process.env.DB_NAME,
   password: process.env.DB_PASSWORD,
   entities: [ 'dist/src/modules/**/*.entity.{js,ts}'],
   migrations: ['dist/db/migrations/*{.ts,.js}'],
@@ -16,5 +16,4 @@ export const dataSourceOptions: DataSourceOptions = {
   logging: true,
 };
 const dataSource = new DataSource(dataSourceOptions);
-
 export default dataSource;

@@ -8,7 +8,6 @@ import pino from "pino";
 import { addTransactionalDataSource } from "typeorm-transactional";
 import { modules } from "./modules";
 import { EventEmitterModule } from "@nestjs/event-emitter";
-
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -16,6 +15,7 @@ import { EventEmitterModule } from "@nestjs/event-emitter";
       useFactory() {
         return dataSourceOptions
       },
+
       async dataSourceFactory(options) {
         if (!options) {
           throw new Error('Invalid options passed');
@@ -36,15 +36,6 @@ import { EventEmitterModule } from "@nestjs/event-emitter";
         }),
         transport: {
           targets: [
-            // {
-            //   target: "pino-pretty",
-            //   options: {
-            //     singleLine: true,
-            //     colorize: true,
-            //     destination: "logs/pino.log"
-            //   },
-            //   level: "debug"
-            // },
             {
               target: "pino-pretty",
               options: {
@@ -62,9 +53,9 @@ import { EventEmitterModule } from "@nestjs/event-emitter";
   ],
 })
 export class AppModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(RequestAndResponseLoggerMiddleware)
-      .forRoutes({ path: "*", method: RequestMethod.ALL });
-  }
+  // configure(consumer: MiddlewareConsumer) {
+  //   consumer
+  //     .apply(RequestAndResponseLoggerMiddleware)
+  //     .forRoutes({ path: "*", method: RequestMethod.ALL });
+  // }
 }

@@ -4,9 +4,9 @@ import { Transactional } from "typeorm-transactional";
 import { EventDefinition } from "@src/modules/core/shared/application/constants/eventDefinition";
 
 import { Request } from 'express';
-import { ApiRequestService } from 'src/modules/core/shared/application/service/apiRequest.service';
-import { ApiRequestDto } from 'src/modules/core/shared/application/dto/apiRequest.dto';
-import { EvolutionRequestDto } from 'src/modules/core/shared/application/dto/evolution.request.dto';
+import { ApiRequestService } from '@src/modules/core/shared/application/service/apiRequest.service';
+import { ApiRequestDto } from '@src/modules/core/shared/application/dto/apiRequest.dto';
+import { EvolutionRequestDto } from '@src/modules/core/shared/application/dto/evolution.request.dto';
 import { RetrieveOperationFailedException } from "../../domain/exception/retreiveOperationFailed.exception";
 import { GameProviderConstant } from "@src/modules/core/shared/application/constants/gameProvider.constant";
 import { EvolutionConfig } from "@src/config/evolution.config";

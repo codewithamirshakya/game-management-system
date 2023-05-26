@@ -10,10 +10,10 @@ import { ArpStudioRequestService } from "./arpStudio.request.service";
 export class ApiRequestService {
 
   @Inject(VelaGamingRequestService)
-  private readonly velaRequestService: VelaGamingRequestService;
+  public readonly velaRequestService: VelaGamingRequestService;
 
   @Inject(EvolutionRequestService)
-  private readonly evolutionRequestService: EvolutionRequestService;
+  public readonly evolutionRequestService: EvolutionRequestService;
 
   @Inject(ArpStudioRequestService)
   public arpStudioRequestService: ArpStudioRequestService

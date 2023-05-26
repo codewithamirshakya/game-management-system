@@ -13,9 +13,10 @@ import {
 } from "class-validator";
 import { ApiHideProperty, ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { ApiModelProperty } from "@nestjs/swagger/dist/decorators/api-model-property.decorator";
-import { BaseRequestDto } from "@src/modules/core/shared/application/dto/baseRequest.dto";
-import { GamingProviderEnum } from "@src/modules/core/shared/domain/interface/RequestInterface";
-import { isExists } from "@src/modules/core/shared/infrastructure/persistence/utils/isExists";
+import { BaseRequestDto } from "../../../common/dto/baseRequest.dto";
+// import { BaseRequestDto } from "src/modules/core/shared/application/dto/baseRequest.dto";
+import { GamingProviderEnum } from "../../../common/interface/RequestInterface";
+import { isExists } from "../../../shared/infrastructure/persistence/utils/isExists";
 class Session {
   @IsString()
   @IsNotEmpty()

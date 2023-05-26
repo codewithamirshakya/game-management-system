@@ -1,4 +1,3 @@
-import { ApiRequestService } from "@src/modules/core/shared/application/service/apiRequest.service";
 import { createUserArpStudio } from "../../interface/arpStudioCreateUser.interface";
 import { Inject } from "@nestjs/common";
 import { ApiRequestDto } from "@src/modules/core/shared/application/dto/apiRequest.dto";
@@ -11,6 +10,7 @@ import { UserCreationFailedException } from "../../exception/userCreationFailed.
 import { UserAlreadyExistsException } from "../../exception/userAlreadyExists.exception";
 import { GameProviderConstant } from "@src/modules/core/shared/application/constants/gameProvider.constant";
 import { Transactional } from "typeorm-transactional";
+import { ApiRequestService } from "@src/modules/core/common/service/apiRequest.service";
 // import { GameProviderConstant } from "../../../shared/application/constants/gameProvider.constant";
 
 export class ArpStudioCreateUserService {
@@ -53,6 +53,7 @@ export class ArpStudioCreateUserService {
   @Transactional()
   async saveData(data, serverResponse) {
     try {
+    
       const responseData = this.repo.create({
         username: data.username,
         nickname: data.nickname,
