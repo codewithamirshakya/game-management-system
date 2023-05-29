@@ -16,13 +16,14 @@ import { Repository } from "typeorm";
 import { ArpStudioUser } from "../../entity/createArpStudio.entity";
 import { ArpStudioRequestDto } from "@src/modules/core/shared/application/dto/arpStudio.request.dto";
 import { UpdateUserDto } from "../../interface/arpStudioUpdateUser.interface";
+import { ApiRequestService } from "@src/modules/core/common/service/apiRequest.service";
+import { ApiRequestDto } from "@src/modules/core/common/dto/apiRequest.dto";
 export class UpdateArpStudioUserService {
   constructor(
-    @Inject(ArpStudioRequestService)
-    public arpStudioRequestService: ArpStudioRequestService,
     @InjectRepository(ArpStudioUser)
     private usersRepository: Repository<ArpStudioUser>,
-
+    @Inject(ApiRequestService)
+    public apiRequestService: ApiRequestService
     ) {}
 
   @Transactional()
@@ -39,10 +40,19 @@ export class UpdateArpStudioUserService {
   }
 
   async updateArpStudio(data: UpdateUserDto): Promise<any> {
-    const user = this.arpStudioRequestService.request(new ArpStudioRequestDto({
-      method: 'POST',
-      params: data,
-      endpoint: '/user/update'
+    // const user = this.arpStudioRequestService.request(new ArpStudioRequestDto({
+    //   method: 'POST',
+    //   params: data,
+    //   endpoint: '/user/update'
+    // }));
+
+    const user =  await this.apiRequestService.requestApi(new ApiRequestDto({
+      gameProvider: GameProviderConstant.ARP_STUDIO,
+      requestDTO: new ArpStudioRequestDto({
+        method: 'POST',
+        params: data,
+        endpoint: '/user/update'
+      })
     }));
 
     const arpUser = await this.usersRepository.findOneBy({
@@ -61,7 +71,6 @@ export class UpdateArpStudioUserService {
       arpUser.nickname = data.nickname;
     }
     arpUser.updated_at =  new Date();
-    console.log(arpUser);
     await this.usersRepository.save(arpUser);
     return user;
   }

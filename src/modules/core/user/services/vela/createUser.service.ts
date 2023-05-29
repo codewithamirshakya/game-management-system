@@ -20,9 +20,8 @@ export class VelaCreateUserService {
   constructor(
     @InjectRepository(VelaUser)
     private readonly repo: Repository<VelaUser>,
-    private dataSource: DataSource,
-  @Inject(ApiRequestService)
-  public apiRequestService: ApiRequestService,
+    @Inject(ApiRequestService)
+    public apiRequestService: ApiRequestService
   ) {}
 
   // @Transactional()
@@ -56,9 +55,7 @@ export class VelaCreateUserService {
   }
 
   async saveData(data) {
-    const queryRunner = this.dataSource.createQueryRunner();
-    await queryRunner.connect();
-    await queryRunner.startTransaction();
+
     try {
       const responseData = this.repo.create({
         username: data.member_id,
@@ -67,14 +64,11 @@ export class VelaCreateUserService {
         currency:data?data.currency:null
 
       });
-      await queryRunner.manager.save(responseData);
-      await queryRunner.commitTransaction();
+      await this.repo.save(responseData);
       return responseData;
     } catch (error) {
-      await queryRunner.rollbackTransaction();
       throw error;
     } finally {
-      await queryRunner.release();
     }
   }
 

@@ -17,8 +17,8 @@ export class EvolutionCreateUserService {
     constructor(
         @InjectRepository(EvolutionUser)
         private readonly repo: Repository<EvolutionUser>,
-        private dataSource: DataSource,
-        @Inject(ApiRequestService) public apiRequestService: ApiRequestService
+        @Inject(ApiRequestService)
+        public apiRequestService: ApiRequestService
 
     ) {}
 
@@ -69,9 +69,9 @@ export class EvolutionCreateUserService {
     }
 
     async saveData(data) {
-        const queryRunner = this.dataSource.createQueryRunner();
-        await queryRunner.connect();
-        await queryRunner.startTransaction();
+        // const queryRunner = this.dataSource.createQueryRunner();
+        // await queryRunner.connect();
+        // await queryRunner.startTransaction();
         try {
           const responseData = this.repo.create({
             username: data.username,
@@ -79,14 +79,14 @@ export class EvolutionCreateUserService {
             currency:data.curreny,
             country:data.country,
           });
-          await queryRunner.manager.save(responseData);
-          await queryRunner.commitTransaction();
+          // await queryRunner.manager.save(responseData);
+          // await queryRunner.commitTransaction();
           return responseData;
         } catch (error) {
-          await queryRunner.rollbackTransaction();
+          // await queryRunner.rollbackTransaction();
           throw error;
         } finally {
-          await queryRunner.release();
+          // await queryRunner.release();
         }
       }
 

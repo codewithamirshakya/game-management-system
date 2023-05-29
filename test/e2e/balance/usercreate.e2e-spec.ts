@@ -5,12 +5,13 @@ import { ArpStudioUser } from '@src/modules/core/user/entity/createArpStudio.ent
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersModule } from '@src/modules/core/user/users.module';
 import { TypeOrmModule, getRepositoryToken } from '@nestjs/typeorm';
+import { ApiRequestService } from '@src/modules/core/common/service/apiRequest.service';
 
 
 jest.setTimeout(30000);
 
 describe('UserController (e2e)', () => {
-  let app: INestApplication;
+  let app: INestApplication ;
 
   let userRepository: Repository<ArpStudioUser>;
 
@@ -24,9 +25,12 @@ beforeAll(async () => {
 
       TypeOrmModule.forRoot({
         ...require('../../../src/config/ormconfig.test'),
+        synchronize: true,
+          dropSchema: true,
         entities: [ArpStudioUser],
       }),
-      UsersModule,
+      forwardRef(() => UsersModule),
+
     ],
   }).compile();
   app = moduleFixture.createNestApplication();
@@ -60,7 +64,7 @@ beforeAll(async () => {
 })
 
 afterAll(async () => {
-  // await clearDatabase();
+  await clearDatabase();
   await app.close();
 });
 });

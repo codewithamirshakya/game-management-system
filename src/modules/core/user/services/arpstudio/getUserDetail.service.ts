@@ -14,12 +14,13 @@ import { UserFetchFailedException } from "../../exception/userFetchFailed.except
 import { ArpStudioUser } from "../../entity/createArpStudio.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
+import { ApiRequestService } from "@src/modules/core/common/service/apiRequest.service";
 export class GetUserDetailArpStudioService {
     constructor(
       @InjectRepository(ArpStudioUser)
       private readonly repo: Repository<ArpStudioUser>,
-      @Inject(ArpStudioRequestService)
-      public arpStudioRequestService: ArpStudioRequestService
+      @Inject(ApiRequestService)
+      public apiRequestService: ApiRequestService
       ) {}
 
     async getDetail(dto: DetailUserDto,req: Request,ip: string) {
@@ -30,7 +31,6 @@ export class GetUserDetailArpStudioService {
             if (serverResponse && serverResponse.result == 0) {
               const userData = await this.repo.findOneBy({ username: dto.username });
               const response = this.makeResponseData(userData);
-              console.log(response);
               return response;
             }
 
@@ -41,10 +41,19 @@ export class GetUserDetailArpStudioService {
     }
 
     async getUserDetail(data: DetailUserDto): Promise<any> {
-      return this.arpStudioRequestService.request(new ArpStudioRequestDto({
-        method: 'GET',
-        params: data,
-        endpoint: 'user/info'
+      // return this.arpStudioRequestService.request(new ArpStudioRequestDto({
+      //   method: 'GET',
+      //   params: data,
+      //   endpoint: 'user/info'
+      // }));
+
+      return await this.apiRequestService.requestApi(new ApiRequestDto({
+        gameProvider: GameProviderConstant.ARP_STUDIO,
+        requestDTO: new ArpStudioRequestDto({
+          method: 'GET',
+          params: data,
+          endpoint: 'user/info'
+        })
       }));
     }
     makeResponseData(data) {
