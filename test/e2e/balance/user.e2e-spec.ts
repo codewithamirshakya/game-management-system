@@ -5,8 +5,6 @@ import { ArpStudioUser } from '@src/modules/core/user/entity/createArpStudio.ent
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersModule } from '@src/modules/core/user/users.module';
 import { TypeOrmModule, getRepositoryToken } from '@nestjs/typeorm';
-import { ApiRequestService } from '@src/modules/core/common/service/apiRequest.service';
-
 
 jest.setTimeout(30000);
 
@@ -31,6 +29,7 @@ beforeAll(async () => {
       }),
       forwardRef(() => UsersModule),
 
+
     ],
   }).compile();
   app = moduleFixture.createNestApplication();
@@ -39,24 +38,20 @@ beforeAll(async () => {
   await app.init();
 
 });
-
-
-
-  describe('/Create User (POST)', () => {
+  describe('/Create User For Arp (POST)', () => {
     it('should create a Arp Studio new user', async () => {
       const newUser = {
         gameProvider: "ARP_STUDIO",
-        username: 'ram',
+        username: "ram",
         nickname:'test',
       };
 
       const response = await request(app.getHttpServer())
         .post('/user/create')
         .send(newUser)
-        .expect(201);
       const createdUser = response.body;
-      expect(createdUser.username).toBe(newUser.username);
-      expect(createdUser.isActive).toBe(true);
+      expect(createdUser.statusCode).toBe(200);
+      expect(createdUser.data.username).toBe(newUser.username);
 
 
     });

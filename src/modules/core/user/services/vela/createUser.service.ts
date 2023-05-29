@@ -5,12 +5,12 @@ import { Transactional } from "typeorm-transactional";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { Request } from "express";
 
-import { ApiRequestService } from "@src/modules/core/shared/application/service/apiRequest.service";
-import { ApiRequestDto } from "@src/modules/core/shared/application/dto/apiRequest.dto";
-import { VelaRequestDto } from "@src/modules/core/shared/application/dto/vela.request.dto";
+import { ApiRequestService } from "@src/modules/core/common/service/apiRequest.service";
+import { ApiRequestDto } from "@src/modules/core/common/dto/apiRequest.dto";
+import { VelaRequestDto } from "@src/modules/core/common/dto/vela.request.dto";
 import { CreateUserVela } from "../../interface/velaCreateUser.interface";
 import { UserCreationFailedException } from "../../exception/userCreationFailed.exception";
-import { GameProviderConstant } from "@src/modules/core/shared/application/constants/gameProvider.constant";
+import { GameProviderConstant } from "@src/modules/core/common/constants/gameProvider.constant";
 import { InjectRepository } from "@nestjs/typeorm";
 import { VelaUser } from "../../entity/createVelaUser.entity";
 import { DataSource, Repository } from "typeorm";

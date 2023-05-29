@@ -1,9 +1,9 @@
 
 import { Inject } from "@nestjs/common";
 import { Request } from "express";
-import { ApiRequestDto } from "@src/modules/core/shared/application/dto/apiRequest.dto";
-import { VelaRequestDto } from "@src/modules/core/shared/application/dto/vela.request.dto";
-import { ApiRequestService } from "@src/modules/core/shared/application/service/apiRequest.service";
+import { ApiRequestDto } from "@src/modules/core/common/dto/apiRequest.dto";
+import { VelaRequestDto } from "@src/modules/core/common/dto/vela.request.dto";
+import { ApiRequestService } from "@src/modules/core/common/service/apiRequest.service";
 import { VelaBalanceInterface } from "../../interface/getBalanceVela.interface";
 import { RetrieveOperationFailedException } from "../../domain/exception/retreiveOperationFailed.exception";
 import { GameProviderConstant } from "@src/modules/core/shared/application/constants/gameProvider.constant";

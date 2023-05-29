@@ -1,7 +1,7 @@
-import { ApiRequestService } from "@src/modules/core/shared/application/service/apiRequest.service";
+import { ApiRequestService } from "@src/modules/core/common/service/apiRequest.service";
 import { Inject } from "@nestjs/common";
-import { GameProviderConstant } from "@src/modules/core/shared/application/constants/gameProvider.constant";
-import { ApiRequestDto } from "@src/modules/core/shared/application/dto/apiRequest.dto";
+import { GameProviderConstant } from "@src/modules/core/common/constants/gameProvider.constant";
+import { ApiRequestDto } from "@src/modules/core/common/dto/apiRequest.dto";
 import { InjectRepository } from "@nestjs/typeorm";
 import { EvolutionRequestDto } from "@src/modules/core/shared/application/dto/evolution.request.dto";
 import { EvolutionConfig } from "@src/config/evolution.config";

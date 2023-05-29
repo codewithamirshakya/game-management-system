@@ -35,6 +35,7 @@ export class ArpStudioCreateUserService {
         return response;
       }
     } catch (e) {
+      console.log(e);
       throw new UserCreationFailedException(e);
     }
   }
@@ -49,7 +50,6 @@ export class ArpStudioCreateUserService {
       })
     }));
   }
-  @Transactional()
   async saveData(data, serverResponse) {
     try {
     

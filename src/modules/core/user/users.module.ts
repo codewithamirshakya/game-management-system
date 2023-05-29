@@ -13,12 +13,11 @@ import { GetUserDetailEvolutionService } from './services/evolution/getDetail.se
 import { EvolutionCreateUserService } from './services/evolution/createUser.service';
 import { EvolutionUser } from './entity/createEvolutionUser.entity';
 import { BalanceModule } from '../balance/balance.module';
-import { ApiRequestService } from '../common/service/apiRequest.service';
 import { CommonShareModule } from '../common/common.module';
 
 @Module({
     imports: [TypeOrmModule.forFeature([ArpStudioUser,VelaUser,EvolutionUser]),
-        forwardRef(() => BalanceModule), forwardRef(() => CommonShareModule)],
+        forwardRef(() => BalanceModule), CommonShareModule],
     controllers: [CreateController,UserDetailController,UpdateController],
     providers: [
         ArpStudioCreateUserService,

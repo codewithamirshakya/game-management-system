@@ -1,4 +1,4 @@
-import { ArpStudioRequestService } from "@src/modules/core/shared/application/service/arpStudio.request.service";
+import { ArpStudioRequestService } from "@src/modules/core/common/service/arpStudio.request.service";
 import { DepositOperationFailedException } from "../../exception/depositOperationFailed.exception";
 import { DepositBalance } from "../../interface/arpStudio/arpStudioDepositBalance";
 import { Inject} from "@nestjs/common";
