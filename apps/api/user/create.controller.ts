@@ -1,6 +1,5 @@
 import { Body, Controller, Ip, Post, Req, Res } from "@nestjs/common";
 import { Request, Response } from "express";
-import { AbstractController } from "../../../src/modules/shared/infrastructure/controller/api/abstract.controller";
 import { GamingProviderEnum } from "../../../src/modules/core/shared/domain/interface/RequestInterface";
 import {
   UnknownGamingProviderException
@@ -12,6 +11,7 @@ import { ApiTags } from "@nestjs/swagger";
 import { VelaCreateUserService } from "../../../src/modules/core/user/services/vela/createUser.service";
 import { CreatVelaUserDto } from "../../../src/modules/core/user/dtos/vela/createUser.dto";
 import { EvolutionCreateUserService } from "../../../src/modules/core/user/services/evolution/createUser.service";
+import { AbstractController } from "@src/modules/core/common/abstract.controller";
 // import { CreateEvolutionUserDto } from "@src/modules/core/user/dtos/evolution/createUser.dto";
 @ApiTags('User')
 @Controller('user/create')
