@@ -1,8 +1,5 @@
 import { Body, Controller, HttpStatus, Ip, Post, Req, Res, UsePipes, ValidationPipe } from "@nestjs/common";
-import { AbstractController } from "../../../src/modules/shared/infrastructure/controller/api/abstract.controller";
 import { Request, Response } from "express";
-import { DepositBalanceService as EvolutionDepositService } from "../../../src/modules/core/balance/application/services/evolution/depositBalance.service";
-
 import { GamingProviderEnum } from "../../../src/modules/core/shared/domain/interface/RequestInterface";
 import {
   UnknownGamingProviderException
@@ -15,6 +12,7 @@ import { VelaDepositBalanceService } from "@src/modules/core/balance/services/ve
 import { VelaDepositBalanceDto } from "@src/modules/core/balance/dtos/vela/depositBalance.dto";
 import { EvolutionDepositBalanceService } from "@src/modules/core/balance/services/evolution/deposit-balance.service";
 import { EvolutionDepositBalanceDto } from "@src/modules/core/balance/dtos/evolution/depositBalance.dto";
+import { AbstractController } from "../../../src/modules/core/common/abstract.controller";
 
 @ApiTags('Balance')
 @Controller('balance/deposit')

@@ -14,9 +14,6 @@ import { EvolutionGetBalanceDto } from "../../interface/getBalanceEvolution.inte
 
 export class GetEvolutionBalanceService {
   constructor(
-    // @Inject(TYPES.evolutionRepository.FundRepositoryInterface) private repo: FundRepositoryInterface,
-    // @Inject(SHARED_TYPES.eventBus.EventDispatcherInterface) private eventDispatcher: EventDispatcherInterface,
-
     @Inject(ApiRequestService)
     public apiRequestService: ApiRequestService
   ) {}
@@ -31,15 +28,6 @@ export class GetEvolutionBalanceService {
         ...dto
     };
       const response = await this.getEvolutionBalance(getBalanceDto);
-      //activity completed event dispatch
-      // this.eventDispatcher.dispatch(EventDefinition.ACTIVITY_COMPLETED_EVENT,
-      //   new ActivityCompletedEvent(
-      //     GameProviderConstant.EVOLUTION,
-      //     ActivityTypeConstant.FUNDS_TRANSFER,
-      //     "[Player balance fetched successfully.]",
-      //     ip,
-      //     req.headers["user-agent"],
-      //   ));
       return response;
     } catch (e) {
       throw new RetrieveOperationFailedException(e);

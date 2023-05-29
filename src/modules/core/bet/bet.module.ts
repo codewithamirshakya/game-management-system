@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { DependenciesConstants } from "./dependencies";
 import { Providers } from "./providers";
-import { DetailController } from "../../../../apps/api/arpStudio/bet/detail.controller";
+// import { DetailController } from "../../../../apps/api/arpStudio/bet/detail.controller";
 
 @Module({
-    controllers: [DetailController],
+    // controllers: [DetailController],
     providers: [
           ...DependenciesConstants,
           ...Providers

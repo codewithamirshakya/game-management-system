@@ -15,7 +15,6 @@ import { UserNotFoundException } from "../../exception/userNotFound.exception";
 
 export class GetVelaBalanceService {
   constructor(
-    // @Inject(SHARED_TYPES.eventBus.EventDispatcherInterface) private eventDispatcher: EventDispatcherInterface,
     @InjectRepository(VelaBalance)
     private readonly repo: Repository<VelaBalance>,
     private dataSource: DataSource,
@@ -45,15 +44,6 @@ export class GetVelaBalanceService {
         const response = this.makeResponseData(queryResult,dto.member_id);
         return response;
       }
-      //activity completed event dispatch
-      // this.eventDispatcher.dispatch(EventDefinition.ACTIVITY_COMPLETED_EVENT,
-      //   new ActivityCompletedEvent(
-      //     GameProviderConstant.VELA_GAMING,
-      //     ActivityTypeConstant.FUNDS_TRANSFER,
-      //     "[Player balance fetched successfully.]",
-      //     ip,
-      //     req.headers["user-agent"],
-      //   ));
 
 
     } catch (e) {

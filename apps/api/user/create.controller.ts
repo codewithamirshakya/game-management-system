@@ -11,7 +11,7 @@ import { ApiTags } from "@nestjs/swagger";
 import { VelaCreateUserService } from "../../../src/modules/core/user/services/vela/createUser.service";
 import { CreatVelaUserDto } from "../../../src/modules/core/user/dtos/vela/createUser.dto";
 import { EvolutionCreateUserService } from "../../../src/modules/core/user/services/evolution/createUser.service";
-import { AbstractController } from "@src/modules/core/common/abstract.controller";
+import { AbstractController } from "../../../src/modules/core/common/abstract.controller";
 // import { CreateEvolutionUserDto } from "@src/modules/core/user/dtos/evolution/createUser.dto";
 @ApiTags('User')
 @Controller('user/create')

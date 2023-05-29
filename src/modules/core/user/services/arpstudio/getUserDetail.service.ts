@@ -10,13 +10,12 @@ import { ArpStudioRequestService } from "@src/modules/core/shared/application/se
 import { ArpStudioRequestDto } from "@src/modules/core/shared/application/dto/arpStudio.request.dto";
 import { SHARED_TYPES } from "@src/modules/shared/application/constants/types";
 import { EventDispatcherInterface } from "@src/modules/shared/application/EventBus/eventDispatcher.interface";
-import { UserFetchFailedException } from "../../domain/exception/userFetchFailed.exception";
+import { UserFetchFailedException } from "../../exception/userFetchFailed.exception";
 import { ArpStudioUser } from "../../entity/createArpStudio.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 export class GetUserDetailArpStudioService {
     constructor(
-      @Inject(SHARED_TYPES.eventBus.EventDispatcherInterface) private eventDispatcher: EventDispatcherInterface,
       @InjectRepository(ArpStudioUser)
       private readonly repo: Repository<ArpStudioUser>,
       @Inject(ArpStudioRequestService)

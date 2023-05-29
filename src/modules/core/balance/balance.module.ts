@@ -25,7 +25,7 @@ import { EvolutionWithdrawBalanceService } from "./services/evolution/withdraw.s
       VelaBalance
     ]),
     forwardRef(() => UsersModule),
-    SharedModule, CqrsModule],
+    ],
   controllers: [GetController,DepositController,WithdrawController],
   providers: [ArpStudioBalanceService,GetVelaBalanceService,
     GetEvolutionBalanceService,ArpStudioDepositService,ArpStudioWithdrawService,

@@ -5,7 +5,6 @@ import { ArpStudioUser } from '@src/modules/core/user/entity/createArpStudio.ent
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersModule } from '@src/modules/core/user/users.module';
 import { TypeOrmModule, getRepositoryToken } from '@nestjs/typeorm';
-import { SharedModule } from '@src/modules/shared/shared.module';
 
 
 jest.setTimeout(30000);
@@ -22,12 +21,12 @@ describe('UserController (e2e)', () => {
 beforeAll(async () => {
   const moduleFixture: TestingModule = await Test.createTestingModule({
     imports: [
-      UsersModule,
-      SharedModule, // Add the SharedModule
+
       TypeOrmModule.forRoot({
         ...require('../../../src/config/ormconfig.test'),
         entities: [ArpStudioUser],
       }),
+      UsersModule,
     ],
   }).compile();
   app = moduleFixture.createNestApplication();

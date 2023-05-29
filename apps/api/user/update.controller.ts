@@ -1,7 +1,6 @@
 import { Body, Controller, Ip, Post, Req, Res } from "@nestjs/common";
 import { Request, Response } from "express";
-import { AbstractController } from "../../../src/modules/shared/infrastructure/controller/api/abstract.controller";
-import { UpdateUserService as ArpStudioUpdateUserService } from "../../../src/modules/core/user/application/services/arpStudio/update.user.service";
+import { AbstractController } from "@src/modules/core/common/abstract.controller";
 
 import { GamingProviderEnum } from "../../../src/modules/core/shared/domain/interface/RequestInterface";
 import {

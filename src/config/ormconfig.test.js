@@ -4,7 +4,7 @@ module.exports = {
     port: 3306,
     username: 'root',
     password: 'karki123',
-    database: 'nest-game-test',
+    database: 'nest_game_test',
     synchronize: true,
     entities: ['src/**/*.entity.ts'],
     cli: {

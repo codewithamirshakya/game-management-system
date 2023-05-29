@@ -9,12 +9,12 @@ import { ApiRequestService } from "@src/modules/core/shared/application/service/
 import { ApiRequestDto } from "@src/modules/core/shared/application/dto/apiRequest.dto";
 import { VelaRequestDto } from "@src/modules/core/shared/application/dto/vela.request.dto";
 import { CreateUserVela } from "../../interface/velaCreateUser.interface";
-import { UserCreationFailedException } from "../../domain/exception/userCreationFailed.exception";
+import { UserCreationFailedException } from "../../exception/userCreationFailed.exception";
 import { GameProviderConstant } from "@src/modules/core/shared/application/constants/gameProvider.constant";
 import { InjectRepository } from "@nestjs/typeorm";
 import { VelaUser } from "../../entity/createVelaUser.entity";
 import { DataSource, Repository } from "typeorm";
-import { UserAlreadyExistsException } from "../../domain/exception/userAlreadyExists.exception";
+import { UserAlreadyExistsException } from "../../exception/userAlreadyExists.exception";
 
 export class VelaCreateUserService {
   constructor(

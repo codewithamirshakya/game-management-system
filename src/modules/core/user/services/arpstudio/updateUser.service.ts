@@ -20,7 +20,6 @@ export class UpdateArpStudioUserService {
   constructor(
     @Inject(ArpStudioRequestService)
     public arpStudioRequestService: ArpStudioRequestService,
-    @Inject(SHARED_TYPES.eventBus.EventDispatcherInterface) private eventDispatcher: EventDispatcherInterface,
     @InjectRepository(ArpStudioUser)
     private usersRepository: Repository<ArpStudioUser>,
 
@@ -31,15 +30,6 @@ export class UpdateArpStudioUserService {
     try {
       const serverResponse = await this.updateArpStudio(updateUserDTO);
       const userExits = await this.usersRepository.findOneBy({ username: updateUserDTO.username });
-      //activity completed event dispatch
-      this.eventDispatcher.dispatch(EventDefinition.ACTIVITY_COMPLETED_EVENT,
-        new ActivityCompletedEvent(
-          GameProviderConstant.ARP_STUDIO,
-          ActivityTypeConstant.USER,
-          "[User Updated successfully.]",
-          ip,
-          req.headers["user-agent"],
-        ));
         const response= this.makeResponseData(userExits,serverResponse);
         return response;
       return response;

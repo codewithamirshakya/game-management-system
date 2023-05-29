@@ -1,7 +1,5 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { SharedModule } from "../../shared/shared.module";
-import { CqrsModule } from "@nestjs/cqrs";
 import { CreateController } from '../../../../apps/api/user/create.controller';
 import { ArpStudioCreateUserService } from './services/arpstudio/createUser.service';
 import { ArpStudioUser } from './entity/createArpStudio.entity';
@@ -18,7 +16,7 @@ import { BalanceModule } from '../balance/balance.module';
 
 @Module({
     imports: [TypeOrmModule.forFeature([ArpStudioUser,VelaUser,EvolutionUser]),
-        SharedModule,CqrsModule,forwardRef(() => BalanceModule),],
+        forwardRef(() => BalanceModule),],
     controllers: [CreateController,UserDetailController,UpdateController],
     providers: [
         ArpStudioCreateUserService,GetUserDetailArpStudioService,

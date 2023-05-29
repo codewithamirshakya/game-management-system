@@ -1,5 +1,4 @@
 import { Controller, Get, Ip, Query, Req, Res, UsePipes, ValidationPipe } from "@nestjs/common";
-import { AbstractController } from "../../../src/modules/shared/infrastructure/controller/api/abstract.controller";
 import { Response } from "express";
 import {ArpStudioBalanceService} from "@src/modules/core/balance/services/arpStudio/getBalance.service";
 import {GetVelaBalanceService,} from "@src/modules/core/balance/services/vela/getBalance.service";
@@ -14,6 +13,8 @@ import {
   UnknownGamingProviderException
 } from "../../../src/modules/core/shared/domain/exception/unknownGamingProvider.exception";
 import { ApiTags } from "@nestjs/swagger";
+import { AbstractController } from "../../../src/modules/core/common/abstract.controller";
+
 
 @ApiTags('Balance')
 @Controller("/balance/get")

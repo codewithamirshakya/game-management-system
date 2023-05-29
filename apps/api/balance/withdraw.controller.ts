@@ -1,5 +1,5 @@
 import { Body, Controller, Ip, Post, Req, Res, UsePipes, ValidationPipe } from "@nestjs/common";
-import { AbstractController } from "../../../src/modules/shared/infrastructure/controller/api/abstract.controller";
+import { AbstractController } from "../../../src/modules/core/common/abstract.controller";
 import { Request, Response } from "express";
 import { ApiTags } from "@nestjs/swagger";
 import { GamingProviderEnum } from "../../../src/modules/core/shared/domain/interface/RequestInterface";
