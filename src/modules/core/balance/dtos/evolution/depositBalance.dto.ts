@@ -8,7 +8,7 @@ export class EvolutionDepositBalanceDto {
   constructor(dto: MainDepositBalanceDto) {
     this.amount = dto.amount;
     this.eTransID = dto.transid;
-    this.euID = dto.euID;
+    this.euID = dto.username;
     // this.uID = dto.uID;
     this.output = dto.output;
     this.createuser = dto.createuser;

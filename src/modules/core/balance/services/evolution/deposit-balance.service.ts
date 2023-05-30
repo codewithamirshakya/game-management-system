@@ -9,62 +9,36 @@ import { EvolutionDepositBalance } from "../../interface/evolution/deposit-balan
 import { GameProviderConstant } from "@src/modules/core/common/constants/gameProvider.constant";
 import { EvolutionTransactionFailedException } from "../../exception/evolutionTransactionFailed.exception";
 import { EvolutionConfig } from "@src/config/evolution.config";
+import { InjectRepository } from "@nestjs/typeorm";
+import { EvolutionBalance } from "../../entity/evolutionBalance.entity";
+import { DataSource, Repository } from "typeorm";
 
 export class EvolutionDepositBalanceService {
     constructor(
+        @InjectRepository(EvolutionBalance)
+        private readonly repo: Repository<EvolutionBalance>,
+        private dataSource: DataSource,
+
         @Inject(ApiRequestService)
         public apiRequestService: ApiRequestService
     ) {
     }
 
-    @Transactional()
      async depositBalance(dto: EvolutionDepositBalance, req: Request, ip: string) {
-        // validation
-        // const userId = await this.fundTransferValidationService.validate(dto);
         try {
             const depositRequestDto = {
                 cCode:  'ECR',
                 ecID:EvolutionConfig.ecId,
                 ...dto
             };
-            const response = await this.request(depositRequestDto);
-            if(response.transfer.result._text === 'N') {
-                throw new EvolutionTransactionFailedException(response);
+            const serverResponse = await this.request(depositRequestDto);
+            if(serverResponse.transfer.result._text === 'N') {
+                throw new EvolutionTransactionFailedException(serverResponse);
             }
-
-            // // save main transaction table
-            // const mainTransaction = await this.saveTransactionRepo.save(
-            //     new SaveTransactionDto(
-            //         {
-            //             type: TransactionTypeConstant.DEPOSIT,
-            //             status: 1,
-            //             amount: dto.amount,
-            //             user_id: userId,
-            //             currency_code: dto.currency ? dto.currency : "PHP",
-            //             game_provider: GameProviderConstant.EVOLUTION
-            //         }
-            //     )
-            // );
-            // //save evolution transaction
-            // await this.saveEvolutionTransactionRepo.save(new SaveEvolutionTransactionDto({
-            //     main_transaction_id: mainTransaction.id,
-            //     available_balance: response.transfer.balance._text,
-            //     trans_id: response.transfer.transid._text,
-            //     e_transaction_id: response.transfer.etransid._text,
-            //     e_transaction_time: new Date(response.transfer.datetime._text)
-            // }));
-
-            //activity completed event dispatch
-            // await this.eventDispatcher.dispatch(EventDefinition.ACTIVITY_COMPLETED_EVENT,
-            //     new ActivityCompletedEvent(
-            //         GameProviderConstant.EVOLUTION,
-            //         ActivityTypeConstant.FUNDS_TRANSFER,
-            //         "[Funds transfer to evolution's player wallet successfully.]",
-            //         ip,
-            //         req.headers["user-agent"],
-            //         userId,
-            //     ));
+            const insertData = await this.saveData(dto);
+            const response = this.makeResponseData(insertData);
             return response;
+
         } catch (e) {
             throw new DepositOperationFailedException(e);
         }
@@ -80,4 +54,35 @@ export class EvolutionDepositBalanceService {
         })
       }));
     }
+
+    async saveData(data) {
+        console.log(data)
+        const queryRunner = this.dataSource.createQueryRunner();
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
+        try {
+          const responseData = this.repo.create({
+            username: data.euID,
+            trans_id:data.eTransID,
+            amount:data.amount,
+            withdraw_balance:0,
+            transaction_date: new Date(),
+          });
+          await queryRunner.manager.save(responseData);
+          await queryRunner.commitTransaction();
+          return responseData;
+        } catch (error) {
+          await queryRunner.rollbackTransaction();
+          throw error;
+        } finally {
+          await queryRunner.release();
+        }
+      }
+
+    makeResponseData(data){
+        return {
+          username: data.username,
+          amount: data.amount,
+        }
+      }
 }

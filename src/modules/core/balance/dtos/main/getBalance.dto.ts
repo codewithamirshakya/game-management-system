@@ -43,13 +43,13 @@ export class GetBalanceDto extends BaseRequestDto{
   readonly output: string;
 
 
-  @ValidateIf(x => x.gameProvider === GamingProviderEnum.EVOLUTION)
-  @IsString()
-  @IsNotEmpty()
-  @ApiPropertyOptional()
-  @IsOptional()
-  @MaxLength(16)
-  readonly euID: string;
+  // @ValidateIf(x => x.gameProvider === GamingProviderEnum.EVOLUTION)
+  // @IsString()
+  // @IsNotEmpty()
+  // @ApiPropertyOptional()
+  // @IsOptional()
+  // @MaxLength(16)
+  // readonly euID: string;
 
   // @ValidateIf(x => x.gameProvider === GamingProviderEnum.EVOLUTION && x.euID === undefined)
   // @MaxLength(16,{message: 'Either (uID or euID) must be shorter than or equal to 16 characters'})

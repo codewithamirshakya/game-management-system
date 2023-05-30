@@ -1,6 +1,6 @@
 import { Body, Controller, Ip, Post, Req, Res } from "@nestjs/common";
 import { Request, Response } from "express";
-import { GamingProviderEnum } from "../../../src/modules/core/shared/domain/interface/RequestInterface";
+import { GamingProviderEnum } from "../../../src/modules/core/common/interface/RequestInterface";
 import {
   UnknownGamingProviderException
 } from "../../../src/modules/core/shared/domain/exception/unknownGamingProvider.exception";
@@ -42,6 +42,10 @@ export class CreateController extends AbstractController {
       }
 
       case GamingProviderEnum.EVOLUTION: {
+
+        return await this.evelutionCreateUserService.create(dto,req,ip);
+      }
+      case GamingProviderEnum.OPMG: {
 
         return await this.evelutionCreateUserService.create(dto,req,ip);
       }

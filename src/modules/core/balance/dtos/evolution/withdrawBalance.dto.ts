@@ -7,7 +7,7 @@ export class EvolutionWithdrawBalanceDto {
   constructor(dto: MainWithdrawBalanceDto) {
     this.amount = dto.amount;
     this.eTransID = dto.transid;
-    this.euID = dto.euID;
+    this.euID = dto.username;
     // this.uID = dto.uID;
     this.output = dto.output;
     // this.tcheck = dto.tcheck;

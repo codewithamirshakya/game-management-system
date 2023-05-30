@@ -93,9 +93,6 @@ export class VelaWithdrawBalanceService {
   makeResponseData(data) {
     return {
       username: data.username,
-      account_type: data.account_type,
-      amount: data.amount,
-      available_balance: data.available_balance,
       withdraw_balance: data.withdraw_balance,
     }
   }

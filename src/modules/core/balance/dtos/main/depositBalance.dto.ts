@@ -20,7 +20,7 @@ export class DepositBalanceDto extends BaseRequestDto{
   @ApiProperty()
   readonly notifyid: string;
 
-  @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.ARP_STUDIO,GamingProviderEnum.VELA_GAMING]))
+  @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.ARP_STUDIO,GamingProviderEnum.VELA_GAMING,GamingProviderEnum.EVOLUTION]))
   @IsString()
   @ApiProperty()
   @IsNotEmpty()
@@ -79,19 +79,19 @@ export class DepositBalanceDto extends BaseRequestDto{
   @ApiProperty()
   readonly host_id: string;
 
-  @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.VELA_GAMING]))
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty()
-  readonly member_id: string;
+  // @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.VELA_GAMING]))
+  // @IsString()
+  // @IsNotEmpty()
+  // @ApiProperty()
+  // readonly member_id: string;
 
-  @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.EVOLUTION]))
-  @IsString()
-  @IsNotEmpty()
-  @ApiPropertyOptional()
-  @IsOptional()
-  @MaxLength(16)
-  readonly euID: string;
+  // @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.EVOLUTION]))
+  // @IsString()
+  // @IsNotEmpty()
+  // @ApiPropertyOptional()
+  // @IsOptional()
+  // @MaxLength(16)
+  // readonly euID: string;
 
   @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.EVOLUTION]))
   @IsString()

@@ -5,7 +5,7 @@ import { GetBalanceDto as MainGetBalanceDto } from "../main/getBalance.dto";
 export class GetBalanceEvolutionDto {
 
   constructor(dto: MainGetBalanceDto) {
-    this.euID = dto.euID;
+    this.euID = dto.username;
     // this.uID = dto.uID;
     this.output = dto.output;
   }

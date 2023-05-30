@@ -17,12 +17,14 @@ import { VelaBalance } from "./entity/vela-balance.entity";
 import { VelaWithdrawBalanceService } from "./services/vela/withdraw-balance.service";
 import { EvolutionDepositBalanceService } from "./services/evolution/deposit-balance.service";
 import { EvolutionWithdrawBalanceService } from "./services/evolution/withdraw.service";
+import { EvolutionBalance } from "./entity/evolutionBalance.entity";
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([
       ArpStudioBalance,
-      VelaBalance
+      VelaBalance,
+      EvolutionBalance
     ]),
     forwardRef(() => UsersModule),
     ],
