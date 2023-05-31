@@ -8,6 +8,13 @@ import { TypeOrmModule, getRepositoryToken } from '@nestjs/typeorm';
 
 jest.setTimeout(30000);
 
+const newUser = {
+  gameProvider: "ARP_STUDIO",
+  username: "ram",
+  nickname:'test',
+};
+
+
 describe('UserController (e2e)', () => {
   let app: INestApplication ;
 
@@ -40,12 +47,6 @@ beforeAll(async () => {
 });
   describe('/Create User For Arp (POST)', () => {
     it('should create a Arp Studio new user', async () => {
-      const newUser = {
-        gameProvider: "ARP_STUDIO",
-        username: "ram",
-        nickname:'test',
-      };
-
       const response = await request(app.getHttpServer())
         .post('/user/create')
         .send(newUser)
@@ -55,6 +56,20 @@ beforeAll(async () => {
 
 
     });
+
+})
+
+describe('Get detail for Arp studio', () => {
+  it('should create a Arp Studio new user', async () => {
+    const response = await request(app.getHttpServer())
+      .get('/user/detail')
+      .query(newUser)
+    const detailUser = response.body;
+    expect(detailUser.statusCode).toBe(200);
+    expect(detailUser.data.username).toBe(newUser.username);
+
+
+  });
 
 })
 
