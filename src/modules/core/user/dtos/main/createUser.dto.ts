@@ -5,6 +5,7 @@ import {
   IsEnum,
   IsInt,
   IsNotEmpty,
+  IsNumber,
   IsOptional,
   IsString,
   MaxLength,
@@ -190,7 +191,7 @@ export class CreateUserDto extends BaseRequestDto {
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({ example: "'ARP_STUDIO' or 'EVOLUTION' or  'VELA_GAMING'" })
+  @ApiProperty({ example: "'ARP_STUDIO' or 'EVOLUTION' or  'VELA_GAMING' or OPMG" })
   @IsEnum(GamingProviderEnum)
   readonly gameProvider: GamingProviderEnum;
 
@@ -243,4 +244,24 @@ export class CreateUserDto extends BaseRequestDto {
   @ApiProperty()
   @ValidateNested()
   readonly config: ConfigDto;
+
+  @ValidateIf(x => x.gameProvider === GamingProviderEnum.OPMG)
+  @IsNumber()
+  @ApiProperty()
+   user_id: number;
+
+  @ValidateIf(x => x.gameProvider === GamingProviderEnum.OPMG)
+  @IsString()
+  @ApiProperty()
+   pin: string;
+
+   @ValidateIf(x => x.gameProvider === GamingProviderEnum.OPMG)
+  @IsString()
+  @ApiProperty()
+   ip: string;
+
+   @ValidateIf(x => x.gameProvider === GamingProviderEnum.OPMG)
+  @IsString()
+  @ApiProperty()
+  card_level: string;
 }

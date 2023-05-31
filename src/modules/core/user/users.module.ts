@@ -14,6 +14,7 @@ import { EvolutionCreateUserService } from './services/evolution/createUser.serv
 import { EvolutionUser } from './entity/createEvolutionUser.entity';
 import { BalanceModule } from '../balance/balance.module';
 import { CommonShareModule } from '../common/common.module';
+import { OpmgCreateUserService } from './services/opmg/create.user.service';
 
 @Module({
     imports: [TypeOrmModule.forFeature([ArpStudioUser,VelaUser,EvolutionUser]),
@@ -26,6 +27,7 @@ import { CommonShareModule } from '../common/common.module';
         UpdateArpStudioUserService,
         GetUserDetailEvolutionService,
         EvolutionCreateUserService,
+        OpmgCreateUserService
     ],
     exports: [ArpStudioCreateUserService,VelaCreateUserService]
 

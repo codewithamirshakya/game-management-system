@@ -53,9 +53,9 @@ import { EventEmitterModule } from "@nestjs/event-emitter";
   ],
 })
 export class AppModule {
-  // configure(consumer: MiddlewareConsumer) {
-  //   consumer
-  //     .apply(RequestAndResponseLoggerMiddleware)
-  //     .forRoutes({ path: "*", method: RequestMethod.ALL });
-  // }
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(RequestAndResponseLoggerMiddleware)
+      .forRoutes({ path: "*", method: RequestMethod.ALL });
+  }
 }

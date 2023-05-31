@@ -1,6 +1,6 @@
 import { createUserArpStudio } from "../../interface/arpStudioCreateUser.interface";
 import { Inject } from "@nestjs/common";
-import { ApiRequestDto } from "@src/modules/core/shared/application/dto/apiRequest.dto";
+import { ApiRequestDto } from "@src/modules/core/common/dto/apiRequest.dto";
 import { ArpStudioRequestDto } from "@src/modules/core/shared/application/dto/arpStudio.request.dto";
 import { Request } from "express";
 import { InjectRepository } from "@nestjs/typeorm";
@@ -8,11 +8,13 @@ import { ArpStudioUser } from "../../entity/createArpStudio.entity";
 import { DataSource, Repository } from 'typeorm';
 import { UserCreationFailedException } from "../../exception/userCreationFailed.exception";
 import { UserAlreadyExistsException } from "../../exception/userAlreadyExists.exception";
-import { GameProviderConstant } from "@src/modules/core/shared/application/constants/gameProvider.constant";
+import { GameProviderConstant } from "@src/modules/core/common/constants/gameProvider.constant";
 import { Transactional } from "typeorm-transactional";
 import { ApiRequestService } from "@src/modules/core/common/service/apiRequest.service";
+import { createUserOpmg } from "../../interface/opmgCreateUser.interface";
+import { OpmgDto } from "../../../common/dto/opmg.request.dto";
 
-export class ArpStudioCreateUserService {
+export class OpmgCreateUserService {
   constructor(
     @InjectRepository(ArpStudioUser)
     private readonly repo: Repository<ArpStudioUser>,
@@ -21,32 +23,38 @@ export class ArpStudioCreateUserService {
 
   ) { }
 
-  async create(dto: createUserArpStudio) {
+  async create(dto: createUserOpmg) {
     try {
       let serverResponse;
-      const userExits = await this.repo.findOneBy({ username: dto.username });
-      if (userExits) {
-        throw new UserAlreadyExistsException()
-      }
-      serverResponse = await this.createUserArpStudio(dto);
-      if (serverResponse && serverResponse.result == 0) {
-        const insertedData = await this.saveData(dto, serverResponse);
-        const response = this.makeResponseData(insertedData, serverResponse);
-        return response;
-      }
+      // const userExits = await this.repo.findOneBy({ username: dto.username });
+      // if (userExits) {
+      //   throw new UserAlreadyExistsException()
+      // }
+      const createUserDto = {
+        ...dto,
+        currency: 'PHP',
+        ssl: 0,
+
+    };
+      serverResponse = await this.createUserOpmg(createUserDto);
+      // if (serverResponse && serverResponse.result == 0) {
+      //   const insertedData = await this.saveData(dto, serverResponse);
+      //   const response = this.makeResponseData(insertedData, serverResponse);
+      //   return response;
+      // }
+      console.log(serverResponse)
     } catch (e) {
-      console.log(e);
       throw new UserCreationFailedException(e);
     }
   }
 
-  async createUserArpStudio(dto: createUserArpStudio) {
+  async createUserOpmg(dto:createUserOpmg) {
     return await this.apiRequestService.requestApi(new ApiRequestDto({
-      gameProvider: GameProviderConstant.ARP_STUDIO,
-      requestDTO: new ArpStudioRequestDto({
-        method: 'POST',
+      gameProvider: GameProviderConstant.OPMG,
+      requestDTO: new OpmgDto({
+        method: 'GET',
         params: dto,
-        endpoint: 'login'
+        endpoint: 'platform_create_patron'
       })
     }));
   }
@@ -55,7 +63,6 @@ export class ArpStudioCreateUserService {
       const responseData = this.repo.create({
         username: data.username,
         nickname: data.nickname,
-        open_url: serverResponse.openurl,
       });
       await this.repo.save(responseData);
       return responseData;
