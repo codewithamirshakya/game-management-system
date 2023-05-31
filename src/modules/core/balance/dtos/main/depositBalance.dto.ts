@@ -116,6 +116,19 @@ export class DepositBalanceDto extends BaseRequestDto{
   // readonly uID: string;
 
   @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.EVOLUTION]))
+  @IsNumber()
+  @IsNotEmpty()
+  @ApiProperty()
+  @MaxLength(1)
+  readonly patron: number;
+
+  @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.OPMG]))
+  @IsNumber()
+  @IsNotEmpty()
+  @ApiProperty()
+  readonly id: number;
+
+  @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.OPMG]))
   @IsString()
   @IsNotEmpty()
   @ApiPropertyOptional()

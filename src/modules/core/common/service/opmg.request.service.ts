@@ -11,11 +11,9 @@ export class OpmgRequestService {
   async request(opmgRequestDTO: OpmgDto) {
 
     const url = opmgConfig.baseUrl + opmgRequestDTO.endpoint;
+    console.log(url,opmgRequestDTO.params)
       try {
         const response = await this.httpService.axiosRef.get(url,{
-            headers: {
-                'Content-Type': 'application/json'
-                },
           params: opmgRequestDTO.params,
           }
         );

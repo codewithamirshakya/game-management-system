@@ -18,6 +18,7 @@ import { VelaWithdrawBalanceService } from "./services/vela/withdraw-balance.ser
 import { EvolutionDepositBalanceService } from "./services/evolution/deposit-balance.service";
 import { EvolutionWithdrawBalanceService } from "./services/evolution/withdraw.service";
 import { EvolutionBalance } from "./entity/evolutionBalance.entity";
+import { OpmgDepositService } from "./services/opmg/deposit.balance.service";
 
 @Module({
   imports: [
@@ -29,9 +30,16 @@ import { EvolutionBalance } from "./entity/evolutionBalance.entity";
     forwardRef(() => UsersModule),
     ],
   controllers: [GetController,DepositController,WithdrawController],
-  providers: [ArpStudioBalanceService,GetVelaBalanceService,
-    GetEvolutionBalanceService,ArpStudioDepositService,ArpStudioWithdrawService,
-    VelaDepositBalanceService,VelaWithdrawBalanceService,EvolutionDepositBalanceService,EvolutionWithdrawBalanceService
+  providers: [ArpStudioBalanceService,
+    GetVelaBalanceService,
+    GetEvolutionBalanceService,
+    ArpStudioDepositService,
+    ArpStudioWithdrawService,
+    VelaDepositBalanceService,
+    VelaWithdrawBalanceService,
+    EvolutionDepositBalanceService,
+    EvolutionWithdrawBalanceService,
+    OpmgDepositService
   ]
 })
 

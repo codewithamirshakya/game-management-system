@@ -13,6 +13,8 @@ import { VelaDepositBalanceDto } from "@src/modules/core/balance/dtos/vela/depos
 import { EvolutionDepositBalanceService } from "@src/modules/core/balance/services/evolution/deposit-balance.service";
 import { EvolutionDepositBalanceDto } from "@src/modules/core/balance/dtos/evolution/depositBalance.dto";
 import { AbstractController } from "../../../src/modules/core/common/abstract.controller";
+import { OpgmDepositBalanceDto } from "../../../src/modules/core/balance/dtos/opmg/deposit.dto";
+import { OpmgDepositService } from "../../../src/modules/core/balance/services/opmg/deposit.balance.service";
 
 @ApiTags('Balance')
 @Controller('balance/deposit')
@@ -21,6 +23,7 @@ export class DepositController extends AbstractController{
     private arpStudioDepositService : ArpStudioDepositService,
     private velaDepositService : VelaDepositBalanceService,
     private evolutionDepositService : EvolutionDepositBalanceService,
+    private opmgDepositService : OpmgDepositService,
   ) {super();}
 
   @Post()
@@ -40,6 +43,9 @@ export class DepositController extends AbstractController{
       }
       case GamingProviderEnum.EVOLUTION: {
         return await this.evolutionDepositService.depositBalance(new EvolutionDepositBalanceDto(dto),req,ip);
+      }
+      case GamingProviderEnum.OPMG: {
+        return await this.opmgDepositService.depositBalance(new OpgmDepositBalanceDto(dto));
       }
       default:
         throw new UnknownGamingProviderException('Game provider not found');
