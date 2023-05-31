@@ -60,7 +60,7 @@ beforeAll(async () => {
 })
 
 describe('Get detail for Arp studio', () => {
-  it('should create a Arp Studio new user', async () => {
+  it('should get detail for Arp Studio new user', async () => {
     const response = await request(app.getHttpServer())
       .get('/user/detail')
       .query(newUser)
