@@ -1,7 +1,5 @@
 import { Module, forwardRef } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { SharedModule } from "../../shared/shared.module";
-import { CqrsModule } from "@nestjs/cqrs";
 import { GetController } from "../../../../apps/api/balance/get.controller";
 import { ArpStudioBalanceService } from "./services/arpStudio/getBalance.service";
 import { GetVelaBalanceService } from "./services/vela/getBalance.service";
@@ -19,6 +17,8 @@ import { EvolutionDepositBalanceService } from "./services/evolution/deposit-bal
 import { EvolutionWithdrawBalanceService } from "./services/evolution/withdraw.service";
 import { EvolutionBalance } from "./entity/evolutionBalance.entity";
 import { OpmgDepositService } from "./services/opmg/deposit.balance.service";
+import { OpmgWithdrawBalanceService } from "./services/opmg/withdraw.balance.service";
+import { GetOpmgBalanceService } from "./services/opmg/get.balance.service";
 
 @Module({
   imports: [
@@ -39,7 +39,9 @@ import { OpmgDepositService } from "./services/opmg/deposit.balance.service";
     VelaWithdrawBalanceService,
     EvolutionDepositBalanceService,
     EvolutionWithdrawBalanceService,
-    OpmgDepositService
+    OpmgDepositService,
+    OpmgWithdrawBalanceService,
+    GetOpmgBalanceService
   ]
 })
 

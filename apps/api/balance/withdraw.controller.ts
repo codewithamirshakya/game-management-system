@@ -14,6 +14,8 @@ import { VelaWithdrawBalanceService } from "@src/modules/core/balance/services/v
 import { VelaWithdrawBalanceDto } from "@src/modules/core/balance/dtos/vela/withdrawBalance.dto";
 import { EvolutionWithdrawBalanceService } from "@src/modules/core/balance/services/evolution/withdraw.service";
 import { EvolutionWithdrawBalanceDto } from "@src/modules/core/balance/dtos/evolution/withdrawBalance.dto";
+import { OpmgWithdrawBalanceService } from "@src/modules/core/balance/services/opmg/withdraw.balance.service";
+import { OpgmWithDrawBalanceDto } from "@src/modules/core/balance/dtos/opmg/withdraw.dto";
 
 @ApiTags('Balance')
 @Controller('balance/withdraw')
@@ -22,6 +24,7 @@ export class WithdrawController extends AbstractController{
     private arpStudioWithdrawService : ArpStudioWithdrawService,
     private velaWithdrawService : VelaWithdrawBalanceService,
     private evolutionWithdrawService : EvolutionWithdrawBalanceService,
+    private opmgWithdrawBalanceService : OpmgWithdrawBalanceService,
   ) {super();}
 
   @Post()
@@ -41,6 +44,9 @@ export class WithdrawController extends AbstractController{
       }
       case GamingProviderEnum.EVOLUTION: {
         return await this.evolutionWithdrawService.withdrawBalance(new EvolutionWithdrawBalanceDto(dto));
+      }
+      case GamingProviderEnum.OPMG: {
+        return await this.opmgWithdrawBalanceService.withdrawBalance(new OpgmWithDrawBalanceDto(dto));
       }
       default:
         throw new UnknownGamingProviderException();

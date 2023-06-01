@@ -14,6 +14,8 @@ import {
 } from "../../../src/modules/core/shared/domain/exception/unknownGamingProvider.exception";
 import { ApiTags } from "@nestjs/swagger";
 import { AbstractController } from "../../../src/modules/core/common/abstract.controller";
+import { GetOpmgBalanceService } from "@src/modules/core/balance/services/opmg/get.balance.service";
+import { GetBalanceOpmgDto } from "@src/modules/core/balance/dtos/opmg/getbalance.dto";
 
 
 @ApiTags('Balance')
@@ -22,7 +24,9 @@ export class GetController extends AbstractController {
   constructor(
     private getArpStudioBalanceService: ArpStudioBalanceService,
     private getVelaBalanceService: GetVelaBalanceService,
-    private getEvolutionBalanceService: GetEvolutionBalanceService
+    private getEvolutionBalanceService: GetEvolutionBalanceService,
+    private getOpmgBalanceService: GetOpmgBalanceService
+
   ) {
     super();
   }
@@ -48,6 +52,9 @@ export class GetController extends AbstractController {
       }
       case GamingProviderEnum.VELA_GAMING: {
         return await this.getVelaBalanceService.getBalance(new VelaGetBalanceDto(dto.username),req,ip);
+      }
+      case GamingProviderEnum.OPMG: {
+        return await this.getOpmgBalanceService.getBalance(new GetBalanceOpmgDto(dto));
       }
       default:
         throw new UnknownGamingProviderException();

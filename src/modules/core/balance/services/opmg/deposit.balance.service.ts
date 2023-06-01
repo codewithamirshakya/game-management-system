@@ -1,14 +1,5 @@
-import { ArpStudioRequestService } from "@src/modules/core/common/service/arpStudio.request.service";
 import { DepositOperationFailedException } from "../../exception/depositOperationFailed.exception";
-import { DepositBalance } from "../../interface/arpStudio/arpStudioDepositBalance";
 import { Inject, forwardRef } from "@nestjs/common";
-import { ArpStudioRequestDto } from "@src/modules/core/shared/application/dto/arpStudio.request.dto";
-import { InjectRepository } from "@nestjs/typeorm";
-import { ArpStudioBalance } from "../../entity/arpStudioBalance.entity";
-import { DataSource, Repository } from "typeorm";
-import { UserNotFoundException } from "../../exception/userNotFound.exception";
-import { ArpStudioCreateUserService } from "@src/modules/core/user/services/arpstudio/createUser.service";
-import{toDate} from "../../../../../lib/utils/cast.utils"
 import { ApiRequestService } from "../../../common/service/apiRequest.service";
 import { GameProviderConstant } from "@src/modules/core/common/constants/gameProvider.constant";
 import { ApiRequestDto } from "@src/modules/core/common/dto/apiRequest.dto";

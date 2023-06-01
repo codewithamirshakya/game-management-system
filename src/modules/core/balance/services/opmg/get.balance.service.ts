@@ -6,53 +6,54 @@ import { ApiRequestService } from '@src/modules/core/common/service/apiRequest.s
 import { ApiRequestDto } from '@src/modules/core/common/dto/apiRequest.dto';
 import { EvolutionRequestDto } from '@src/modules/core/shared/application/dto/evolution.request.dto';
 import { RetrieveOperationFailedException } from "../../domain/exception/retreiveOperationFailed.exception";
-import { GameProviderConstant } from "@src/modules/core/shared/application/constants/gameProvider.constant";
+import { GameProviderConstant } from "@src/modules/core/common/constants/gameProvider.constant";
 import { EvolutionConfig } from "@src/config/evolution.config";
 import { EvolutionGetBalanceDto } from "../../interface/getBalanceEvolution.interface";
 import { InjectRepository } from "@nestjs/typeorm";
 import { EvolutionBalance } from "../../entity/evolutionBalance.entity";
 import { Repository } from "typeorm";
+import { getBalanceOpmg } from "../../interface/opmg/getbalance.interface";
+import { OpmgDto } from "@src/modules/core/common/dto/opmg.request.dto";
 
-export class GetEvolutionBalanceService {
+export class GetOpmgBalanceService {
   constructor(
-    @InjectRepository(EvolutionBalance)
-    private readonly repo: Repository<EvolutionBalance>,
+    // @InjectRepository(EvolutionBalance)
+    // private readonly repo: Repository<EvolutionBalance>,
     @Inject(ApiRequestService)
     public apiRequestService: ApiRequestService
   ) {}
 
 
   @Transactional()
-  async getBalance(dto: EvolutionGetBalanceDto,req: Request,ip: string) {
+  async getBalance(dto: getBalanceOpmg) {
     try {
       const getBalanceDto = {
-        cCode:  'RWA',
-        ecID:EvolutionConfig.ecId,
-        ...dto
+        ...dto,
+        host_id: 'SiG',
     };
-      const serverResponse = await this.getEvolutionBalance(getBalanceDto);
-      const queryResult = await this.repo.createQueryBuilder('evolution_balance')
-      .select("evolution_balance.username",'username')
-      .addSelect('SUM(evolution_balance.amount)', 'totalAmount')
-      .addSelect('SUM(evolution_balance.withdraw_balance)', 'withDrawBalane')
-      .where("evolution_balance.username = :username", { 'username': dto.euID })
-      .getRawOne();
-      const response = this.makeResponseData(queryResult,dto.euID);
-      return response;
+      const serverResponse = await this.getOpmgBalance(getBalanceDto);
+    //   const queryResult = await this.repo.createQueryBuilder('evolution_balance')
+    //   .select("evolution_balance.username",'username')
+    //   .addSelect('SUM(evolution_balance.amount)', 'totalAmount')
+    //   .addSelect('SUM(evolution_balance.withdraw_balance)', 'withDrawBalane')
+    //   .where("evolution_balance.username = :username", { 'username': dto.euID })
+    //   .getRawOne();
+    //   const response = this.makeResponseData(queryResult,dto.euID);
+      return serverResponse;
     } catch (e) {
       throw new RetrieveOperationFailedException(e);
     }
   }
 
-  async getEvolutionBalance(dto: any){
+  async getOpmgBalance(dto: getBalanceOpmg){
     return await this.apiRequestService.requestApi(new ApiRequestDto({
-      gameProvider : GameProviderConstant.EVOLUTION,
-      requestDTO: new EvolutionRequestDto({
-        method: 'GET',
-        params: dto,
-        endpoint: '/api/ecashier'
-      })
-    }));
+        gameProvider: GameProviderConstant.OPMG,
+        requestDTO: new OpmgDto({
+          method: 'GET',
+          params: dto,
+          endpoint: 'platform_balance'
+        })
+      }));
   }
 
   makeResponseData(data,username) {

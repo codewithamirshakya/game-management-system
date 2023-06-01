@@ -84,19 +84,17 @@ export class WithdrawBalanceDto extends BaseRequestDto{
   @MaxLength(1)
   readonly output: string;
 
-  // @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.EVOLUTION]))
-  // @IsString()
-  // @IsNotEmpty()
-  // @ApiPropertyOptional()
-  // @IsOptional()
-  // @MaxLength(1)
-  // readonly tcheck: string;
+  @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.EVOLUTION]))
+  @IsNumber()
+  @IsNotEmpty()
+  @ApiProperty()
+  @MaxLength(1)
+  readonly patron: number;
 
-  // @ValidateIf(x => x.gameProvider === GamingProviderEnum.EVOLUTION && x.euID === undefined)
-  // @MaxLength(16,{message: 'Either (uID or euID) must be shorter than or equal to 16 characters'})
-  // @IsString({message: 'Either (uID or euID) parameter must be string.'})
-  // @IsNotEmpty({message: 'Either (uID or euID) parameter is required.'})
-  // @ApiProperty({required:  false})
-  // readonly uID: string;
+  @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.OPMG]))
+  @IsNumber()
+  @IsNotEmpty()
+  @ApiProperty()
+  readonly id: number;
 
 }

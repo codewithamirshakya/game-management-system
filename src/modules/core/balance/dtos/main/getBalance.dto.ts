@@ -42,21 +42,39 @@ export class GetBalanceDto extends BaseRequestDto{
   @MaxLength(1)
   readonly output: string;
 
+  @ValidateIf(x => x.gameProvider === GamingProviderEnum.OPMG)
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty({required:  false})
+  @MaxLength(1)
+  fullname: string;
 
-  // @ValidateIf(x => x.gameProvider === GamingProviderEnum.EVOLUTION)
-  // @IsString()
-  // @IsNotEmpty()
-  // @ApiPropertyOptional()
-  // @IsOptional()
-  // @MaxLength(16)
-  // readonly euID: string;
+  @ValidateIf(x => x.gameProvider === GamingProviderEnum.EVOLUTION)
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty({required:  false})
+  @MaxLength(1)
+   pin: string;
 
-  // @ValidateIf(x => x.gameProvider === GamingProviderEnum.EVOLUTION && x.euID === undefined)
-  // @MaxLength(16,{message: 'Either (uID or euID) must be shorter than or equal to 16 characters'})
-  // @IsString({message: 'Either (uID or euID) parameter must be string.'})
-  // @IsNotEmpty({message: 'Either (uID or euID) parameter is required.'})
-  // @ApiProperty({required:  false})
-  // readonly uID: string;
+  @ValidateIf(x => x.gameProvider === GamingProviderEnum.EVOLUTION)
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty({required:  false})
+  @MaxLength(1)
+  card_level: string;
 
+  @ValidateIf(x => x.gameProvider === GamingProviderEnum.EVOLUTION)
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty({required:  false})
+  @MaxLength(1)
+  user_id: number;
+
+  @ValidateIf(x => x.gameProvider === GamingProviderEnum.EVOLUTION)
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty({required:  false})
+  @MaxLength(1)
+  ip: string;
 
 }

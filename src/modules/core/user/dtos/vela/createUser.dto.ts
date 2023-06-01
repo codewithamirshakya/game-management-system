@@ -6,7 +6,7 @@ export class CreatVelaUserDto {
 
     constructor(dto: MainCreateUserDto) {
         this.host_id = dto.host_id;
-        this.member_id = dto.member_id;
+        this.member_id = dto.username;
         this.currency = dto.currency;
 
       }
