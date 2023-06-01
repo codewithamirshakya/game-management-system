@@ -16,14 +16,14 @@ import { Repository } from "typeorm";
 import { ArpStudioUser } from "../../entity/createArpStudio.entity";
 import { ArpStudioRequestDto } from "@src/modules/core/shared/application/dto/arpStudio.request.dto";
 import { UpdateUserDto } from "../../interface/arpStudioUpdateUser.interface";
+import { ApiRequestService } from "@src/modules/core/common/service/apiRequest.service";
+import { ApiRequestDto } from "@src/modules/core/common/dto/apiRequest.dto";
 export class UpdateArpStudioUserService {
   constructor(
-    @Inject(ArpStudioRequestService)
-    public arpStudioRequestService: ArpStudioRequestService,
-    @Inject(SHARED_TYPES.eventBus.EventDispatcherInterface) private eventDispatcher: EventDispatcherInterface,
     @InjectRepository(ArpStudioUser)
     private usersRepository: Repository<ArpStudioUser>,
-
+    @Inject(ApiRequestService)
+    public apiRequestService: ApiRequestService
     ) {}
 
   @Transactional()
@@ -31,15 +31,6 @@ export class UpdateArpStudioUserService {
     try {
       const serverResponse = await this.updateArpStudio(updateUserDTO);
       const userExits = await this.usersRepository.findOneBy({ username: updateUserDTO.username });
-      //activity completed event dispatch
-      this.eventDispatcher.dispatch(EventDefinition.ACTIVITY_COMPLETED_EVENT,
-        new ActivityCompletedEvent(
-          GameProviderConstant.ARP_STUDIO,
-          ActivityTypeConstant.USER,
-          "[User Updated successfully.]",
-          ip,
-          req.headers["user-agent"],
-        ));
         const response= this.makeResponseData(userExits,serverResponse);
         return response;
       return response;
@@ -49,10 +40,19 @@ export class UpdateArpStudioUserService {
   }
 
   async updateArpStudio(data: UpdateUserDto): Promise<any> {
-    const user = this.arpStudioRequestService.request(new ArpStudioRequestDto({
-      method: 'POST',
-      params: data,
-      endpoint: '/user/update'
+    // const user = this.arpStudioRequestService.request(new ArpStudioRequestDto({
+    //   method: 'POST',
+    //   params: data,
+    //   endpoint: '/user/update'
+    // }));
+
+    const user =  await this.apiRequestService.requestApi(new ApiRequestDto({
+      gameProvider: GameProviderConstant.ARP_STUDIO,
+      requestDTO: new ArpStudioRequestDto({
+        method: 'POST',
+        params: data,
+        endpoint: '/user/update'
+      })
     }));
 
     const arpUser = await this.usersRepository.findOneBy({
@@ -71,7 +71,6 @@ export class UpdateArpStudioUserService {
       arpUser.nickname = data.nickname;
     }
     arpUser.updated_at =  new Date();
-    console.log(arpUser);
     await this.usersRepository.save(arpUser);
     return user;
   }

@@ -10,12 +10,12 @@ export class GetDetailDto extends BaseRequestDto{
     @IsNotEmpty()
     readonly username: string;
 
-    @ValidateIf(x => x.gameProvider === GamingProviderEnum.ARP_STUDIO)
-    @Transform(({ value }) => parseInt(value))
-    @IsInt()
-    @ApiPropertyOptional()
-    @IsOptional()
-    readonly currenttime: number;
+    // @ValidateIf(x => x.gameProvider === GamingProviderEnum.ARP_STUDIO)
+    // @Transform(({ value }) => parseInt(value))
+    // @IsInt()
+    // @ApiPropertyOptional()
+    // @IsOptional()
+    // readonly currenttime: number;
 
     // @IsString()
     // @IsNotEmpty()
@@ -29,7 +29,7 @@ export class GetDetailDto extends BaseRequestDto{
     @IsNotEmpty()
     @ApiProperty()
     @MaxLength(1)
-    readonly output: string;
+     output: string;
 
     // @ValidateIf(x => x.gameProvider === GamingProviderEnum.EVOLUTION)
     // @ValidateIf(x => x.euID === undefined)

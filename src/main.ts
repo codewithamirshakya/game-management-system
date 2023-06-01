@@ -17,8 +17,8 @@ async function bootstrap() {
   initializeTransactionalContext();
   const app = await NestFactory.create(AppModule,{bufferLogs: true
   ,abortOnError: true});
-  // app.useGlobalPipes(new ValidationPipe({transform: true,
-  //   whitelist: true,forbidNonWhitelisted: true}));
+  app.useGlobalPipes(new ValidationPipe({transform: true,
+    whitelist: true,forbidNonWhitelisted: true}));
   app.useGlobalFilters(new GlobalExceptionFilter(app.get(Logger)));
   app.setGlobalPrefix('api');
   app.useLogger(app.get(Logger));

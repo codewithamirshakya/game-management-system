@@ -5,18 +5,22 @@ import { VelaGamingRequestService } from "./velaGaming.request.service";
 import { EvolutionRequestService } from "./evolution.request.service";
 import { EvolutionRequestDto } from "../dto/evolution.request.dto";
 import { ArpStudioRequestService } from "./arpStudio.request.service";
+import { OpmgRequestService } from "./opmg.request.service";
 
 @Injectable()
 export class ApiRequestService {
 
   @Inject(VelaGamingRequestService)
-  private readonly velaRequestService: VelaGamingRequestService;
+  public readonly velaRequestService: VelaGamingRequestService;
 
   @Inject(EvolutionRequestService)
-  private readonly evolutionRequestService: EvolutionRequestService;
+  public readonly evolutionRequestService: EvolutionRequestService;
 
   @Inject(ArpStudioRequestService)
   public arpStudioRequestService: ArpStudioRequestService
+
+  @Inject(OpmgRequestService)
+  public opmgRequestService: OpmgRequestService
 
   async requestApi (apiRequestDTO: ApiRequestDto) {
     switch (apiRequestDTO.gameProvider) {
@@ -31,6 +35,10 @@ export class ApiRequestService {
 
       case (GameProviderConstant.EVOLUTION): {
         return await this.evolutionRequestService.request(apiRequestDTO.requestDTO as EvolutionRequestDto);
+      }
+
+      case (GameProviderConstant.OPMG): {
+        return await this.opmgRequestService.request(apiRequestDTO.requestDTO);
       }
 
     }

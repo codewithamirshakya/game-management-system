@@ -6,7 +6,7 @@ export class DetailUserDto {
 
     constructor(dto: GetDetailDto) {
         this.username = dto.username;
-        this.currenttime = dto.currenttime;
+        // this.currenttime = dto.currenttime;
     }
 
     @IsString()
@@ -14,9 +14,9 @@ export class DetailUserDto {
     @IsNotEmpty()
     readonly username: string;
 
-    @Transform(({ value }) => parseInt(value))
-    @IsInt()
-    @ApiPropertyOptional()
-    @IsOptional()
-    readonly currenttime: number;
+    // @Transform(({ value }) => parseInt(value))
+    // @IsInt()
+    // @ApiPropertyOptional()
+    // @IsOptional()
+    // readonly currenttime: number;
 }

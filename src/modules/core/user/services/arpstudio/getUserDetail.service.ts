@@ -10,39 +10,56 @@ import { ArpStudioRequestService } from "@src/modules/core/shared/application/se
 import { ArpStudioRequestDto } from "@src/modules/core/shared/application/dto/arpStudio.request.dto";
 import { SHARED_TYPES } from "@src/modules/shared/application/constants/types";
 import { EventDispatcherInterface } from "@src/modules/shared/application/EventBus/eventDispatcher.interface";
-import { UserFetchFailedException } from "../../domain/exception/userFetchFailed.exception";
+import { UserFetchFailedException } from "../../exception/userFetchFailed.exception";
+import { ArpStudioUser } from "../../entity/createArpStudio.entity";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { ApiRequestService } from "@src/modules/core/common/service/apiRequest.service";
 export class GetUserDetailArpStudioService {
     constructor(
-      @Inject(SHARED_TYPES.eventBus.EventDispatcherInterface) private eventDispatcher: EventDispatcherInterface,
-      @Inject(ArpStudioRequestService)
-      public arpStudioRequestService: ArpStudioRequestService
+      @InjectRepository(ArpStudioUser)
+      private readonly repo: Repository<ArpStudioUser>,
+      @Inject(ApiRequestService)
+      public apiRequestService: ApiRequestService
       ) {}
 
     async getDetail(dto: DetailUserDto,req: Request,ip: string) {
         try {
-            const response = await this.getUserDetail(dto);
+            const serverResponse = await this.getUserDetail(dto);
+            // return serverResponse;
 
-            //activity completed event dispatch
-            this.eventDispatcher.dispatch(EventDefinition.ACTIVITY_COMPLETED_EVENT,
-              new ActivityCompletedEvent(
-                GameProviderConstant.EVOLUTION,
-                ActivityTypeConstant.USER,
-                "[Player information fetched successfully.]",
-                ip,
-                req.headers["user-agent"],
-              ));
+            if (serverResponse && serverResponse.result == 0) {
+              const userData = await this.repo.findOneBy({ username: dto.username });
+              const response = this.makeResponseData(userData);
+              return response;
+            }
 
-            return response;
         } catch (e) {
+          console.log('test111',e)
             throw new UserFetchFailedException(e);
         }
     }
 
     async getUserDetail(data: DetailUserDto): Promise<any> {
-      return this.arpStudioRequestService.request(new ArpStudioRequestDto({
-        method: 'GET',
-        params: data,
-        endpoint: '/user/info'
+      // return this.arpStudioRequestService.request(new ArpStudioRequestDto({
+      //   method: 'GET',
+      //   params: data,
+      //   endpoint: 'user/info'
+      // }));
+
+      return await this.apiRequestService.requestApi(new ApiRequestDto({
+        gameProvider: GameProviderConstant.ARP_STUDIO,
+        requestDTO: new ArpStudioRequestDto({
+          method: 'GET',
+          params: data,
+          endpoint: 'user/info'
+        })
       }));
+    }
+    makeResponseData(data) {
+      return {
+        username: data.username,
+        // openurl: serverResponse.openurl
+      }
     }
 }

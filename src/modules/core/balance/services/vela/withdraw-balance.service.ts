@@ -4,10 +4,10 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { DataSource, Repository } from "typeorm";
 import { UserNotFoundException } from "../../exception/userNotFound.exception";
 import { VelaDepositBalanceDto } from "../../interface/vela/deposit-balance.service";
-import { ApiRequestService } from "@src/modules/core/shared/application/service/apiRequest.service";
-import { ApiRequestDto } from "@src/modules/core/shared/application/dto/apiRequest.dto";
-import { GameProviderConstant } from "@src/modules/core/shared/application/constants/gameProvider.constant";
-import { VelaRequestDto } from "@src/modules/core/shared/application/dto/vela.request.dto";
+import { ApiRequestService } from "@src/modules/core/common/service/apiRequest.service";
+import { ApiRequestDto } from "@src/modules/core/common/dto/apiRequest.dto";
+import { GameProviderConstant } from "@src/modules/core/common/constants/gameProvider.constant";
+import { VelaRequestDto } from "@src/modules/core/common/dto/vela.request.dto";
 import { TransIdreadyExistsException } from "../../exception/TransidAlreadyExists.exception";
 import { VelaBalance } from "../../entity/vela-balance.entity";
 import { VelaCreateUserService } from "@src/modules/core/user/services/vela/createUser.service";
@@ -93,9 +93,6 @@ export class VelaWithdrawBalanceService {
   makeResponseData(data) {
     return {
       username: data.username,
-      account_type: data.account_type,
-      amount: data.amount,
-      available_balance: data.available_balance,
       withdraw_balance: data.withdraw_balance,
     }
   }

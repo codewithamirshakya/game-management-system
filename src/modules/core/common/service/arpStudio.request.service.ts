@@ -19,7 +19,6 @@ export class ArpStudioRequestService {
         ...arpStudioRequestDTO.params,
         sign: sign,
       }).toString();
-
     //handle post request for arpStudio
     if (arpStudioRequestDTO.method === 'POST') {
       try {

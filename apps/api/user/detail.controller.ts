@@ -7,10 +7,9 @@ import { GamingProviderEnum } from "../../../src/modules/core/shared/domain/inte
 import {
   UnknownGamingProviderException
 } from "../../../src/modules/core/shared/domain/exception/unknownGamingProvider.exception";
-// import { GetDetailDto } from "../../../src/modules/core/user/application/dtos/request/common/getDetail.dto";
-import { AbstractController } from "../../../src/modules/shared/infrastructure/controller/api/abstract.controller";
+import { AbstractController } from "@src/modules/core/common/abstract.controller";
 
-import { DetailDto } from "../../../src/modules/core/user/application/dtos/request/evolution/detail.dto";
+import { DetailDto } from "../../../src/modules/core/user/dtos/evolution/detail.dto";
 import { ApiTags } from "@nestjs/swagger";
 import { GetDetailDto } from "@src/modules/core/user/dtos/main/getDetail.dto";
 import { DetailUserDto } from "@src/modules/core/user/dtos/arpStudio/detail.user.dto";
@@ -28,7 +27,6 @@ export class UserDetailController extends AbstractController{
   }
 
   @Get()
-  // @UsePipes(new ValidationPipe({ transform: true }))
   async get(@Query() dto: GetDetailDto,@Res() res : Response,@Req() req, @Ip() ip) {
     const response = await this.requestService(dto,req,ip);
     this.successResponse(res,'User info fetched successfully.',response)
