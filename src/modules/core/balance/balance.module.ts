@@ -19,13 +19,15 @@ import { EvolutionBalance } from "./entity/evolutionBalance.entity";
 import { OpmgDepositService } from "./services/opmg/deposit.balance.service";
 import { OpmgWithdrawBalanceService } from "./services/opmg/withdraw.balance.service";
 import { GetOpmgBalanceService } from "./services/opmg/get.balance.service";
+import { OpmgBalance } from "./entity/opmg-balance.entity";
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([
       ArpStudioBalance,
       VelaBalance,
-      EvolutionBalance
+      EvolutionBalance,
+      OpmgBalance
     ]),
     forwardRef(() => UsersModule),
     ],

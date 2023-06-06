@@ -2,29 +2,22 @@ import { DepositOperationFailedException } from "../../exception/depositOperatio
 import { Inject } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { DataSource, Repository } from "typeorm";
-import { UserNotFoundException } from "../../exception/userNotFound.exception";
-import { VelaDepositBalanceDto } from "../../interface/vela/deposit-balance.service";
 import { ApiRequestService } from "@src/modules/core/common/service/apiRequest.service";
 import { ApiRequestDto } from "@src/modules/core/common/dto/apiRequest.dto";
 import { GameProviderConstant } from "@src/modules/core/common/constants/gameProvider.constant";
-import { VelaRequestDto } from "@src/modules/core/common/dto/vela.request.dto";
-import { TransIdreadyExistsException } from "../../exception/TransidAlreadyExists.exception";
-import { VelaBalance } from "../../entity/vela-balance.entity";
-import { VelaCreateUserService } from "@src/modules/core/user/services/vela/createUser.service";
 import { OpmgDto } from "@src/modules/core/common/dto/opmg.request.dto";
 import { OpmgDepositInterface } from "../../interface/opmg/deposit.interface";
+import { OpmgBalance } from "../../entity/opmg-balance.entity";
 
 export class OpmgWithdrawBalanceService {
   constructor(
-    @InjectRepository(VelaBalance)
-    // private readonly repo: Repository<VelaBalance>,
-    // private dataSource: DataSource,
+    @InjectRepository(OpmgBalance)
+    private readonly repo: Repository<OpmgBalance>,
+    private dataSource: DataSource,
 
     @Inject(ApiRequestService)
     public apiRequestService: ApiRequestService,
 
-    // @Inject(VelaCreateUserService)
-    // public velaUserService: VelaCreateUserService,
   ) {
   }
 
@@ -46,12 +39,15 @@ export class OpmgWithdrawBalanceService {
 
     };
 
-      const serverResponse = await this.withdraw(withDrawDto);
-    //   if (serverResponse && serverResponse.status_code == 0) {
-    //     const insertData = await this.saveData(dto, serverResponse);
-    //     const response = this.makeResponseData(insertData);
-    //     return response;
-    //   }
+      // const serverResponse = await this.withdraw(withDrawDto);
+      const serverResponse = {
+        "success": "true",
+      };
+      if (serverResponse && serverResponse.success == 'true') {
+        const insertData = await this.saveData(dto);
+        const response = this.makeResponseData(insertData);
+        return response;
+      }
     return serverResponse;
 
 
@@ -74,31 +70,28 @@ export class OpmgWithdrawBalanceService {
   }
 
 
-//   async saveData(data, serverResponse) {
-//     const queryRunner = this.dataSource.createQueryRunner();
-//     await queryRunner.connect();
-//     await queryRunner.startTransaction();
-//     try {
-//       const responseData = this.repo.create({
-//         username: data.member_id,
-//         trans_id: data.transid,
-//         member_id: data.member_id,
-//         host_id: data.host_id,
-//         currency: "USD",
-//         amount: 0,
-//         withdraw_balance: data.amount,
-//         transaction_date: serverResponse.vg_transaction_time,
-//       });
-//       await queryRunner.manager.save(responseData);
-//       await queryRunner.commitTransaction();
-//       return responseData;
-//     } catch (error) {
-//       await queryRunner.rollbackTransaction();
-//       throw error;
-//     } finally {
-//       await queryRunner.release();
-//     }
-//   }
+  async saveData(data) {
+    const queryRunner = this.dataSource.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+    try {
+      const responseData = this.repo.create({
+        username: data.patron,
+        amount:0 ,
+        withdraw_balance: data.amount,
+        trans_id: data.id,
+        transaction_date: new Date(),
+      });
+      await queryRunner.manager.save(responseData);
+      await queryRunner.commitTransaction();
+      return responseData;
+    } catch (error) {
+      await queryRunner.rollbackTransaction();
+      throw error;
+    } finally {
+      await queryRunner.release();
+    }
+  }
 
   makeResponseData(data) {
     return {

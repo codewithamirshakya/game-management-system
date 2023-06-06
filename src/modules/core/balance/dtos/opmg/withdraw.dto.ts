@@ -7,18 +7,18 @@ import { WithdrawBalanceDto as MainWithdrawBalanceDto } from "../main/withdrawBa
 export class OpgmWithDrawBalanceDto {
   constructor(dto: MainWithdrawBalanceDto) {
     this.amount= dto.amount;
-    this.patron = dto.patron;
+    this.patron = dto.username;
     this.id = dto.id;
   }
   @IsString()
   @IsNotEmpty()
   @ApiProperty()
-  readonly patron: number;
+  readonly patron: string;
 
   @IsString()
   @IsNotEmpty()
   @ApiProperty()
-  readonly id: number;
+  readonly id: string;
 
   @Transform(({ value }) => parseInt(value))
   @IsNumber()

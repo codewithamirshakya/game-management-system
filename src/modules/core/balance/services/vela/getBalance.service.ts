@@ -34,7 +34,6 @@ export class GetVelaBalanceService {
       }
        const serverResponse = await this.getVelaGamingBalance(dto);
       if(serverResponse && serverResponse.status_code ==0){
-
       const queryResult = await this.repo.createQueryBuilder('vela_balance')
       .select("vela_balance.member_id")
       .addSelect('SUM(vela_balance.amount)', 'totalAmount')

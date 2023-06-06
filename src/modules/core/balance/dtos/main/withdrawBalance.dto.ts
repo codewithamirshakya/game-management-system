@@ -95,6 +95,6 @@ export class WithdrawBalanceDto extends BaseRequestDto{
   @IsNumber()
   @IsNotEmpty()
   @ApiProperty()
-  readonly id: number;
+  readonly id: string;
 
 }

@@ -1,5 +1,5 @@
 export interface OpmgDepositInterface {
-    patron:number
+    patron:string
     amount:number
-    id?:number
+    id?:string
 }

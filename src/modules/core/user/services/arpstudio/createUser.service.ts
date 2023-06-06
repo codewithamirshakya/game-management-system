@@ -35,7 +35,6 @@ export class ArpStudioCreateUserService {
         return response;
       }
     } catch (e) {
-      console.log(e);
       throw new UserCreationFailedException(e);
     }
   }
