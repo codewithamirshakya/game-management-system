@@ -5,13 +5,13 @@ import { ApiRequestDto } from "@src/modules/core/common/dto/apiRequest.dto";
 import { VelaRequestDto } from "@src/modules/core/common/dto/vela.request.dto";
 import { ApiRequestService } from "@src/modules/core/common/service/apiRequest.service";
 import { VelaBalanceInterface } from "../../interface/getBalanceVela.interface";
-import { RetrieveOperationFailedException } from "../../domain/exception/retreiveOperationFailed.exception";
 import { GameProviderConstant } from "@src/modules/core/shared/application/constants/gameProvider.constant";
 import { InjectRepository } from "@nestjs/typeorm";
 import { VelaBalance } from "../../entity/vela-balance.entity";
 import { DataSource, Repository } from "typeorm";
 import { VelaCreateUserService } from "@src/modules/core/user/services/vela/createUser.service";
 import { UserNotFoundException } from "../../exception/userNotFound.exception";
+import { RetrieveOperationFailedException } from "../../exception/retreiveOperationFailed.exception";
 
 export class GetVelaBalanceService {
   constructor(
