@@ -5,8 +5,6 @@ import { GetBalanceDto as MainGetBalanceDto } from "../main/getBalance.dto";
 export class GetBalanceDto {
   constructor(dto: MainGetBalanceDto) {
     this.username = dto.username;
-    this.currenttime = dto.currenttime;
-    this.atype = dto.atype;
   }
 
   @IsString()
@@ -14,15 +12,11 @@ export class GetBalanceDto {
   @IsNotEmpty()
   public readonly username: string;
 
-  @Transform(({ value }) => parseInt(value))
-  @IsInt()
-  @ApiPropertyOptional()
-  @IsOptional()
-  readonly currenttime: number;
+  // @Transform(({ value }) => parseInt(value))
+  // @IsInt()
+  // @ApiPropertyOptional()
+  // @IsOptional()
+  // readonly currenttime: number;
 
-  @IsInt()
-  @ApiProperty()
-  @IsOptional()
-  readonly atype: number;
 
 }

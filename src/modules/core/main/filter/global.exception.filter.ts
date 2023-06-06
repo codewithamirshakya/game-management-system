@@ -55,8 +55,11 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     }
 
     let devResponse: any = {...prodResponse, stackTrace: this.getStackTrace(exception)}
+    let finalProdResponse: any = {...prodResponse}
+
     if(error) {
       devResponse = {...devResponse, error: error};
+      prodResponse = {...finalProdResponse, error: error};
     }
 
     response

@@ -28,6 +28,7 @@ export class GetEvolutionBalanceService {
       const getBalanceDto = {
         cCode:  'RWA',
         ecID:EvolutionConfig.ecId,
+        output:1,
         ...dto
     };
       const serverResponse = await this.getEvolutionBalance(getBalanceDto);
