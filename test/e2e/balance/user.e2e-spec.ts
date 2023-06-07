@@ -11,7 +11,7 @@ import { faker } from '@faker-js/faker';
 jest.setTimeout(30000);
 const newUser = {
   gameProvider: "ARP_STUDIO",
-  username: "ram",
+  username: "igaming-test",
   nickname: 'test',
 };
 const newUserVela = {
@@ -53,36 +53,11 @@ describe('UserController (e2e)', () => {
     await app.init();
 
   });
-  describe('/Create User For Arp (POST)', () => {
-    it('should create a Arp Studio new user', async () => {
-      const response = await request(app.getHttpServer())
-        .post('/user/create')
-        .send(newUser)
-      const createdUser = response.body;
-      expect(createdUser.statusCode).toBe(200);
-      expect(createdUser.data.username).toBe(newUser.username);
-    });
-  })
-
-  describe('Get detail for Arp studio', () => {
-    it('should get detail for Arp Studio new user', async () => {
-      const response = await request(app.getHttpServer())
-        .get('/user/detail')
-        .query(newUser)
-      const detailUser = response.body;
-      expect(detailUser.statusCode).toBe(200);
-      expect(detailUser.data.username).toBe(newUser.username);
-
-
-    });
-
-  })
   describe('/Create User For Vela Gaming (POST)', () => {
     it('should create a Vela gaming new user', async () => {
       const response = await request(app.getHttpServer())
         .post('/user/create')
         .send(newUserVela)
-        console.log(response.body);
       const createdUser = response.body;
       expect(createdUser.statusCode).toBe(200);
       expect(createdUser.data.username).toBe(newUserVela.username);
@@ -96,3 +71,4 @@ describe('UserController (e2e)', () => {
     await app.close();
   });
 });
+

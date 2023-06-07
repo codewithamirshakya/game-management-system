@@ -20,10 +20,10 @@ export class ArpStudioBalance {
     @Column()
     amount: number;
 
-    @Column()
+    @Column({default:0})
     withdraw_balance: number;
 
-    @Column()
+    @Column({nullable:true})
     available_balance: number;
 
     @Column({type: "timestamp",default: () => "CURRENT_TIMESTAMP" })
