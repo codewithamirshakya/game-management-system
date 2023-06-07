@@ -9,11 +9,7 @@ import { VelaUser } from '@src/modules/core/user/entity/createVelaUser.entity';
 import { faker } from '@faker-js/faker';
 
 jest.setTimeout(30000);
-const newUser = {
-  gameProvider: "ARP_STUDIO",
-  username: "igaming-test",
-  nickname: 'test',
-};
+
 const newUserVela = {
   gameProvider: "VELA_GAMING",
   username: faker.internet.userName(),
@@ -24,11 +20,9 @@ const newUserVela = {
 
 describe('UserController (e2e)', () => {
   let app: INestApplication;
-  let userRepository: Repository<ArpStudioUser>;
   let velaUserRepository: Repository<VelaUser>;
 
   const clearDatabase = async () => {
-    await userRepository.delete({});
     await velaUserRepository.delete({});
   };
 
@@ -39,7 +33,7 @@ describe('UserController (e2e)', () => {
         TypeOrmModule.forRoot({
           ...require('../../../src/config/ormconfig.test'),
           synchronize: true,
-          entities: [ArpStudioUser,VelaUser],
+          entities: [VelaUser],
         }),
         forwardRef(() => UsersModule),
 
@@ -47,7 +41,6 @@ describe('UserController (e2e)', () => {
       ],
     }).compile();
     app = moduleFixture.createNestApplication();
-    userRepository = moduleFixture.get<Repository<ArpStudioUser>>(getRepositoryToken(ArpStudioUser));
     velaUserRepository = moduleFixture.get<Repository<VelaUser>>(getRepositoryToken(VelaUser));
 
     await app.init();
