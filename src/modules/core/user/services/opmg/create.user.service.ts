@@ -37,12 +37,11 @@ export class OpmgCreateUserService {
 
     };
       serverResponse = await this.createUserOpmg(createUserDto);
-      // if (serverResponse && serverResponse.result == 0) {
-      //   const insertedData = await this.saveData(dto, serverResponse);
-      //   const response = this.makeResponseData(insertedData, serverResponse);
-      //   return response;
-      // }
-      console.log(serverResponse)
+      if (serverResponse && serverResponse.success == true) {
+        const insertedData = await this.saveData(dto, serverResponse);
+        const response = this.makeResponseData(insertedData, serverResponse);
+        return response;
+      }
     } catch (e) {
       throw new UserCreationFailedException(e);
     }
