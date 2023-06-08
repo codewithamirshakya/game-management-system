@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class ArpStudioBalance {
+export class OpmgBalance {
     @PrimaryGeneratedColumn()
     id: string;
 
@@ -9,22 +9,13 @@ export class ArpStudioBalance {
     username: string;
 
     @Column()
-    account_type: number;
-
-    @Column('text')
-    source: string;
-
-    @Column('text')
-    currency: string;
+    trans_id: string;
 
     @Column()
     amount: number;
 
-    @Column({default:0})
+    @Column()
     withdraw_balance: number;
-
-    @Column({nullable:true})
-    available_balance: number;
 
     @Column({type: "timestamp",default: () => "CURRENT_TIMESTAMP" })
     transaction_date: Date;

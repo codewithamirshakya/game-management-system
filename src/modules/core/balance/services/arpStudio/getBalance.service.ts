@@ -9,7 +9,6 @@ import { ActivityTypeConstant } from "@src/modules/core/shared/domain/constants/
 import { ArpStudioGetBalance } from "../../interface/arpStudio.interface";
 import { SHARED_TYPES } from "@src/modules/shared/application/constants/types";
 import { EventDispatcherInterface } from "@src/modules/shared/application/EventBus/eventDispatcher.interface";
-import { RetrieveOperationFailedException } from "../../domain/exception/retreiveOperationFailed.exception";
 import { UserNotFoundException } from "../../exception/userNotFound.exception";
 import { ArpStudioCreateUserService } from "@src/modules/core/user/services/arpstudio/createUser.service";
 import { InjectRepository } from "@nestjs/typeorm";
@@ -19,6 +18,7 @@ import { EvolutionTransactionFailedException } from "../../exception/evolutionTr
 import { WithDrawExceptionFailed } from "../../exception/withdrawFailedException";
 import { ApiRequestDto } from "@src/modules/core/common/dto/apiRequest.dto";
 import { GameProviderConstant } from "@src/modules/core/common/constants/gameProvider.constant";
+import { RetrieveOperationFailedException } from "../../exception/retreiveOperationFailed.exception";
 
 export class ArpStudioBalanceService {
   constructor(

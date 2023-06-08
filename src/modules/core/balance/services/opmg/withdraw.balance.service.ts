@@ -1,15 +1,15 @@
 import { DepositOperationFailedException } from "../../exception/depositOperationFailed.exception";
-import { Inject} from "@nestjs/common";
-import { ApiRequestService } from "../../../common/service/apiRequest.service";
-import { GameProviderConstant } from "@src/modules/core/common/constants/gameProvider.constant";
+import { Inject } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { DataSource, Repository } from "typeorm";
+import { ApiRequestService } from "@src/modules/core/common/service/apiRequest.service";
 import { ApiRequestDto } from "@src/modules/core/common/dto/apiRequest.dto";
+import { GameProviderConstant } from "@src/modules/core/common/constants/gameProvider.constant";
 import { OpmgDto } from "@src/modules/core/common/dto/opmg.request.dto";
 import { OpmgDepositInterface } from "../../interface/opmg/deposit.interface";
-import { InjectRepository } from "@nestjs/typeorm";
 import { OpmgBalance } from "../../entity/opmg-balance.entity";
-import { DataSource, Repository } from "typeorm";
-import { GetBalanceExceptionFailed } from "../../exception/getbalanceOperationFailed.exception";
-export class OpmgDepositService {
+
+export class OpmgWithdrawBalanceService {
   constructor(
     @InjectRepository(OpmgBalance)
     private readonly repo: Repository<OpmgBalance>,
@@ -21,19 +21,25 @@ export class OpmgDepositService {
   ) {
   }
 
-  async depositBalance(dto: OpmgDepositInterface) {
+  async withdrawBalance(dto: OpmgDepositInterface) {
     try {
-      const userExits = await this.repo.findOneBy({ username: dto.patron });
-      if (!userExits) {
-        throw new GetBalanceExceptionFailed()
-      }
+    //   const userExits = await this.velaUserService.isUserExits(dto.member_id);
+    //   if (!userExits) {
+    //     throw new UserNotFoundException()
+    //   }
+    //   const checkTransId = await this.repo.findOne({ where: { 'trans_id': dto.transid } });
+    //   if (checkTransId) {
+    //     throw new TransIdreadyExistsException()
 
-      const depositDto = {
+    //   }
+
+    const withDrawDto = {
         ...dto,
         host_id: 'SiG',
 
-      };
-      // const serverResponse = await this.deposit(depositDto);
+    };
+
+      // const serverResponse = await this.withdraw(withDrawDto);
       const serverResponse = {
         "success": "true",
       };
@@ -42,23 +48,27 @@ export class OpmgDepositService {
         const response = this.makeResponseData(insertData);
         return response;
       }
-      throw new DepositOperationFailedException({});
+    return serverResponse;
+
+
 
     } catch (e) {
       throw new DepositOperationFailedException(e);
+
     }
   }
 
-  async deposit(dto: OpmgDepositInterface): Promise<any> {
+  async withdraw(dto: OpmgDepositInterface) {
     return await this.apiRequestService.requestApi(new ApiRequestDto({
-      gameProvider: GameProviderConstant.OPMG,
-      requestDTO: new OpmgDto({
-        method: 'GET',
-        params: dto,
-        endpoint: 'platform_money_in'
-      })
-    }));
+        gameProvider: GameProviderConstant.OPMG,
+        requestDTO: new OpmgDto({
+          method: 'GET',
+          params: dto,
+          endpoint: 'platform_money_out'
+        })
+      }));
   }
+
 
   async saveData(data) {
     const queryRunner = this.dataSource.createQueryRunner();
@@ -67,8 +77,8 @@ export class OpmgDepositService {
     try {
       const responseData = this.repo.create({
         username: data.patron,
-        amount: data.amount,
-        withdraw_balance: 0,
+        amount:0 ,
+        withdraw_balance: data.amount,
         trans_id: data.id,
         transaction_date: new Date(),
       });
@@ -83,11 +93,11 @@ export class OpmgDepositService {
     }
   }
 
-
   makeResponseData(data) {
     return {
       username: data.username,
-      amount: data.amount,
+      withdraw_balance: data.withdraw_balance,
     }
   }
+
 }

@@ -38,6 +38,7 @@ export class ArpStudioDepositService {
         throw new DepositOperationFailedException({});
 
     } catch (e) {
+      console.log(e)
       throw new DepositOperationFailedException(e);
     }
   }

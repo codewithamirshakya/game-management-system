@@ -18,8 +18,8 @@ export class OpmgRequestService {
           }
         );
         console.log(response)
-        if(response.data.data && response.data.data.status_code == 0) {
-          return response.data.data;
+        if(response && response.status == 200) {
+          return response;
         }
         throw new OpmgException('Opmg: External API Error.', response.data);
       } catch (e) {

@@ -6,8 +6,6 @@ export class GetBalanceEvolutionDto {
 
   constructor(dto: MainGetBalanceDto) {
     this.euID = dto.username;
-    // this.uID = dto.uID;
-    this.output = dto.output;
   }
 
   @IsString()
@@ -17,13 +15,6 @@ export class GetBalanceEvolutionDto {
   @MaxLength(16)
   readonly euID: string;
 
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty()
-  @MaxLength(1)
-  readonly output: string;
-
-  
   // @ValidateIf(x => x.euID === undefined)
   // @MaxLength(16,{message: 'Either (uID or euID) must be shorter than or equal to 16 characters'})
   // @IsString({message: 'Either (uID or euID) parameter must be string.'})
