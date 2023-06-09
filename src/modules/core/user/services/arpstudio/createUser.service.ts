@@ -76,8 +76,7 @@ export class ArpStudioCreateUserService {
     return {
       username: data.username,
       nickname: data.nickname,
-      state: data.state,
-      // openurl: serverResponse.openurl
+      openurl: serverResponse.openurl
     }
   }
 

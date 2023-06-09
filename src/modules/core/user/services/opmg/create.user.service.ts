@@ -82,6 +82,7 @@ export class OpmgCreateUserService {
     return {
       username: data.username,
       nickname: data.nickname,
+      openurl: serverResponse.openurl
     }
   }
 
