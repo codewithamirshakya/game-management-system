@@ -1,19 +1,18 @@
 import { Controller, Get, Ip, Query, Req, Res } from "@nestjs/common";
 import { Request, Response } from "express";
 import { ApiTags } from "@nestjs/swagger";
-import { AbstractController } from "../../../src/modules/shared/infrastructure/controller/api/abstract.controller";
-// import { ListGameService as EvolutionListGameService} from "../../../src/modules/core/game/application/services/evolution/listGame.service";
-// import { ListGameLobbyService as ArpStudioListGameLobbyService} from "../../../src/modules/core/game/application/services/arpStudio/listGameLobby.service";
-// import { ListGameService as VelaListGameService} from "../../../src/modules/core/game/application/services/vela/listGame.service";
-import { GamingProviderEnum } from "../../../src/modules/core/shared/domain/interface/RequestInterface";
+import { AbstractController } from "../../../src/modules/core/common/abstract.controller";
+import { GamingProviderEnum } from "../../../src/modules/core/common/interface/RequestInterface";
 import {
   UnknownGamingProviderException
 } from "../../../src/modules/core/shared/domain/exception/unknownGamingProvider.exception";
-import { ListGameDto } from "../../../src/modules/core/game/application/dtos/request/main/listGame.dto";
-import { ListGameLobbyDto } from "../../../src/modules/core/game/application/dtos/request/arpStudio/listGameLobby.dto";
-import { EvolutionListGameService } from "@src/modules/core/game/application/services/evolution/listGame.service";
-import { VelaListGameService } from "@src/modules/core/game/application/services/vela/listGame.service";
-import { ArpStudioListGameLobbyService } from "@src/modules/core/game/application/services/arpStudio/listGameLobby.service";
+import { ListGameDto } from "../../../src/modules/core/game/dtos/main/listGame.dto";
+import { ListGameLobbyDto } from "../../../src/modules/core/game/dtos/arpStudio/listGameLobby.dto";
+import { EvolutionListGameService } from "@src/modules/core/game/services/evolution/listGame.service";
+import { VelaListGameService } from "@src/modules/core/game/services/vela/listGame.service";
+import { ArpStudioListGameService } from "@src/modules/core/game/services/arpStudio/listGameservice";
+import { OpmgGameListService } from "@src/modules/core/game/services/opmg/listGame.service";
+import { OPMGListGameDto } from "@src/modules/core/game/dtos/opmg/listGame.dto";
 
 @ApiTags('General')
 @Controller('games/list')
@@ -21,7 +20,8 @@ export class GameListController extends AbstractController{
   constructor(
     private evolutionService : EvolutionListGameService,
     private velaService : VelaListGameService,
-    private arpStudioService : ArpStudioListGameLobbyService,
+    private arpStudioService : ArpStudioListGameService,
+    private opmgGameListService : OpmgGameListService,
   ) {
     super();
   }
@@ -38,10 +38,13 @@ export class GameListController extends AbstractController{
         return await this.arpStudioService.getArpStudioGameList(new ListGameLobbyDto(dto),req,ip);
       }
       case GamingProviderEnum.EVOLUTION: {
-        return await this.evolutionService.getActiveGamesList(dto, req, ip);
+        return await this.evolutionService.getActiveGamesList();
       }
       case GamingProviderEnum.VELA_GAMING: {
         return await this.velaService.getList();
+      }
+      case GamingProviderEnum.OPMG: {
+        return await this.opmgGameListService.getList(new OPMGListGameDto(dto));
       }
       default:
         throw new UnknownGamingProviderException();
