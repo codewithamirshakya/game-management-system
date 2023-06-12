@@ -4,6 +4,8 @@ import { ApiRequestDto } from "@src/modules/core/common/dto/apiRequest.dto";
 import { GameProviderConstant } from "@src/modules/core/common/constants/gameProvider.constant";
 import { OpmgDto } from "@src/modules/core/common/dto/opmg.request.dto";
 import { OpmgGameListInterface } from "../../interface/opmgGamelist.interface";
+import { transformData } from "../../transformer/game.trasformer";
+import { RetreiveGameListFailedException } from "../../exception/retreiveGameListFailed.exception";
 
 export class OpmgGameListService {
   constructor(
@@ -16,7 +18,16 @@ export class OpmgGameListService {
       host_id: 'SiG',
 
     };
-    return await this.getgameList(getGameListDto);
+    const serverResponse = await this.getgameList(getGameListDto);
+
+    if (serverResponse && serverResponse.success == true) {
+      const responseData = await serverResponse ? serverResponse.games.map((item) => {
+        return this.makeResponseData(item)
+      }) : []
+      return responseData;
+    } else {
+      throw new RetreiveGameListFailedException('Game list fetch operation failed.');
+    }
   }
 
   async getgameList(dto: OpmgGameListInterface): Promise<any> {
@@ -28,5 +39,15 @@ export class OpmgGameListService {
         endpoint: 'platform_game_list'
       })
     }));
+  }
+
+  makeResponseData(data) {
+    return {
+      game_name: data.gamename,
+      game_desc: data?data.gamedesc:null,
+      game_id: data.gameid,
+      game_type: data.gametype,
+      settings: data,
+    }
   }
 }

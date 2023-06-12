@@ -6,8 +6,6 @@ import { ArpStudioUser } from '@src/modules/core/user/entity/createArpStudio.ent
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersModule } from '@src/modules/core/user/users.module';
 import { TypeOrmModule, getRepositoryToken } from '@nestjs/typeorm';
-import { VelaUser } from '@src/modules/core/user/entity/createVelaUser.entity';
-import { faker } from '@faker-js/faker';
 import { ArpStudioBalance } from '@src/modules/core/balance/entity/arpStudioBalance.entity';
 
 jest.setTimeout(30000);
