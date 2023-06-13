@@ -10,7 +10,13 @@ export class VelaListGameService {
     ) {}
 
     async getList(hostId?: string) {
-        return await this.getgameList(hostId);
+      const serverResponse= await this.getgameList(hostId);
+        if (serverResponse && serverResponse.status_code == 0) {
+          const responseData = await serverResponse ? serverResponse.list.map((item) => {
+            return this.makeResponseData(item)
+          }) : []
+        return responseData
+        }
     }
 
 
@@ -23,5 +29,15 @@ export class VelaListGameService {
           endpoint: '/user/gamelist'
         })
       }));
+    }
+
+    makeResponseData(data) {
+      return {
+        game_name: data?data.title.en:null,
+        game_desc: data?data.gamedesc:null,
+        game_id: data?data.game_id:null,
+        game_type: data?data.game_code:null,
+        settings: data,
+      }
     }
 }
