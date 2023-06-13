@@ -17,21 +17,6 @@ export enum EvolutionFormatEnum {
 }
 export class ListGameDto extends BaseRequestDto{
 
-  // @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.EVOLUTION]))
-  // @IsEnum(EvolutionFormatEnum)
-  // @ApiProperty({ enum: Object.values(EvolutionFormatEnum)})
-  // @IsNotEmpty()
-  // @ApiProperty()
-  // readonly format: EvolutionFormatEnum;
-
-  // @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.EVOLUTION]))
-  // @Transform(({ value }) => value === 'true')
-  // @IsBoolean()
-  // @ApiProperty({required:  false})
-  // @IsNotEmpty()
-  // @ApiProperty()
-  // readonly withBets: boolean;
-
   @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.ARP_STUDIO]))
   @IsString()
   @ApiProperty()
@@ -54,15 +39,15 @@ export class ListGameDto extends BaseRequestDto{
 
   @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.OPMG]))
   @IsString()
-  @ApiProperty()
-  @IsNotEmpty()
+  @ApiPropertyOptional()
+  @IsOptional()
   readonly opmg: string;
 
   @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.OPMG]))
   @IsString()
   @IsNotEmpty()
-  @ApiProperty()
-  readonly arps: string;
+  @ApiPropertyOptional()
+  @IsOptional()  readonly arps: string;
 
 
   @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.OPMG]))

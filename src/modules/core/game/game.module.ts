@@ -5,10 +5,16 @@ import { EvolutionListGameService } from './services/evolution/listGame.service'
 import { VelaListGameService } from './services/vela/listGame.service';
 import { ArpStudioListGameService } from './services/arpStudio/listGameservice';
 import { OpmgGameListService } from './services/opmg/listGame.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Games } from './entity/games.entity';
 
 
 @Module({
-    imports: [SharedModule],
+    imports: [
+        TypeOrmModule.forFeature([
+            Games,
+          ]),
+        SharedModule],
     controllers: [GameListController],
     providers: [ArpStudioListGameService,EvolutionListGameService,VelaListGameService,OpmgGameListService ],
 })

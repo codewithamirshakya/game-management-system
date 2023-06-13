@@ -1,4 +1,4 @@
-import { Controller, Get, Ip, Query, Req, Res } from "@nestjs/common";
+import { Controller, Get, Ip, Post, Query, Req, Res } from "@nestjs/common";
 import { Request, Response } from "express";
 import { ApiTags } from "@nestjs/swagger";
 import { AbstractController } from "../../../src/modules/core/common/abstract.controller";
@@ -14,7 +14,7 @@ import { ArpStudioListGameService } from "@src/modules/core/game/services/arpStu
 import { OpmgGameListService } from "@src/modules/core/game/services/opmg/listGame.service";
 import { OPMGListGameDto } from "@src/modules/core/game/dtos/opmg/listGame.dto";
 
-@ApiTags('General')
+@ApiTags('Game List')
 @Controller('games/list')
 export class GameListController extends AbstractController{
   constructor(

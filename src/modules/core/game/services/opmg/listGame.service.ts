@@ -6,27 +6,44 @@ import { OpmgDto } from "@src/modules/core/common/dto/opmg.request.dto";
 import { OpmgGameListInterface } from "../../interface/opmgGamelist.interface";
 import { transformData } from "../../transformer/game.trasformer";
 import { RetreiveGameListFailedException } from "../../exception/retreiveGameListFailed.exception";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Games } from "../../entity/games.entity";
+import { DataSource, Repository } from "typeorm";
 
 export class OpmgGameListService {
   constructor(
+    @InjectRepository(Games)
+    private readonly repo: Repository<Games>,
+    private dataSource: DataSource,
     @Inject(ApiRequestService) public apiRequestService: ApiRequestService
   ) { }
 
   async getList(dto: OpmgGameListInterface) {
-    const getGameListDto = {
-      ...dto,
-      host_id: 'SiG',
+    try {
+      const dataResponse = await this.repo.find({
+        where: {
+          game_provider_id: 3,
+        },
+      });
+      if (dataResponse && dataResponse.length > 0) {
+        return await transformData(dataResponse);
+      } else {
+        const getGameListDto = {
+          ...dto,
+          host_id: 'SiG',
+        };
+        const serverResponse = await this.getgameList(getGameListDto);
+        if (serverResponse && serverResponse.success == true) {
+          const insertedData = await this.saveData(serverResponse);
+          return await transformData(insertedData);
+        } else {
+          throw new RetreiveGameListFailedException('Game list fetch operation failed.');
+        }
+      }
 
-    };
-    const serverResponse = await this.getgameList(getGameListDto);
+    } catch (e) {
+      throw new RetreiveGameListFailedException(e, 'Game list fetch operation failed.');
 
-    if (serverResponse && serverResponse.success == true) {
-      const responseData = await serverResponse ? serverResponse.games.map((item) => {
-        return this.makeResponseData(item)
-      }) : []
-      return responseData;
-    } else {
-      throw new RetreiveGameListFailedException('Game list fetch operation failed.');
     }
   }
 
@@ -41,13 +58,31 @@ export class OpmgGameListService {
     }));
   }
 
-  makeResponseData(data) {
-    return {
-      game_name: data.gamename,
-      game_desc: data?data.gamedesc:null,
-      game_id: data.gameid,
-      game_type: data.gametype,
-      settings: data,
+  async saveData(data) {
+    try {
+      const queryRunner = this.dataSource.createQueryRunner();
+      await queryRunner.connect();
+      await queryRunner.startTransaction();
+      let responseData = [];
+      if (data && data.games) {
+        responseData = await Promise.all(data.games.map(async (item) => {
+          const responseItem = await this.repo.create({
+            game_provider_id: 3,
+            game_name: item ? item.gamename : null,
+            game_desc: item ? item.gamedesc : null,
+            game_id: item ? item.gameid : null,
+            game_type: item ? item.gametype : null,
+            settings: JSON.stringify(item)
+          });
+          await queryRunner.manager.save(responseItem);
+          await queryRunner.commitTransaction();
+          return responseItem;
+        }));
+      }
+
+      return responseData;
+    } catch (error) {
+      throw new RetreiveGameListFailedException(error);
     }
   }
 }

@@ -7,24 +7,41 @@ import { RetreiveGameListFailedException } from "../../exception/retreiveGameLis
 import { ApiRequestDto } from "@src/modules/core/common/dto/apiRequest.dto";
 import { GameProviderConstant } from "@src/modules/core/common/constants/gameProvider.constant";
 import { EvolutionRequestDto } from "@src/modules/core/common/dto/evolution.request.dto";
+import { InjectRepository } from "@nestjs/typeorm";
+import { DataSource, Repository } from "typeorm";
+import { Games } from "../../entity/games.entity";
+import { transformData } from "../../transformer/game.trasformer";
 
 export class EvolutionListGameService {
   constructor(
+    @InjectRepository(Games)
+    private readonly repo: Repository<Games>,
+    private dataSource: DataSource,
     @Inject(ApiRequestService)
     public apiRequestService: ApiRequestService
   ) { }
 
   public async getActiveGamesList() {
     try {
-      const serverResponse=await this.getActiveGamesListData()
-      if (serverResponse && serverResponse.length >0) {
-        const responseData = await serverResponse ? serverResponse.map((item) => {
-          return this.makeResponseData(item)
-        }) : []
-      return responseData
+      const dataResponse = await this.repo.find({
+        where: {
+          game_provider_id: 2,
+        },
+      });
+      if (dataResponse && dataResponse.length >0) {
+        return await transformData(dataResponse);
+      } else {
+        const serverResponse = await this.getActiveGamesListData();
+        console.log(serverResponse);
+        if (serverResponse && serverResponse.length > 0) {
+          const insertedData = await this.saveData(serverResponse);
+          return await transformData(insertedData);
+        } else {
+          throw new RetreiveGameListFailedException('Game list fetch operation failed.');
+        }
       }
     } catch (e) {
-      throw new RetreiveGameListFailedException('Game list fetch operation failed.');
+      throw new RetreiveGameListFailedException(e, 'Game list fetch operation failed.');
 
     }
   }
@@ -101,13 +118,28 @@ export class EvolutionListGameService {
     }));
   }
 
-  makeResponseData(data) {
-    return {
-      game_name: data? data.game.name:null,
-      game_desc: data ? data.gamedesc : null,
-      game_id: data ? data.gameid : null,
-      game_type: data ?data.gameType.name:null,
-      // settings: data,
+  async saveData(data) {
+    try {
+      const queryRunner = this.dataSource.createQueryRunner();
+      await queryRunner.connect();
+      await queryRunner.startTransaction();
+      let responseData = [];
+        responseData = await Promise.all(data.map(async (item) => {
+          const responseItem = await this.repo.create({
+            game_provider_id: 2,
+            game_name: item ?item.game? item.game.name :null: null,
+            game_desc: item ?item.gameProvider? item.gameProvider.name :null: null,
+            game_id: item ?item.gameid? item.gameid :null: null,
+            game_type: item ?  item.gameType.name : null,
+            settings: JSON.stringify(item)
+          });
+          await queryRunner.manager.save(responseItem);
+          await queryRunner.commitTransaction();
+          return responseItem;
+        }));
+      return responseData;
+    } catch (error) {
+      throw new RetreiveGameListFailedException(error);
     }
   }
 }

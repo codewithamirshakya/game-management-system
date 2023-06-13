@@ -35,7 +35,6 @@ export class GetUserDetailArpStudioService {
             }
 
         } catch (e) {
-          console.log('test111',e)
             throw new UserFetchFailedException(e);
         }
     }

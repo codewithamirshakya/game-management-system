@@ -22,7 +22,7 @@ export class games1686554339480 implements MigrationInterface {
                     },
 
                     {
-                        name: 'game_description',
+                        name: 'game_desc',
                         type: 'text',
                         isNullable: true,
                     },
@@ -39,8 +39,14 @@ export class games1686554339480 implements MigrationInterface {
                     },
 
                     {
-                        name: 'settings',
+                        name: 'game_id',
                         type: 'text',
+                        isNullable: true,
+                    },
+
+                    {
+                        name: 'settings',
+                        type: 'json',
                         isNullable: true,
                     },
                     {
