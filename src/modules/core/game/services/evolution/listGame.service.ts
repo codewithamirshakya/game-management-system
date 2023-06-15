@@ -32,7 +32,6 @@ export class EvolutionListGameService {
         return await transformData(dataResponse);
       } else {
         const serverResponse = await this.getActiveGamesListData();
-        console.log(serverResponse);
         if (serverResponse && serverResponse.length > 0) {
           const insertedData = await this.saveData(serverResponse);
           return await transformData(insertedData);
