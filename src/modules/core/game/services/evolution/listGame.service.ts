@@ -28,7 +28,7 @@ export class EvolutionListGameService {
           game_provider_id: 2,
         },
       });
-      if (dataResponse && dataResponse.length >0) {
+      if (dataResponse && dataResponse.length > 0) {
         return await transformData(dataResponse);
       } else {
         const serverResponse = await this.getActiveGamesListData();
@@ -124,19 +124,19 @@ export class EvolutionListGameService {
       await queryRunner.connect();
       await queryRunner.startTransaction();
       let responseData = [];
-        responseData = await Promise.all(data.map(async (item) => {
-          const responseItem = await this.repo.create({
-            game_provider_id: 2,
-            game_name: item ?item.game? item.game.name :null: null,
-            game_desc: item ?item.gameProvider? item.gameProvider.name :null: null,
-            game_id: item ?item.gameid? item.gameid :null: null,
-            game_type: item ?  item.gameType.name : null,
-            settings: JSON.stringify(item)
-          });
-          await queryRunner.manager.save(responseItem);
-          await queryRunner.commitTransaction();
-          return responseItem;
-        }));
+      responseData = await Promise.all(data.map(async (item) => {
+        const responseItem = await this.repo.create({
+          game_provider_id: 2,
+          game_name: item ? item.game ? item.game.name : null : null,
+          game_desc: item ? item.gameProvider ? item.gameProvider.name : null : null,
+          game_id: item ? item.gameid ? item.gameid : null : null,
+          game_type: item ? item.gameType.name : null,
+          settings: JSON.stringify(item)
+        });
+        await queryRunner.manager.save(responseItem);
+        await queryRunner.commitTransaction();
+        return responseItem;
+      }));
       return responseData;
     } catch (error) {
       throw new RetreiveGameListFailedException(error);
