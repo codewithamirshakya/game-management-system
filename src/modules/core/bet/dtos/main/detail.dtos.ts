@@ -1,11 +1,15 @@
-import { IsString, IsNotEmpty, IsOptional, IsNumber, IsInt, IsPositive } from "class-validator";
+import { IsString, IsNotEmpty, IsOptional, IsNumber, IsInt, IsPositive, IsEnum } from "class-validator";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
+import { GamingProviderEnum } from "@src/modules/core/common/interface/RequestInterface";
 export class DetailBetDto {
+
     @IsString()
     @IsNotEmpty()
-    @ApiProperty()
-    readonly appid: string;
+    @ApiProperty({ example: "'ARP_STUDIO', 'OPMG" })
+    @IsEnum(GamingProviderEnum)
+    readonly gameProvider: GamingProviderEnum;
+
 
     @IsString()
     @ApiProperty()

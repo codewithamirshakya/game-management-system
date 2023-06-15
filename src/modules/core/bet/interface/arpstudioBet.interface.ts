@@ -1,5 +1,4 @@
-export class GetDetailBetDto {
-    readonly appid: string;
+export interface ArpstudioBetInterface {
     readonly username: string;
 
     readonly notifyid: string;
@@ -14,5 +13,4 @@ export class GetDetailBetDto {
 
     readonly size: number;
 
-    readonly currenttime: number;
 }
