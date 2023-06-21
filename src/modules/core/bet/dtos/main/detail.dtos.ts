@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsOptional, IsDateString, IsInt, IsPositive, IsEnum, ValidateIf, IsBoolean } from "class-validator";
+import { IsString, IsNotEmpty, IsOptional, IsDateString, IsInt, IsPositive, IsEnum, ValidateIf, IsBoolean, IsNumber, Max } from "class-validator";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
 import { GamingProviderEnum } from "@src/modules/core/common/interface/RequestInterface";
@@ -18,7 +18,6 @@ export class DetailBetDto {
     readonly gameProvider: GamingProviderEnum;
 
     @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.ARP_STUDIO]))
-
     @IsString()
     @ApiProperty()
     @IsNotEmpty()
@@ -130,4 +129,29 @@ export class DetailBetDto {
     @ApiPropertyOptional()
     @IsOptional()
     readonly ow_transaction_id: string;
+
+    // Vela
+    @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.VELA_GAMING]))
+    @IsString()
+    @IsNotEmpty()
+    @ApiPropertyOptional()
+    @IsOptional()
+    readonly host_id: string;
+
+    @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.ARP_STUDIO]))
+    @IsString()
+    @IsNotEmpty()
+    @ApiPropertyOptional()
+    @IsOptional()
+    readonly key: string;
+
+    @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.ARP_STUDIO]))
+    @Transform(({ value }) => parseInt(value))
+    @IsNumber()
+    @IsPositive()
+    @IsNotEmpty()
+    @Max(500)
+    @ApiPropertyOptional()
+    @IsOptional()
+    readonly page_size: string;
 }

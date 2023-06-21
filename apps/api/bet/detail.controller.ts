@@ -13,6 +13,8 @@ import { OpmgBetDetailService } from "@src/modules/core/bet/services/opmg/detail
 import { EvolutionBetDetailService } from "@src/modules/core/bet/services/evolution/betDetail.service";
 import { ApiTags } from "@nestjs/swagger";
 import { EvolutionBetDto } from "@src/modules/core/bet/dtos/evolution/detail.dtos";
+import { VelaBetDto } from "@src/modules/core/bet/dtos/vela/detail.dtos";
+import { VelaBetDetailService } from "@src/modules/core/bet/services/vela/detail.service";
 
 @ApiTags('Bet')
 @Controller('bet/detail')
@@ -21,6 +23,7 @@ export class BetDetailController extends AbstractController {
     private detailBetService: GetArpstudioBetDetailService,
     private detailOpmgBetService: OpmgBetDetailService,
     private detailEvolutionBetService: EvolutionBetDetailService,
+    private detailVelaBetService: VelaBetDetailService,
   ) {
     super();
   }
@@ -44,6 +47,11 @@ export class BetDetailController extends AbstractController {
       case GamingProviderEnum.EVOLUTION: {
         return await this.detailEvolutionBetService.getDetail(new EvolutionBetDto(dto));
       }
+
+      case GamingProviderEnum.VELA_GAMING: {
+        return await this.detailVelaBetService.getDetail(new VelaBetDto(dto));
+      }
+
 
       default:
         throw new UnknownGamingProviderException();
