@@ -10,13 +10,17 @@ import { UnknownGamingProviderException } from "@src/modules/core/common/excepti
 import { Response } from "express";
 import { GamingProviderEnum } from "../../../src/modules/core/common/interface/RequestInterface";
 import { OpmgBetDetailService } from "@src/modules/core/bet/services/opmg/detail.service";
+import { EvolutionBetDetailService } from "@src/modules/core/bet/services/evolution/betDetail.service";
+import { ApiTags } from "@nestjs/swagger";
+import { EvolutionBetDto } from "@src/modules/core/bet/dtos/evolution/detail.dtos";
 
-
+@ApiTags('Bet')
 @Controller('bet/detail')
 export class BetDetailController extends AbstractController {
   constructor(
     private detailBetService: GetArpstudioBetDetailService,
     private detailOpmgBetService: OpmgBetDetailService,
+    private detailEvolutionBetService: EvolutionBetDetailService,
   ) {
     super();
   }
@@ -35,6 +39,10 @@ export class BetDetailController extends AbstractController {
 
       case GamingProviderEnum.OPMG: {
         return await this.detailOpmgBetService.getDetail();
+      }
+
+      case GamingProviderEnum.EVOLUTION: {
+        return await this.detailEvolutionBetService.getDetail(new EvolutionBetDto(dto));
       }
 
       default:
