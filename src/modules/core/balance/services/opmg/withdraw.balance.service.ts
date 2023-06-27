@@ -39,11 +39,8 @@ export class OpmgWithdrawBalanceService {
 
     };
 
-      // const serverResponse = await this.withdraw(withDrawDto);
-      const serverResponse = {
-        "success": "true",
-      };
-      if (serverResponse && serverResponse.success == 'true') {
+      const serverResponse = await this.withdraw(withDrawDto);
+      if (serverResponse && serverResponse.success == true) {
         const insertData = await this.saveData(dto);
         const response = this.makeResponseData(insertData);
         return response;

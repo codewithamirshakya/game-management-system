@@ -33,11 +33,9 @@ export class GetOpmgBalanceService {
         ...dto,
         host_id: 'SiG',
       };
-      // const serverResponse = await this.getOpmgBalance(getBalanceDto);
-      const serverResponse = {
-        "success": "true",
-      };
-      if (serverResponse && serverResponse.success === 'false') {
+      const serverResponse = await this.getOpmgBalance(getBalanceDto);
+   
+      if (serverResponse && serverResponse.success === true) {
         const queryResult = await this.repo.createQueryBuilder('opmg_balance')
           .select("opmg_balance.username", 'username')
           .addSelect('SUM(opmg_balance.amount)', 'totalAmount')

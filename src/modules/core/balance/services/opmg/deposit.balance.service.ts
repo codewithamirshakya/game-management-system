@@ -23,21 +23,18 @@ export class OpmgDepositService {
 
   async depositBalance(dto: OpmgDepositInterface) {
     try {
-      const userExits = await this.repo.findOneBy({ username: dto.patron });
-      if (!userExits) {
-        throw new GetBalanceExceptionFailed()
-      }
+      // const userExits = await this.repo.findOneBy({ username: dto.patron });
+      // if (!userExits) {
+      //   throw new GetBalanceExceptionFailed()
+      // }
 
       const depositDto = {
         ...dto,
         host_id: 'SiG',
 
       };
-      // const serverResponse = await this.deposit(depositDto);
-      const serverResponse = {
-        "success": "true",
-      };
-      if (serverResponse && serverResponse.success == 'true') {
+      const serverResponse = await this.deposit(depositDto);
+      if (serverResponse && serverResponse.success == true) {
         const insertData = await this.saveData(dto);
         const response = this.makeResponseData(insertData);
         return response;

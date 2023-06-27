@@ -24,7 +24,6 @@ export class VelaCreateUserService {
     public apiRequestService: ApiRequestService
   ) {}
 
-  // @Transactional()
    async create(createPlayerDTO:CreateUserVela,req: Request, ip: string) {
     try {
       const userExits = await this.repo.findOneBy({ member_id: createPlayerDTO.member_id });
@@ -34,7 +33,7 @@ export class VelaCreateUserService {
       const serverResponse = await this.createPlayer(createPlayerDTO);
       if(serverResponse && serverResponse.status_code==0){
         const insertedData = await this.saveData(createPlayerDTO);
-        const response= this.makeResponseData(insertedData,serverResponse);
+        const response= this.makeResponseData(insertedData);
         return response;
       }
     } catch (e) {
@@ -72,9 +71,11 @@ export class VelaCreateUserService {
     }
   }
 
-  makeResponseData(data,serverResponse){
+  makeResponseData(data){
     return {
       username: data.username,
+      nickname: data?data.host_id:null,
+      openurl: null
     }
   }
 
