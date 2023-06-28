@@ -1,13 +1,17 @@
 import { Module } from '@nestjs/common';
-import { DependenciesConstants } from "./dependencies";
-import { Providers } from "./providers";
-// import { DetailController } from "../../../../apps/api/arpStudio/bet/detail.controller";
+import { GetArpstudioBetDetailService } from './services/arpstudio/detail.service';
+import { BetDetailController } from '../../../../apps/api/bet/detail.controller';
+import { OpmgBetDetailService } from './services/opmg/detail.service';
+import { EvolutionBetDetailService } from './services/evolution/betDetail.service';
+import { VelaBetDetailService } from './services/vela/detail.service';
 
 @Module({
-    // controllers: [DetailController],
+    controllers: [BetDetailController],
     providers: [
-          ...DependenciesConstants,
-          ...Providers
+        GetArpstudioBetDetailService,
+        OpmgBetDetailService,
+        EvolutionBetDetailService,
+        VelaBetDetailService
     ],
 })
 

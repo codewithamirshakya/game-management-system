@@ -7,18 +7,18 @@ import { DepositBalanceDto as MainDepositBalanceDto } from "../main/depositBalan
 export class OpgmDepositBalanceDto {
   constructor(dto: MainDepositBalanceDto) {
     this.amount= dto.amount;
-    this.patron = dto.patron;
+    this.patron = dto.username;
     this.id = dto.id;
   }
   @IsString()
   @IsNotEmpty()
   @ApiProperty()
-  readonly patron: number;
+  readonly patron: string;
 
   @IsString()
   @IsNotEmpty()
   @ApiProperty()
-  readonly id: number;
+  readonly id: string;
 
   @Transform(({ value }) => parseInt(value))
   @IsNumber()

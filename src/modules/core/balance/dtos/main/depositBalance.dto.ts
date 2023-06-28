@@ -126,7 +126,7 @@ export class DepositBalanceDto extends BaseRequestDto{
   @IsNumber()
   @IsNotEmpty()
   @ApiProperty()
-  readonly id: number;
+  readonly id: string;
 
   @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.OPMG]))
   @IsString()

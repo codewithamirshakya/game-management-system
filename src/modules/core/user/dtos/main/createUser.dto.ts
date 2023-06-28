@@ -219,11 +219,11 @@ export class CreateUserDto extends BaseRequestDto {
   @IsNotEmpty()
   readonly host_id: string;
 
-  @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.VELA_GAMING]))
-  @IsString()
-  @ApiProperty({ required: false, example: "test" })
-  @IsNotEmpty()
-  readonly member_id: string;
+  // @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.VELA_GAMING]))
+  // @IsString()
+  // @ApiProperty({ required: false, example: "test" })
+  // @IsNotEmpty()
+  // readonly member_id: string;
 
   @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.EVOLUTION]))
   @IsString()

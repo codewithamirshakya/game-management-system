@@ -93,8 +93,8 @@ export class EvolutionCreateUserService {
       makeResponseData(data){
         return {
           username: data.username,
-          currency: data.currency,
-          country: data.country,
+          nickname: data ?data.nickname:null,
+          open_url: data ?data.open_url:null,
         }
       }
 

@@ -11,15 +11,13 @@ export class OpmgRequestService {
   async request(opmgRequestDTO: OpmgDto) {
 
     const url = opmgConfig.baseUrl + opmgRequestDTO.endpoint;
-    console.log(url,opmgRequestDTO.params)
       try {
         const response = await this.httpService.axiosRef.get(url,{
           params: opmgRequestDTO.params,
           }
         );
-        console.log(response)
-        if(response.data.data && response.data.data.status_code == 0) {
-          return response.data.data;
+        if(response && response.status == 200) {
+          return response.data;
         }
         throw new OpmgException('Opmg: External API Error.', response.data);
       } catch (e) {

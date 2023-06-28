@@ -5,13 +5,13 @@ import { Request } from 'express';
 import { ApiRequestService } from '@src/modules/core/common/service/apiRequest.service';
 import { ApiRequestDto } from '@src/modules/core/common/dto/apiRequest.dto';
 import { EvolutionRequestDto } from '@src/modules/core/shared/application/dto/evolution.request.dto';
-import { RetrieveOperationFailedException } from "../../domain/exception/retreiveOperationFailed.exception";
 import { GameProviderConstant } from "@src/modules/core/shared/application/constants/gameProvider.constant";
 import { EvolutionConfig } from "@src/config/evolution.config";
 import { EvolutionGetBalanceDto } from "../../interface/getBalanceEvolution.interface";
 import { InjectRepository } from "@nestjs/typeorm";
 import { EvolutionBalance } from "../../entity/evolutionBalance.entity";
 import { Repository } from "typeorm";
+import { RetrieveOperationFailedException } from "../../exception/retreiveOperationFailed.exception";
 
 export class GetEvolutionBalanceService {
   constructor(
@@ -23,11 +23,12 @@ export class GetEvolutionBalanceService {
 
 
   @Transactional()
-  async getBalance(dto: EvolutionGetBalanceDto,req: Request,ip: string) { 
+  async getBalance(dto: EvolutionGetBalanceDto,req: Request,ip: string) {
     try {
       const getBalanceDto = {
         cCode:  'RWA',
         ecID:EvolutionConfig.ecId,
+        output:1,
         ...dto
     };
       const serverResponse = await this.getEvolutionBalance(getBalanceDto);

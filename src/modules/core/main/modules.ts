@@ -13,6 +13,7 @@ import { RebateModule } from "../rebate/rebate.module";
 import { WalletModule } from "../wallet/wallet.module";
 import {ReportModule} from "../report/report.module";
 import { CommonShareModule } from "../common/common.module";
+import { TestModule } from "../testData/test.module";
 
 export const modules = [
   TradeModule,
@@ -29,5 +30,6 @@ export const modules = [
   RebateModule,
   WalletModule,
   ReportModule,
-  CommonShareModule
+  CommonShareModule,
+  TestModule
 ]
