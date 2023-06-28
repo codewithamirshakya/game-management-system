@@ -5,6 +5,7 @@ import {
   IsEnum,
   IsInt,
   IsNotEmpty,
+  IsNumber,
   IsOptional,
   IsString,
   MaxLength,
@@ -13,9 +14,10 @@ import {
 } from "class-validator";
 import { ApiHideProperty, ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { ApiModelProperty } from "@nestjs/swagger/dist/decorators/api-model-property.decorator";
-import { BaseRequestDto } from "@src/modules/core/shared/application/dto/baseRequest.dto";
-import { GamingProviderEnum } from "@src/modules/core/shared/domain/interface/RequestInterface";
-import { isExists } from "@src/modules/core/shared/infrastructure/persistence/utils/isExists";
+import { BaseRequestDto } from "../../../common/dto/baseRequest.dto";
+// import { BaseRequestDto } from "src/modules/core/shared/application/dto/baseRequest.dto";
+import { GamingProviderEnum } from "../../../common/interface/RequestInterface";
+import { isExists } from "../../../shared/infrastructure/persistence/utils/isExists";
 class Session {
   @IsString()
   @IsNotEmpty()
@@ -57,11 +59,6 @@ class Table {
   @ApiProperty()
   readonly id: string;
 
-  // @IsInt()
-  // @IsNotEmpty()
-  // @IsOptional()
-  // @ApiPropertyOptional()
-  // readonly seat: number;
 }
 
 class Channel {
@@ -70,111 +67,7 @@ class Channel {
   @ApiProperty()
   readonly wrapped: Boolean;
 
-  // @IsBoolean()
-  // @IsNotEmpty()
-  // @IsOptional()
-  // @ApiPropertyOptional()
-  // readonly mobile: Boolean;
 }
-
-// class Urls {
-
-//   @IsString()
-//   @IsNotEmpty()
-//   @ApiProperty()
-//   @ApiPropertyOptional()
-//   readonly cashier: string;
-
-//   @IsString()
-//   @IsNotEmpty()
-//   @IsOptional()
-//   @ApiPropertyOptional()
-//   readonly responsibleGaming: string;
-
-//   @IsString()
-//   @IsNotEmpty()
-//   @IsOptional()
-//   @ApiPropertyOptional()
-//   readonly lobby: string;
-
-//   @IsString()
-//   @IsNotEmpty()
-//   @IsOptional()
-//   @ApiPropertyOptional()
-//   readonly sessionTimeout: string;
-
-//   @IsString()
-//   @IsNotEmpty()
-//   @IsOptional()
-//   @ApiPropertyOptional()
-//   readonly gameHistory: string;
-
-//   @IsString()
-//   @IsNotEmpty()
-//   @IsOptional()
-//   @ApiPropertyOptional()
-//   readonly realityCheckURL: string;
-
-//   @IsString()
-//   @IsNotEmpty()
-//   @IsOptional()
-//   @ApiPropertyOptional()
-//   readonly rngGoLiveURL: string;
-
-//   @IsString()
-//   @IsNotEmpty()
-//   @IsOptional()
-//   @ApiPropertyOptional()
-//   readonly rngGoLiveURLMobile: string;
-
-//   @IsString()
-//   @IsNotEmpty()
-//   @IsOptional()
-//   @ApiPropertyOptional()
-//   readonly rngLobbyButton: string;
-
-//   @IsString()
-//   @IsNotEmpty()
-//   @IsOptional()
-//   @ApiPropertyOptional()
-//   readonly rngCloseButton: string;
-
-//   @IsString()
-//   @IsNotEmpty()
-//   @IsOptional()
-//   @ApiPropertyOptional()
-//   readonly rngHomeButton: string;
-
-//   @IsString()
-//   @IsNotEmpty()
-//   @IsOptional()
-//   @ApiPropertyOptional()
-//   readonly rngSessionTimeout: string;
-
-//   @IsString()
-//   @IsNotEmpty()
-//   @IsOptional()
-//   @ApiPropertyOptional()
-//   readonly rngErrorHandling: string;
-
-//   @IsString()
-//   @IsNotEmpty()
-//   @IsOptional()
-//   @ApiPropertyOptional()
-//   readonly sweSelfTest: string;
-
-//   @IsString()
-//   @IsNotEmpty()
-//   @IsOptional()
-//   @ApiPropertyOptional()
-//   readonly sweGameLimits: string;
-
-//   @IsString()
-//   @IsNotEmpty()
-//   @IsOptional()
-//   @ApiPropertyOptional()
-//   readonly sweSelfExclusion: string;
-// }
 class PlayerDto {
   @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.EVOLUTION]))
   @IsString()
@@ -253,19 +146,9 @@ enum PlayModeEnum {
 }
 
 class Game {
-  // @IsString()
-  // @IsNotEmpty()
-  // @IsOptional()
-  // @ApiPropertyOptional()
-  // readonly category: string;
 
-  // @IsString()
-  // @IsNotEmpty()
-  // @IsOptional()
-  // @ApiPropertyOptional()
-  // readonly interface: string;
 
-  @Type(() => Table)
+ @Type(() => Table)
   @IsNotEmpty()
   @IsOptional()
   @ApiPropertyOptional()
@@ -304,67 +187,11 @@ class Game {
   readonly freeGames: boolean;
 }
 
-// class Game {
-//   @IsString()
-//   @IsNotEmpty()
-//   @IsOptional()
-//   @ApiPropertyOptional()
-//   readonly category: string;
-
-//   @IsString()
-//   @IsNotEmpty()
-//   @IsOptional()
-//   @ApiPropertyOptional()
-//   readonly interface: string;
-
-//   @Type(() => Table)
-//   @IsNotEmpty()
-//   @IsOptional()
-//   @ApiPropertyOptional()
-//   @ValidateNested()
-//   readonly table: Table;
-
-//   @IsString()
-//   @IsNotEmpty()
-//   @ApiPropertyOptional({ enum: ['real_money', 'reward_games', 'play_for_fun', 'demo'] })
-//   @IsOptional()
-//   @IsEnum(PlayModeEnum)
-//   readonly playMode: PlayModeEnum;
-// }
-
-
-
-// class Table {
-
-//   @IsString()
-//   @IsNotEmpty()
-//   @ApiProperty()
-//   readonly id: string;
-
-//   @IsInt()
-//   @IsNotEmpty()
-//   @IsOptional()
-//   @ApiPropertyOptional()
-//   readonly seat: number;
-// }
-
-// class Channel {
-//   @IsBoolean()
-//   @IsNotEmpty()
-//   @ApiProperty()
-//   readonly wrapped: Boolean;
-
-//   @IsBoolean()
-//   @IsNotEmpty()
-//   @IsOptional()
-//   @ApiPropertyOptional()
-//   readonly mobile: Boolean;
-// }
 export class CreateUserDto extends BaseRequestDto {
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({ example: "'ARP_STUDIO' or 'EVOLUTION' or  'VELA_GAMING'" })
+  @ApiProperty({ example: "'ARP_STUDIO' or 'EVOLUTION' or  'VELA_GAMING' or OPMG" })
   @IsEnum(GamingProviderEnum)
   readonly gameProvider: GamingProviderEnum;
 
@@ -417,4 +244,24 @@ export class CreateUserDto extends BaseRequestDto {
   @ApiProperty()
   @ValidateNested()
   readonly config: ConfigDto;
+
+  @ValidateIf(x => x.gameProvider === GamingProviderEnum.OPMG)
+  @IsNumber()
+  @ApiProperty()
+   user_id: number;
+
+  @ValidateIf(x => x.gameProvider === GamingProviderEnum.OPMG)
+  @IsString()
+  @ApiProperty()
+   pin: string;
+
+   @ValidateIf(x => x.gameProvider === GamingProviderEnum.OPMG)
+  @IsString()
+  @ApiProperty()
+   ip: string;
+
+   @ValidateIf(x => x.gameProvider === GamingProviderEnum.OPMG)
+  @IsString()
+  @ApiProperty()
+  card_level: string;
 }

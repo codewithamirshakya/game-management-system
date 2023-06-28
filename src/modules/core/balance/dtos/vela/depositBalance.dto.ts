@@ -6,7 +6,7 @@ import { DepositBalanceDto as MainDepositBalanceDto } from "../main/depositBalan
 
 export class VelaDepositBalanceDto {
   constructor(dto: MainDepositBalanceDto) {
-    this.member_id = dto.member_id;
+    this.member_id = dto.username;
     this.amount= dto.amount;
     this.transid = dto.transid;
     this.host_id = dto.host_id;

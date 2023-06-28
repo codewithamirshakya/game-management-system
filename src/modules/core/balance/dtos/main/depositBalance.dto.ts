@@ -1,4 +1,4 @@
-import { IsInt, IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString, MaxLength, ValidateIf } from "class-validator";
+import { IsEnum, IsInt, IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString, MaxLength, ValidateIf } from "class-validator";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
 import { BaseRequestDto } from "@src/modules/core/shared/application/dto/baseRequest.dto";
@@ -7,6 +7,12 @@ import { isExists } from "@src/modules/core/shared/infrastructure/persistence/ut
 
 export class DepositBalanceDto extends BaseRequestDto{
 
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty({ example: "'ARP_STUDIO' or 'EVOLUTION' or  'VELA_GAMING'" })
+  @IsEnum(GamingProviderEnum)
+  readonly gameProvider: GamingProviderEnum;
+
   @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.ARP_STUDIO]))
   @IsString()
   @ApiProperty({required:  false})
@@ -14,7 +20,7 @@ export class DepositBalanceDto extends BaseRequestDto{
   @ApiProperty()
   readonly notifyid: string;
 
-  @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.ARP_STUDIO,GamingProviderEnum.VELA_GAMING]))
+  @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.ARP_STUDIO,GamingProviderEnum.VELA_GAMING,GamingProviderEnum.EVOLUTION]))
   @IsString()
   @ApiProperty()
   @IsNotEmpty()
@@ -73,19 +79,19 @@ export class DepositBalanceDto extends BaseRequestDto{
   @ApiProperty()
   readonly host_id: string;
 
-  @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.VELA_GAMING]))
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty()
-  readonly member_id: string;
+  // @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.VELA_GAMING]))
+  // @IsString()
+  // @IsNotEmpty()
+  // @ApiProperty()
+  // readonly member_id: string;
 
-  @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.EVOLUTION]))
-  @IsString()
-  @IsNotEmpty()
-  @ApiPropertyOptional()
-  @IsOptional()
-  @MaxLength(16)
-  readonly euID: string;
+  // @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.EVOLUTION]))
+  // @IsString()
+  // @IsNotEmpty()
+  // @ApiPropertyOptional()
+  // @IsOptional()
+  // @MaxLength(16)
+  // readonly euID: string;
 
   @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.EVOLUTION]))
   @IsString()
@@ -94,22 +100,35 @@ export class DepositBalanceDto extends BaseRequestDto{
   @MaxLength(1)
   readonly output: string;
 
+  // @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.EVOLUTION]))
+  // @IsString()
+  // @IsNotEmpty()
+  // @ApiPropertyOptional()
+  // @IsOptional()
+  // @MaxLength(1)
+  // readonly tcheck: string;
+
+  // @ValidateIf(x => x.gameProvider === GamingProviderEnum.EVOLUTION && x.euID === undefined)
+  // @MaxLength(16,{message: 'Either (uID or euID) must be shorter than or equal to 16 characters'})
+  // @IsString({message: 'Either (uID or euID) parameter must be string.'})
+  // @IsNotEmpty({message: 'Either (uID or euID) parameter is required.'})
+  // @ApiProperty({required:  false})
+  // readonly uID: string;
+
   @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.EVOLUTION]))
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
-  @ApiPropertyOptional()
-  @IsOptional()
+  @ApiProperty()
   @MaxLength(1)
-  readonly tcheck: string;
+  readonly patron: number;
 
-  @ValidateIf(x => x.gameProvider === GamingProviderEnum.EVOLUTION && x.euID === undefined)
-  @MaxLength(16,{message: 'Either (uID or euID) must be shorter than or equal to 16 characters'})
-  @IsString({message: 'Either (uID or euID) parameter must be string.'})
-  @IsNotEmpty({message: 'Either (uID or euID) parameter is required.'})
-  @ApiProperty({required:  false})
-  readonly uID: string;
+  @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.OPMG]))
+  @IsNumber()
+  @IsNotEmpty()
+  @ApiProperty()
+  readonly id: number;
 
-  @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.EVOLUTION]))
+  @ValidateIf(x => isExists(x.gameProvider, [GamingProviderEnum.OPMG]))
   @IsString()
   @IsNotEmpty()
   @ApiPropertyOptional()

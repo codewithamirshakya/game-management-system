@@ -24,8 +24,6 @@ export class ArpStudioBalanceService {
   constructor(
     @InjectRepository(ArpStudioBalance)
     private readonly repo: Repository<ArpStudioBalance>,
-
-    @Inject(SHARED_TYPES.eventBus.EventDispatcherInterface) private eventDispatcher: EventDispatcherInterface,
     @Inject(ApiRequestService) public apiRequestService: ApiRequestService,
 
     @Inject(ArpStudioCreateUserService)
@@ -50,14 +48,6 @@ export class ArpStudioBalanceService {
 
       if(serverResponse &&  serverResponse.result==0){
         const response = this.makeResponseData(queryResult,dto.username);
-        this.eventDispatcher.dispatch(EventDefinition.ACTIVITY_COMPLETED_EVENT,
-          new ActivityCompletedEvent(
-            GameProviderConstant.ARP_STUDIO,
-            ActivityTypeConstant.FUNDS_TRANSFER,
-            "[Player balance fetched successfully.]",
-            ip,
-            req.headers["user-agent"],
-          ));
         return response;
       }else{
         throw new WithDrawExceptionFailed()

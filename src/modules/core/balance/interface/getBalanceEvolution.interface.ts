@@ -1,7 +1,6 @@
-import { EvolutionConfig } from "@src/config/evolution.config";
-import { DataTransferObject } from "@src/lib/dto/dataTransferObject";
 
-export class GetBalanceDto extends DataTransferObject {
+
+export interface EvolutionGetBalanceDto  {
   
 //   readonly cCode: string = 'RWA';
 
@@ -11,6 +10,6 @@ export class GetBalanceDto extends DataTransferObject {
 
   readonly output: string;
 
-  readonly uID: string;
+  // readonly uID: string;
 
 }

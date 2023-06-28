@@ -5,7 +5,7 @@ import { GetDetailDto } from "../main/getDetail.dto";
 export class DetailDto {
   constructor(dto: GetDetailDto) {
     this.euID = dto.username;
-    this.output = dto.output;
+    // this.output = dto.output;
   }
 
   @IsString()

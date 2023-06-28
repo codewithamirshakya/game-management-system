@@ -1,9 +1,9 @@
 
 import { Inject } from "@nestjs/common";
 import { Request } from "express";
-import { ApiRequestDto } from "@src/modules/core/shared/application/dto/apiRequest.dto";
-import { VelaRequestDto } from "@src/modules/core/shared/application/dto/vela.request.dto";
-import { ApiRequestService } from "@src/modules/core/shared/application/service/apiRequest.service";
+import { ApiRequestDto } from "@src/modules/core/common/dto/apiRequest.dto";
+import { VelaRequestDto } from "@src/modules/core/common/dto/vela.request.dto";
+import { ApiRequestService } from "@src/modules/core/common/service/apiRequest.service";
 import { VelaBalanceInterface } from "../../interface/getBalanceVela.interface";
 import { RetrieveOperationFailedException } from "../../domain/exception/retreiveOperationFailed.exception";
 import { GameProviderConstant } from "@src/modules/core/shared/application/constants/gameProvider.constant";
@@ -15,7 +15,6 @@ import { UserNotFoundException } from "../../exception/userNotFound.exception";
 
 export class GetVelaBalanceService {
   constructor(
-    // @Inject(SHARED_TYPES.eventBus.EventDispatcherInterface) private eventDispatcher: EventDispatcherInterface,
     @InjectRepository(VelaBalance)
     private readonly repo: Repository<VelaBalance>,
     private dataSource: DataSource,
@@ -45,15 +44,6 @@ export class GetVelaBalanceService {
         const response = this.makeResponseData(queryResult,dto.member_id);
         return response;
       }
-      //activity completed event dispatch
-      // this.eventDispatcher.dispatch(EventDefinition.ACTIVITY_COMPLETED_EVENT,
-      //   new ActivityCompletedEvent(
-      //     GameProviderConstant.VELA_GAMING,
-      //     ActivityTypeConstant.FUNDS_TRANSFER,
-      //     "[Player balance fetched successfully.]",
-      //     ip,
-      //     req.headers["user-agent"],
-      //   ));
 
 
     } catch (e) {

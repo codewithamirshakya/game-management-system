@@ -5,31 +5,30 @@ import { Transactional } from "typeorm-transactional";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { Request } from "express";
 
-import { ApiRequestService } from "@src/modules/core/shared/application/service/apiRequest.service";
-import { ApiRequestDto } from "@src/modules/core/shared/application/dto/apiRequest.dto";
-import { VelaRequestDto } from "@src/modules/core/shared/application/dto/vela.request.dto";
+import { ApiRequestService } from "@src/modules/core/common/service/apiRequest.service";
+import { ApiRequestDto } from "@src/modules/core/common/dto/apiRequest.dto";
+import { VelaRequestDto } from "@src/modules/core/common/dto/vela.request.dto";
 import { CreateUserVela } from "../../interface/velaCreateUser.interface";
-import { UserCreationFailedException } from "../../domain/exception/userCreationFailed.exception";
-import { GameProviderConstant } from "@src/modules/core/shared/application/constants/gameProvider.constant";
+import { UserCreationFailedException } from "../../exception/userCreationFailed.exception";
+import { GameProviderConstant } from "@src/modules/core/common/constants/gameProvider.constant";
 import { InjectRepository } from "@nestjs/typeorm";
 import { VelaUser } from "../../entity/createVelaUser.entity";
 import { DataSource, Repository } from "typeorm";
-import { UserAlreadyExistsException } from "../../domain/exception/userAlreadyExists.exception";
+import { UserAlreadyExistsException } from "../../exception/userAlreadyExists.exception";
 
 export class VelaCreateUserService {
   constructor(
     @InjectRepository(VelaUser)
     private readonly repo: Repository<VelaUser>,
-    private dataSource: DataSource,
-  @Inject(ApiRequestService)
-  public apiRequestService: ApiRequestService,
+    @Inject(ApiRequestService)
+    public apiRequestService: ApiRequestService
   ) {}
 
-  @Transactional()
+  // @Transactional()
    async create(createPlayerDTO:CreateUserVela,req: Request, ip: string) {
     try {
       const userExits = await this.repo.findOneBy({ member_id: createPlayerDTO.member_id });
-        if(userExits){
+      if(userExits){
           throw new UserAlreadyExistsException()
         }
       const serverResponse = await this.createPlayer(createPlayerDTO);
@@ -39,7 +38,7 @@ export class VelaCreateUserService {
         return response;
       }
     } catch (e) {
-      throw new UserCreationFailedException('Player creation failed.',e)
+      throw new UserCreationFailedException(e)
     }
   }
 
@@ -56,9 +55,7 @@ export class VelaCreateUserService {
   }
 
   async saveData(data) {
-    const queryRunner = this.dataSource.createQueryRunner();
-    await queryRunner.connect();
-    await queryRunner.startTransaction();
+
     try {
       const responseData = this.repo.create({
         username: data.member_id,
@@ -67,22 +64,17 @@ export class VelaCreateUserService {
         currency:data?data.currency:null
 
       });
-      await queryRunner.manager.save(responseData);
-      await queryRunner.commitTransaction();
+      await this.repo.save(responseData);
       return responseData;
     } catch (error) {
-      await queryRunner.rollbackTransaction();
       throw error;
     } finally {
-      await queryRunner.release();
     }
   }
 
   makeResponseData(data,serverResponse){
     return {
       username: data.username,
-      // nickname: data.nickname,
-      // openurl: serverResponse.openurl
     }
   }
 

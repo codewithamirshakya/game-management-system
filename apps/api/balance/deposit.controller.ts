@@ -1,10 +1,5 @@
-import { Body, Controller, Ip, Post, Req, Res, UsePipes, ValidationPipe } from "@nestjs/common";
-import { AbstractController } from "../../../src/modules/shared/infrastructure/controller/api/abstract.controller";
+import { Body, Controller, HttpStatus, Ip, Post, Req, Res, UsePipes, ValidationPipe } from "@nestjs/common";
 import { Request, Response } from "express";
-import { DepositBalanceService as EvolutionDepositService } from "../../../src/modules/core/balance/application/services/evolution/depositBalance.service";
-import {
-  DepositBalanceDto as EvolutionDepositBalanceDto
-} from "../../../src/modules/core/balance/application/dtos/request/evolution/depositBalance.dto";
 import { GamingProviderEnum } from "../../../src/modules/core/shared/domain/interface/RequestInterface";
 import {
   UnknownGamingProviderException
@@ -15,6 +10,11 @@ import { DepositBalanceDto } from "@src/modules/core/balance/dtos/main/depositBa
 import { ArpStudioDepositBalanceDto } from "@src/modules/core/balance/dtos/arpStudio/depositBalance.dto";
 import { VelaDepositBalanceService } from "@src/modules/core/balance/services/vela/deposit-balance.service";
 import { VelaDepositBalanceDto } from "@src/modules/core/balance/dtos/vela/depositBalance.dto";
+import { EvolutionDepositBalanceService } from "@src/modules/core/balance/services/evolution/deposit-balance.service";
+import { EvolutionDepositBalanceDto } from "@src/modules/core/balance/dtos/evolution/depositBalance.dto";
+import { AbstractController } from "../../../src/modules/core/common/abstract.controller";
+import { OpgmDepositBalanceDto } from "../../../src/modules/core/balance/dtos/opmg/deposit.dto";
+import { OpmgDepositService } from "../../../src/modules/core/balance/services/opmg/deposit.balance.service";
 
 @ApiTags('Balance')
 @Controller('balance/deposit')
@@ -22,11 +22,11 @@ export class DepositController extends AbstractController{
   constructor(
     private arpStudioDepositService : ArpStudioDepositService,
     private velaDepositService : VelaDepositBalanceService,
-    // private evolutionDepositService : EvolutionDepositService,
+    private evolutionDepositService : EvolutionDepositBalanceService,
+    private opmgDepositService : OpmgDepositService,
   ) {super();}
 
   @Post()
-  // @UsePipes(new ValidationPipe({ transform: true }))
   async get(@Body() dto: DepositBalanceDto,@Res() res : Response,  @Req() req, @Ip() ip) {
     const response = await this.requestService(dto,req,ip);
     this.successResponse(res,'User balance deposited successfully.',response)
@@ -41,11 +41,14 @@ export class DepositController extends AbstractController{
       case GamingProviderEnum.VELA_GAMING: {
         return await this.velaDepositService.depositBalance(new VelaDepositBalanceDto(dto));
       }
-      // case GamingProviderEnum.EVOLUTION: {
-      //   return await this.evolutionDepositService.depositBalance(new EvolutionDepositBalanceDto(dto),req,ip);
-      // }
+      case GamingProviderEnum.EVOLUTION: {
+        return await this.evolutionDepositService.depositBalance(new EvolutionDepositBalanceDto(dto),req,ip);
+      }
+      case GamingProviderEnum.OPMG: {
+        return await this.opmgDepositService.depositBalance(new OpgmDepositBalanceDto(dto));
+      }
       default:
-        throw new UnknownGamingProviderException();
+        throw new UnknownGamingProviderException('Game provider not found');
     }
   }
 }

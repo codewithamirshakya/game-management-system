@@ -1,5 +1,4 @@
 import { Controller, Get, Ip, Query, Req, Res, UsePipes, ValidationPipe } from "@nestjs/common";
-import { AbstractController } from "../../../src/modules/shared/infrastructure/controller/api/abstract.controller";
 import { Response } from "express";
 import {ArpStudioBalanceService} from "@src/modules/core/balance/services/arpStudio/getBalance.service";
 import {GetVelaBalanceService,} from "@src/modules/core/balance/services/vela/getBalance.service";
@@ -14,6 +13,8 @@ import {
   UnknownGamingProviderException
 } from "../../../src/modules/core/shared/domain/exception/unknownGamingProvider.exception";
 import { ApiTags } from "@nestjs/swagger";
+import { AbstractController } from "../../../src/modules/core/common/abstract.controller";
+
 
 @ApiTags('Balance')
 @Controller("/balance/get")
@@ -29,12 +30,15 @@ export class GetController extends AbstractController {
   @Get()
   // @UsePipes(new ValidationPipe({ transform: true }))
   async get(@Query() dto: GetBalanceDto, @Res() res: Response, @Req() req, @Ip() ip) {
-    const response = await this.requestService(dto, req, ip);
+    try{
+      const response = await this.requestService(dto, req, ip);
+
     this.successResponse(res, "User balance info fetched successfully.", response);
+    }catch(e){
+    }
   }
 
   async requestService(dto : GetBalanceDto, req: Request, ip: string) {
-
     switch (dto.gameProvider) {
       case GamingProviderEnum.ARP_STUDIO: {
         return await this.getArpStudioBalanceService.getBalance(new ArpStudioGetBalanceDto(dto),req,ip);

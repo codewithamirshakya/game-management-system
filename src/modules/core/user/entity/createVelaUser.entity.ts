@@ -4,7 +4,7 @@ import { UserConstant } from "./../constans/user.constant";
 @Entity({ name: 'vela_users' })
 export class VelaUser {
     @PrimaryGeneratedColumn()
-    id: string;
+    id: number;
 
     @Column()
     username: string;
