@@ -19,6 +19,7 @@ export class ArpStudioRequestService {
         ...arpStudioRequestDTO.params,
         sign: sign,
       }).toString();
+      console.log(url, params,arpStudioRequestDTO.method);
     //handle post request for arpStudio
     if (arpStudioRequestDTO.method === 'POST') {
       try {
@@ -28,6 +29,7 @@ export class ArpStudioRequestService {
         }
         throw new ExternalApiException('External API Error.', response.data);
       } catch (e) {
+
         if((e instanceof ExternalApiException)) {
           throw new ExternalApiException(e.message, e.getData());
         }
