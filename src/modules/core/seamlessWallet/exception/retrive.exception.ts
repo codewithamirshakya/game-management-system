@@ -3,7 +3,7 @@ import { AbstractException } from "@src/lib/exception/abstract.exception";
 
 export class RetreiveFailedException extends AbstractException{
   private readonly error;
-  constructor(error,message= 'Test data fetch operation failed.') {
+  constructor(error,message= 'Data fetch operation failed.') {
     super(message,HttpStatus.BAD_REQUEST);
     this.error = error;
   }

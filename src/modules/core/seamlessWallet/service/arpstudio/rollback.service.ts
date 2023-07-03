@@ -5,42 +5,43 @@ import { ArpStudioRequestDto } from "@src/modules/core/common/dto/arpStudio.requ
 import { ApiRequestDto } from "@src/modules/core/common/dto/apiRequest.dto";
 import { GameProviderConstant } from "@src/modules/core/common/constants/gameProvider.constant";
 import { RetreiveFailedException } from "../../exception/retrive.exception";
-import { DeductBalanceInterface } from "../../interface/arpstudio/deductBalance.interface";
+import { RollbackBalanceInterface } from "../../interface/arpstudio/rollbackBalance.interface";
 
-export class DeductBalanceService {
+export class RollbackBalanceService {
     constructor(
         @Inject(ApiRequestService) public apiRequestService: ApiRequestService,
 
     ) { }
 
 
-    async deductBalance(dto: DeductBalanceInterface) {
+    async rollbackBalance(dto: RollbackBalanceInterface) {
         try {
             // const userExits = await this.arpStudioUserService.isUserExits(dto.username);
             // if (!userExits) {
             //     throw new UserNotFoundException()
             // }
-            const deductDto = {
+            const rollbackDto = {
                 username: dto.username,
                 notifyid: dto.notify_id,
                 amount: dto.amount,
-                type: 1,
-                serial_number: dto.serial_number,
+                type: dto.api_type,
+                serialnumber: dto.serial_number,
+                errmsg: dto.err_msg,
             }
-            const serverResponse = await this.deductBalanceArpstudio(deductDto);
+            const serverResponse = await this.rollbackBalanceArpstudio(rollbackDto);
             return serverResponse
         } catch (e) {
             throw new RetreiveFailedException(e);
         }
     }
 
-    async deductBalanceArpstudio(dto) {
+    async rollbackBalanceArpstudio(dto) {
         return await this.apiRequestService.requestApi(new ApiRequestDto({
             gameProvider: GameProviderConstant.ARP_STUDIO,
             requestDTO: new ArpStudioRequestDto({
                 method: 'POST',
                 params: dto,
-                endpoint: 'deduct'
+                endpoint: 'deposit'
             })
         }));
     }

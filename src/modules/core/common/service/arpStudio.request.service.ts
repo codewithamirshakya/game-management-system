@@ -40,11 +40,13 @@ export class ArpStudioRequestService {
       try {
         console.log('final--',url+'?'+params);
         const response = await this.httpService.axiosRef.get(url+'?'+params);
+        console.log(response)
         if(response.data.result >=0) {
           return response.data;
         }
         throw new ExternalApiException('External API Error.', response.data);
       } catch (e) {
+        console.log(e)
         if((e instanceof ExternalApiException)) {
           throw new ExternalApiException(e.message, e.getData());
         }
