@@ -14,6 +14,7 @@ import { WalletModule } from "../wallet/wallet.module";
 import {ReportModule} from "../report/report.module";
 import { CommonShareModule } from "../common/common.module";
 import { TestModule } from "../testData/test.module";
+import { SeamlessWalletModule } from "../seamlessWallet/seamlessWalletmodule";
 
 export const modules = [
   TradeModule,
@@ -31,5 +32,6 @@ export const modules = [
   WalletModule,
   ReportModule,
   CommonShareModule,
-  TestModule
+  TestModule,
+  SeamlessWalletModule
 ]
