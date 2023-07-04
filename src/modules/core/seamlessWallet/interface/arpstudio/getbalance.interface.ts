@@ -2,7 +2,10 @@
 export interface ArpstudioGetBalanceInterface {
 
   username: string;
-  notify_id: string
+  notifyid: string;
+  appid: string;
+  token: string;
+  sign:string;
 
 
 }

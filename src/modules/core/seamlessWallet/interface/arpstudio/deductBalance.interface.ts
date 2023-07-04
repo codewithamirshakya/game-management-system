@@ -1,9 +1,13 @@
 
 export interface DeductBalanceInterface {
 
+    appid:string;
     username: string;
-    notify_id: string;
+    notifyid: string;
     amount: number;
-    serial_number: string;
-
+    type: number;
+    serialnumber: string;
+    token: string;
+    sign: string;
+    bets: string;
   }

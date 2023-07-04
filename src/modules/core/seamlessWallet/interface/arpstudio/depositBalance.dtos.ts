@@ -1,10 +1,14 @@
 
 export interface DepositBalanceInterface {
 
+    appid:string;
     username: string;
-    notify_id: string;
+    notifyid: string;
     amount: number;
-    api_type: number;
-    serial_number: string;
+    type: number;
+    serialnumber: string;
+    token: string;
+    sign: string;
+    bets: string;
 
   }

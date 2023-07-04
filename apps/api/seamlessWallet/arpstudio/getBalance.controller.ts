@@ -1,23 +1,24 @@
-import { Controller, Get, Ip, Query, Req, Res } from "@nestjs/common";
-import { Response } from "express";
+import { Body, Controller, Ip, Post, Req, Res } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
-import { AbstractController } from "../../../../src/modules/core/common/abstract.controller";
-import { ArpStudioWallletBalanceService } from "@src/modules/core/seamlessWallet/service/arpstudio/getBalance.service";
 import { GetBalanceWalletDto } from "@src/modules/core/seamlessWallet/dtos/arpstudio/getbalance.dtos";
+import { ArpStudioWallletBalanceService } from "@src/modules/core/seamlessWallet/service/arpstudio/getBalance.service";
+import { Response } from "express";
+import { AbstractController } from "../../../../src/modules/core/common/abstract.controller";
+
 
 @ApiTags('Seamless Wallet')
-@Controller("/balance")
+@Controller("/arpstudio/wallet/balance")
 export class GetBalanceWalletController extends AbstractController {
     constructor(
-        private arpStudioWallletBalanceService: ArpStudioWallletBalanceService,
+        private arpStudioWalletBalanceService: ArpStudioWallletBalanceService,
     ) {
         super();
     }
 
-    @Get()
-    async get(@Query() dto: GetBalanceWalletDto, @Res() res: Response, @Req() req, @Ip() ip) {
-        const response = await this.arpStudioWallletBalanceService.getBalance(dto);
-        this.successResponse(res, "Data Fetched Successfully.", response);
+    @Post()
+    async get(@Body() dto: GetBalanceWalletDto, @Res() res: Response, @Req() req, @Ip() ip) {
+        const response = await this.arpStudioWalletBalanceService.getBalance(dto);
+        return res.status(200).json(response);
     }
 
 }

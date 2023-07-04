@@ -1,9 +1,9 @@
 
 import { Inject } from "@nestjs/common";
-import { ApiRequestService } from "../../../common/service/apiRequest.service";
-import { ArpStudioRequestDto } from "@src/modules/core/common/dto/arpStudio.request.dto";
-import { ApiRequestDto } from "@src/modules/core/common/dto/apiRequest.dto";
 import { GameProviderConstant } from "@src/modules/core/common/constants/gameProvider.constant";
+import { ApiRequestDto } from "@src/modules/core/common/dto/apiRequest.dto";
+import { ArpStudioRequestDto } from "@src/modules/core/common/dto/arpStudio.request.dto";
+import { ApiRequestService } from "../../../common/service/apiRequest.service";
 import { RetreiveFailedException } from "../../exception/retrive.exception";
 import { RollbackBalanceInterface } from "../../interface/arpstudio/rollbackBalance.interface";
 
@@ -16,20 +16,11 @@ export class RollbackBalanceService {
 
     async rollbackBalance(dto: RollbackBalanceInterface) {
         try {
-            // const userExits = await this.arpStudioUserService.isUserExits(dto.username);
-            // if (!userExits) {
-            //     throw new UserNotFoundException()
-            // }
-            const rollbackDto = {
-                username: dto.username,
-                notifyid: dto.notify_id,
-                amount: dto.amount,
-                type: dto.api_type,
-                serialnumber: dto.serial_number,
-                errmsg: dto.err_msg,
-            }
-            const serverResponse = await this.rollbackBalanceArpstudio(rollbackDto);
-            return serverResponse
+            return {
+                result: 0,
+                desc: "OK",
+                balance: 2000
+            };
         } catch (e) {
             throw new RetreiveFailedException(e);
         }

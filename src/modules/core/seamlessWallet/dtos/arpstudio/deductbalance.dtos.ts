@@ -1,33 +1,54 @@
-import { IsInt, IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString } from "class-validator";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class ArpStudioDeductBalanceDto {
     @IsString()
     @IsNotEmpty()
     @ApiProperty()
-    notify_id: string;
+    appid: string;
+
+    @IsString()
+    @IsNotEmpty()
+    @ApiProperty()
+    notifyid: string;
 
     @IsString()
     @ApiProperty()
     @IsNotEmpty()
     username: string;
 
-    // @IsInt()
-    // @ApiPropertyOptional()
-    // @IsNotEmpty()
-    // type: number;
-
-    @IsString()
-    @ApiPropertyOptional()
-    @IsNotEmpty()
-    serial_number: string;
-
     @Transform(({ value }) => -value)
     @IsNumber()
     @ApiProperty()
     @IsNotEmpty()
     amount: number;
+
+    @Transform(({ value }) => parseInt(value))
+    @IsNumber()
+    @ApiPropertyOptional()
+    @IsNotEmpty()
+    type: number;
+
+    @IsString()
+    @ApiPropertyOptional()
+    @IsNotEmpty()
+    serialnumber: string;
+
+    @IsString()
+    @ApiProperty()
+    @IsOptional()
+    token: string;
+
+    @IsString()
+    @ApiProperty()
+    @IsNotEmpty()
+    sign: string;
+
+    @IsString()
+    @ApiProperty()
+    @IsOptional()
+    bets: string;
 
 
 }
