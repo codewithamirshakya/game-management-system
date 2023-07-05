@@ -20,7 +20,6 @@ export class CancelEvoutionBalanceController extends AbstractController {
         const resquestData = { queryDto, dto }
         const response = await this.cancelBalanceService.cancelBalance(resquestData);
         this.successResponse(res,'Data fetched successfully.',response)
-        // return res.status(200).json(response);
     }
 
 }
