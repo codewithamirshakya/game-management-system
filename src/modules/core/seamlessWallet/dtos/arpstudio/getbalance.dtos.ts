@@ -13,17 +13,6 @@ export class GetBalanceWalletDto {
     @IsNotEmpty()
     username: string;
 
-    /**
-     * Notify ID，message number
-        of each notification is
-        different，maybe will
-        repeat receive response
-        because internet break or
-        slow，so need use notify id
-        to check , avoid repeat
-        deduct
-     * 
-     */
     @IsString()
     @IsNotEmpty()
     @ApiProperty()
